@@ -1,27 +1,67 @@
 let currentWordList = [];
 
-// 1. Fetch JSON and Populate Page Content based on URL Slug
+// 1. Fetch Shared Components (Header/Footer) & Highlight Active Link
+async function loadComponents() {
+  const pathSegments = window.location.pathname.split('/').filter(Boolean);
+  const depth = pathSegments.length;
+  const relativePrefix = depth > 0 ? '../'.repeat(depth) : './';
+
+  try {
+    const [headerRes, footerRes] = await Promise.all([
+      fetch(`${relativePrefix}components/header.html`),
+      fetch(`${relativePrefix}components/footer.html`)
+    ]);
+
+    if (headerRes.ok && document.getElementById('site-header')) {
+      document.getElementById('site-header').innerHTML = await headerRes.text();
+      highlightActiveNavLink();
+    }
+    if (footerRes.ok && document.getElementById('site-footer')) {
+      document.getElementById('site-footer').innerHTML = await footerRes.text();
+    }
+  } catch (err) {
+    console.error('Error loading global components:', err);
+  }
+}
+
+// Automatically match current page URL to navigation links
+function highlightActiveNavLink() {
+  const currentPath = window.location.pathname;
+  const navLinks = document.querySelectorAll('#main-nav-links a');
+
+  navLinks.forEach(link => {
+    const href = link.getAttribute('href');
+    if (href !== '/' && currentPath.includes(href)) {
+      link.classList.add('active');
+    }
+  });
+}
+
+// 2. Fetch JSON and Populate Page Content based on URL Slug
 async function initPage() {
-  // Extract trailing folder name safely
+  // Load global layout components first
+  await loadComponents();
+
   const pathSegments = window.location.pathname.split('/').filter(Boolean);
   const currentSegment = pathSegments.length > 0 ? pathSegments[pathSegments.length - 1] : '';
 
+  // Only attempt tool JSON population if #tool-container exists on this page
+  if (!document.getElementById('tool-container')) return;
+
   try {
-    // Relative path fix for subfolder navigation
     const depth = pathSegments.length;
-    const relativePrefix = depth > 1 ? '../'.repeat(depth - 1) : './';
+    const relativePrefix = depth > 0 ? '../'.repeat(depth) : './';
 
     const response = await fetch(`${relativePrefix}data/passwords.json`);
     if (!response.ok) throw new Error(`HTTP error! status: ${response.status}`);
     
     const data = await response.json();
     
-    // Match slug in JSON (supports exact slug or partial directory name matching)
     const pageData = data.find(item => 
       item.Slug === currentSegment || 
       item.Slug.includes(currentSegment) ||
       currentSegment.includes(item.Slug)
-    ) || data[0]; // Fallback to first item for testing if match fails
+    ) || data[0];
 
     if (pageData) {
       if (document.getElementById('meta-title')) document.getElementById('meta-title').innerText = pageData.Meta_Title;

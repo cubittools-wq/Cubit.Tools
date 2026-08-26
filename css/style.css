@@ -204,3 +204,25 @@ footer {
 .footer-links a:hover {
   color: var(--text-main);
 }
+
+/* Component Placeholders (Prevents CLS Layout Shifts) */
+#site-header {
+  min-height: 65px;
+  background-color: var(--card-bg);
+  border-bottom: 1px solid var(--border);
+}
+
+#site-footer {
+  min-height: 100px;
+  background-color: var(--card-bg);
+  border-top: 1px solid var(--border);
+  margin-top: 3rem;
+}
+
+/* Active Nav Link Styling */
+nav a.active {
+  color: var(--accent);
+  font-weight: 700;
+  border-bottom: 2px solid var(--accent);
+  padding-bottom: 4px;
+}
