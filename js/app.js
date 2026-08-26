@@ -2,36 +2,38 @@ let currentWordList = [];
 
 // 1. Fetch JSON and Populate Page Content based on URL Slug
 async function initPage() {
-  // Extract slug from URL path (e.g., /passwords/sci-fi/ -> "sci-fi-password-generator")
+  // Extract trailing folder name safely
   const pathSegments = window.location.pathname.split('/').filter(Boolean);
-  const currentPath = pathSegments.pop() || '';
+  const currentSegment = pathSegments.length > 0 ? pathSegments[pathSegments.length - 1] : '';
 
   try {
-    const response = await fetch('/data/passwords.json');
+    // Relative path fix for subfolder navigation
+    const depth = pathSegments.length;
+    const relativePrefix = depth > 1 ? '../'.repeat(depth - 1) : './';
+
+    const response = await fetch(`${relativePrefix}data/passwords.json`);
     if (!response.ok) throw new Error(`HTTP error! status: ${response.status}`);
     
     const data = await response.json();
     
     // Match slug in JSON (supports exact slug or partial directory name matching)
     const pageData = data.find(item => 
-      item.Slug === currentPath || 
-      item.Slug.includes(currentPath)
+      item.Slug === currentSegment || 
+      item.Slug.includes(currentSegment) ||
+      currentSegment.includes(item.Slug)
     ) || data[0]; // Fallback to first item for testing if match fails
 
     if (pageData) {
-      // Inject SEO & Text Content into Master Template Elements
       if (document.getElementById('meta-title')) document.getElementById('meta-title').innerText = pageData.Meta_Title;
       if (document.getElementById('meta-desc')) document.getElementById('meta-desc').setAttribute('content', pageData.Meta_Desc);
       if (document.getElementById('page-h1')) document.getElementById('page-h1').innerText = pageData.H1_Title;
       if (document.getElementById('page-intro')) document.getElementById('page-intro').innerText = pageData.Intro_Text;
       if (document.getElementById('seo-body')) document.getElementById('seo-body').innerText = pageData.SEO_Body;
 
-      // Parse Word List from JSON
       if (pageData.Word_List) {
         currentWordList = pageData.Word_List.split(',').map(w => w.trim());
       }
 
-      // Render the Password Tool Interface inside #tool-container
       renderToolUI();
       generatePassword();
     }
@@ -68,7 +70,6 @@ function renderToolUI() {
     </div>
   `;
 
-  // Attach Event Listeners to New Controls
   document.getElementById('length-slider').addEventListener('input', (e) => {
     document.getElementById('length-val').innerText = e.target.value;
   });
@@ -84,7 +85,7 @@ function renderToolUI() {
   });
 }
 
-// 3. Password Generation Logic (Multi-Word Stacking)
+// 3. Password Generation Logic
 function generatePassword() {
   const lengthSlider = document.getElementById('length-slider');
   if (!lengthSlider) return;
@@ -94,15 +95,12 @@ function generatePassword() {
   const useSymbols = document.getElementById('inc-symbols').checked;
 
   let base = '';
-
-  // Calculate space reserved for optional numbers and symbols
   let reservedLength = 0;
   if (useNumbers) reservedLength += 2;
   if (useSymbols) reservedLength += 1;
 
   const maxWordSpace = length - reservedLength;
 
-  // Stack fitting words from list
   if (currentWordList.length > 0) {
     const shuffledWords = [...currentWordList].sort(() => 0.5 - Math.random());
 
@@ -116,14 +114,12 @@ function generatePassword() {
 
   if (base.length === 0) base = 'pass';
 
-  // Append numbers and symbols
   if (useNumbers) base += Math.floor(Math.random() * 89 + 10);
   if (useSymbols) {
     const symbols = '!@#$%^&*';
     base += symbols[Math.floor(Math.random() * symbols.length)];
   }
 
-  // Pad remaining length with random characters
   const chars = 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789';
   while (base.length < length) {
     base += chars.charAt(Math.floor(Math.random() * chars.length));
@@ -132,5 +128,4 @@ function generatePassword() {
   document.getElementById('password-output').innerText = base;
 }
 
-// Run initialization once DOM is loaded
 document.addEventListener('DOMContentLoaded', initPage);
