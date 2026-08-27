@@ -3,29 +3,16 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title id="meta-title">Cubit.tools | Fast & Secure Online Micro-Utilities</title>
-  <meta id="meta-desc" name="description" content="Free, fast, and secure micro-utility tools. Instant calculations and password generation right in your browser.">
-  
-  <!-- Link to External Stylesheet (Fixed Relative Path) -->
-  <link rel="stylesheet" href="./css/style.css">
+  <title>Cubit.tools | Free Client-Side Web Utilities</title>
+  <meta name="description" content="Fast, private, and free client-side generators, calculators, and date tools. Zero data stored.">
+  <link rel="stylesheet" href="css/style.css">
 </head>
 <body>
 
-  <!-- Header Section -->
-  <header>
-    <div class="header-container">
-      <a href="/" class="logo">cubit<span>.tools</span></a>
-      <nav>
-        <ul>
-          <li><a href="/passwords/">Passwords</a></li>
-          <li><a href="/calculators/">Calculators</a></li>
-          <li><a href="/dates/">Date Tools</a></li>
-        </ul>
-      </nav>
-    </div>
-  </header>
+  <!-- Dynamic Shared Header -->
+  <div id="site-header"></div>
 
-  <!-- USP Bar -->
+  <!-- Unique Selling Proposition Bar -->
   <div class="usp-bar">
     <div class="usp-container">
       <div class="usp-item"><span>✓</span> 100% Free & Open</div>
@@ -34,58 +21,42 @@
     </div>
   </div>
 
-  <!-- Main Content Area -->
+  <!-- Main Content Wrapper -->
   <div class="main-wrapper">
     <div class="content-grid">
-      
-      <!-- Primary Tool Area -->
       <main>
         <header>
-          <h1 id="page-h1">Tool Title Placeholder</h1>
-          <p id="page-intro" class="intro-text">Introductory description for the selected micro-utility tool will load here dynamically.</p>
+          <h1>Web Tools & Utilities</h1>
+          <p class="intro-text">Select a category below to access fast, private online tools that run directly in your browser.</p>
         </header>
 
-        <!-- Dynamic Tool UI Container -->
-        <section class="tool-card" id="tool-container">
-          <!-- Interactive tool controls inject here -->
+        <!-- Category Grid / Directory -->
+        <section class="tool-card">
+          <h2>Password Generators</h2>
+          <p>Generate secure, high-entropy passwords and memorable multi-word passphrases.</p>
+          <ul style="margin-top: 1rem; padding-left: 1.25rem;">
+            <li><a href="passwords/sci-fi-password-generator/">Sci-Fi Password Generator</a></li>
+            <li><a href="passwords/3-word-passphrase-generator/">3-Word Passphrase Generator</a></li>
+          </ul>
         </section>
 
-        <!-- In-Content Ad Slot (Below Tool Output) -->
         <div class="ad-placeholder">
-          <span>Advertisement - AdSense Unit (In-Article)</span>
+          <span>Advertisement</span>
         </div>
-
-        <!-- Dynamic SEO Article Body -->
-        <article id="seo-body" class="seo-article">
-          <!-- Long-tail SEO content injects here -->
-        </article>
       </main>
 
-      <!-- Sidebar Area -->
       <aside>
-        <!-- Sidebar Ad Slot -->
         <div class="ad-placeholder ad-sidebar">
-          <span>Advertisement - AdSense Unit (Display)</span>
+          <span>Advertisement</span>
         </div>
       </aside>
-
     </div>
   </div>
 
-  <!-- Footer Section -->
-  <footer>
-    <div class="footer-container">
-      <p>&copy; 2026 Cubit.tools. All rights reserved.</p>
-      <ul class="footer-links">
-        <li><a href="/about/">About</a></li>
-        <li><a href="/privacy/">Privacy Policy</a></li>
-        <li><a href="/terms/">Terms of Service</a></li>
-        <li><a href="/contact/">Contact</a></li>
-      </ul>
-    </div>
-  </footer>
+  <!-- Dynamic Shared Footer -->
+  <div id="site-footer"></div>
 
-  <!-- Master JavaScript Link (Fixed Relative Path) -->
-  <script src="./js/app.js" defer></script>
+  <!-- Global JavaScript Application Logic -->
+  <script src="js/app.js" defer></script>
 </body>
 </html>

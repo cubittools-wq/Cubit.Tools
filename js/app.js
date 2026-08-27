@@ -1,21 +1,36 @@
 let currentWordList = [];
 
-// 1. Fetch Shared Components (Header/Footer) & Highlight Active Link
+/**
+ * 1. Calculate Folder Depth & Generate Relative Path Prefixes
+ * Ensures components load correctly from root or subfolders on GitHub Pages
+ */
+function getRelativePrefix() {
+  const path = window.location.pathname;
+  // Strip repository name if hosted on github.io subpath
+  const cleanPath = path.replace(/^\/Cubit\.Tools/, '');
+  const segments = cleanPath.split('/').filter(Boolean);
+  
+  // If we are in a subfolder, prefix with '../' for each level
+  return segments.length > 0 ? '../'.repeat(segments.length) : './';
+}
+
+/**
+ * 2. Fetch Shared Header and Footer Components
+ */
 async function loadComponents() {
-  const pathSegments = window.location.pathname.split('/').filter(Boolean);
-  const depth = pathSegments.length;
-  const relativePrefix = depth > 0 ? '../'.repeat(depth) : './';
+  const prefix = getRelativePrefix();
 
   try {
     const [headerRes, footerRes] = await Promise.all([
-      fetch(`${relativePrefix}components/header.html`),
-      fetch(`${relativePrefix}components/footer.html`)
+      fetch(`${prefix}components/header.html`),
+      fetch(`${prefix}components/footer.html`)
     ]);
 
     if (headerRes.ok && document.getElementById('site-header')) {
       document.getElementById('site-header').innerHTML = await headerRes.text();
       highlightActiveNavLink();
     }
+    
     if (footerRes.ok && document.getElementById('site-footer')) {
       document.getElementById('site-footer').innerHTML = await footerRes.text();
     }
@@ -24,39 +39,101 @@ async function loadComponents() {
   }
 }
 
-// Automatically match current page URL to navigation links
+/**
+ * 3. Highlight Active Navigation Links
+ */
 function highlightActiveNavLink() {
   const currentPath = window.location.pathname;
-  const navLinks = document.querySelectorAll('#main-nav-links a');
+  const navLinks = document.querySelectorAll('#main-nav-links a, .footer-links a');
 
   navLinks.forEach(link => {
     const href = link.getAttribute('href');
-    if (href !== '/' && currentPath.includes(href)) {
+    if (href && href !== '/' && href !== './' && currentPath.includes(href.replace('../', '').replace('./', ''))) {
       link.classList.add('active');
     }
   });
 }
 
-// 2. Fetch JSON and Populate Page Content based on URL Slug
+/**
+ * 4. Password Generation Logic
+ */
+function generatePassword() {
+  const outputEl = document.getElementById('password-output');
+  if (!outputEl) return;
+
+  if (!currentWordList || currentWordList.length === 0) {
+    // Fallback word list if JSON dataset is missing or empty
+    currentWordList = ['apple', 'river', 'stove', 'cloud', 'timber', 'beacon', 'shadow', 'magnet'];
+  }
+
+  // Pick 3 random words
+  const word1 = currentWordList[Math.floor(Math.random() * currentWordList.length)];
+  const word2 = currentWordList[Math.floor(Math.random() * currentWordList.length)];
+  const word3 = currentWordList[Math.floor(Math.random() * currentWordList.length)];
+
+  // Append a random 2-digit number and special character for entropy
+  const num = Math.floor(Math.random() * 90) + 10;
+  const symbols = ['!', '@', '#', '$', '%', '&', '*'];
+  const symbol = symbols[Math.floor(Math.random() * symbols.length)];
+
+  const passphrase = `${word1}-${word2}-${word3}-${num}${symbol}`;
+  outputEl.value = passphrase;
+}
+
+/**
+ * 5. Render Interactive Tool UI
+ */
+function renderToolUI() {
+  const container = document.getElementById('tool-container');
+  if (!container) return;
+
+  container.innerHTML = `
+    <div class="tool-box">
+      <div class="input-group">
+        <input type="text" id="password-output" readonly placeholder="Generating..." />
+        <button id="copy-btn" class="btn-secondary">Copy</button>
+      </div>
+      <button id="generate-btn" class="btn-primary">Generate New Passphrase</button>
+    </div>
+  `;
+
+  // Attach Event Listeners
+  document.getElementById('generate-btn').addEventListener('click', generatePassword);
+  document.getElementById('copy-btn').addEventListener('click', () => {
+    const output = document.getElementById('password-output');
+    if (output && output.value) {
+      navigator.clipboard.writeText(output.value);
+      const copyBtn = document.getElementById('copy-btn');
+      copyBtn.innerText = 'Copied!';
+      setTimeout(() => { copyBtn.innerText = 'Copy'; }, 2000);
+    }
+  });
+}
+
+/**
+ * 6. Main Application Initialization
+ */
 async function initPage() {
-  // Load global layout components first
+  // Load UI Header & Footer
   await loadComponents();
 
+  // If page does not contain a tool container (e.g. root index.html, about, privacy), stop here
+  const toolContainer = document.getElementById('tool-container');
+  if (!toolContainer) return;
+
+  // Extract current page slug from path (e.g., /passwords/sci-fi-password-generator/)
   const pathSegments = window.location.pathname.split('/').filter(Boolean);
   const currentSegment = pathSegments.length > 0 ? pathSegments[pathSegments.length - 1] : '';
 
-  // Only attempt tool JSON population if #tool-container exists on this page
-  if (!document.getElementById('tool-container')) return;
+  const prefix = getRelativePrefix();
 
   try {
-    const depth = pathSegments.length;
-    const relativePrefix = depth > 0 ? '../'.repeat(depth) : './';
-
-    const response = await fetch(`${relativePrefix}data/passwords.json`);
+    const response = await fetch(`${prefix}data/passwords.json`);
     if (!response.ok) throw new Error(`HTTP error! status: ${response.status}`);
     
     const data = await response.json();
     
+    // Find matching entry in passwords.json by slug
     const pageData = data.find(item => 
       item.Slug === currentSegment || 
       item.Slug.includes(currentSegment) ||
@@ -64,7 +141,7 @@ async function initPage() {
     ) || data[0];
 
     if (pageData) {
-      if (document.getElementById('meta-title')) document.getElementById('meta-title').innerText = pageData.Meta_Title;
+      if (document.getElementById('meta-title')) document.title = pageData.Meta_Title;
       if (document.getElementById('meta-desc')) document.getElementById('meta-desc').setAttribute('content', pageData.Meta_Desc);
       if (document.getElementById('page-h1')) document.getElementById('page-h1').innerText = pageData.H1_Title;
       if (document.getElementById('page-intro')) document.getElementById('page-intro').innerText = pageData.Intro_Text;
@@ -78,94 +155,12 @@ async function initPage() {
       generatePassword();
     }
   } catch (err) {
-    console.error('Error loading JSON data:', err);
+    console.error('Error loading page JSON data:', err);
+    // Render basic fallback tool UI if JSON fails to fetch
+    renderToolUI();
+    generatePassword();
   }
 }
 
-// 2. Inject Dynamic Tool UI into the Template
-function renderToolUI() {
-  const container = document.getElementById('tool-container');
-  if (!container) return;
-
-  container.innerHTML = `
-    <div style="display: flex; gap: 10px; margin-bottom: 20px;">
-      <div id="password-output" style="flex: 1; background: #0f172a; padding: 12px; border-radius: 6px; font-family: monospace; font-size: 1.2rem; word-break: break-all; border: 1px solid #334155;">Generating...</div>
-      <button id="copy-btn" style="background: #38bdf8; color: #0f172a; border: none; padding: 12px 20px; border-radius: 6px; font-weight: bold; cursor: pointer;">Copy</button>
-    </div>
-
-    <div style="display: flex; flex-direction: column; gap: 12px;">
-      <div style="display: flex; justify-content: space-between; align-items: center;">
-        <label for="length-slider">Length: <span id="length-val">16</span></label>
-        <input type="range" id="length-slider" min="8" max="32" value="16">
-      </div>
-      <div style="display: flex; justify-content: space-between; align-items: center;">
-        <label for="inc-numbers">Include Numbers</label>
-        <input type="checkbox" id="inc-numbers" checked>
-      </div>
-      <div style="display: flex; justify-content: space-between; align-items: center;">
-        <label for="inc-symbols">Include Symbols</label>
-        <input type="checkbox" id="inc-symbols" checked>
-      </div>
-      <button id="generate-btn" style="background: #38bdf8; color: #0f172a; border: none; padding: 12px; border-radius: 6px; font-weight: bold; cursor: pointer; width: 100%; margin-top: 10px;">Generate Password</button>
-    </div>
-  `;
-
-  document.getElementById('length-slider').addEventListener('input', (e) => {
-    document.getElementById('length-val').innerText = e.target.value;
-  });
-
-  document.getElementById('generate-btn').addEventListener('click', generatePassword);
-
-  document.getElementById('copy-btn').addEventListener('click', () => {
-    const text = document.getElementById('password-output').innerText;
-    navigator.clipboard.writeText(text);
-    const btn = document.getElementById('copy-btn');
-    btn.innerText = 'Copied!';
-    setTimeout(() => btn.innerText = 'Copy', 1500);
-  });
-}
-
-// 3. Password Generation Logic
-function generatePassword() {
-  const lengthSlider = document.getElementById('length-slider');
-  if (!lengthSlider) return;
-
-  const length = parseInt(lengthSlider.value);
-  const useNumbers = document.getElementById('inc-numbers').checked;
-  const useSymbols = document.getElementById('inc-symbols').checked;
-
-  let base = '';
-  let reservedLength = 0;
-  if (useNumbers) reservedLength += 2;
-  if (useSymbols) reservedLength += 1;
-
-  const maxWordSpace = length - reservedLength;
-
-  if (currentWordList.length > 0) {
-    const shuffledWords = [...currentWordList].sort(() => 0.5 - Math.random());
-
-    for (const word of shuffledWords) {
-      const separator = base.length > 0 ? '-' : '';
-      if ((base + separator + word).length <= maxWordSpace) {
-        base += separator + word;
-      }
-    }
-  }
-
-  if (base.length === 0) base = 'pass';
-
-  if (useNumbers) base += Math.floor(Math.random() * 89 + 10);
-  if (useSymbols) {
-    const symbols = '!@#$%^&*';
-    base += symbols[Math.floor(Math.random() * symbols.length)];
-  }
-
-  const chars = 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789';
-  while (base.length < length) {
-    base += chars.charAt(Math.floor(Math.random() * chars.length));
-  }
-
-  document.getElementById('password-output').innerText = base;
-}
-
+// Run application when DOM is ready
 document.addEventListener('DOMContentLoaded', initPage);
