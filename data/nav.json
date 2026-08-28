@@ -1,1 +1,14 @@
-[]
+[
+  {
+    "title": "Sci-Fi Themed Password Generator",
+    "url": "/Cubit.Tools/passwords/sci-fi-password-generator/"
+  },
+  {
+    "title": "3-Word Random Passphrase Generator",
+    "url": "/Cubit.Tools/passwords/3-word-passphrase-generator/"
+  },
+  {
+    "title": "Leeds United Password Generator",
+    "url": "/Cubit.Tools/passwords/sports/efl/leeds-utd-password-generator/"
+  }
+]
