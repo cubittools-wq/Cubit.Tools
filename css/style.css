@@ -1,8 +1,11 @@
 :root {
   --bg: #0f172a;
   --card-bg: #1e293b;
+  --input-bg: #0d131d;
   --accent: #38bdf8;
   --accent-hover: #0284c7;
+  --btn-primary: #3b82f6;
+  --btn-primary-hover: #2563eb;
   --text-main: #f8fafc;
   --text-muted: #94a3b8;
   --border: #334155;
@@ -138,6 +141,139 @@ h1 {
   box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.2);
 }
 
+/* Tool Box Form Controls */
+.tool-box {
+  display: flex;
+  flex-direction: column;
+}
+
+.input-group {
+  display: flex;
+  gap: 0.5rem;
+  margin-bottom: 1rem;
+}
+
+#password-output {
+  flex: 1;
+  background-color: var(--input-bg);
+  color: var(--accent);
+  border: 2px solid var(--border);
+  border-radius: 8px;
+  padding: 0.85rem 1rem;
+  font-family: 'Courier New', Courier, monospace;
+  font-size: 1.2rem;
+  font-weight: 700;
+  letter-spacing: 0.5px;
+  outline: none;
+  transition: border-color 0.2s ease;
+}
+
+#password-output:focus {
+  border-color: var(--btn-primary);
+}
+
+.btn-primary,
+.btn-secondary {
+  cursor: pointer;
+  font-weight: 600;
+  border: none;
+  border-radius: 8px;
+  transition: all 0.2s ease;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.btn-secondary {
+  background-color: var(--border);
+  color: var(--text-main);
+  padding: 0.85rem 1.25rem;
+  font-size: 0.95rem;
+  white-space: nowrap;
+}
+
+.btn-secondary:hover {
+  background-color: var(--btn-primary);
+  color: #ffffff;
+}
+
+.btn-primary {
+  width: 100%;
+  background-color: var(--btn-primary);
+  color: #ffffff;
+  padding: 1rem 1.5rem;
+  font-size: 1.1rem;
+}
+
+.btn-primary:hover {
+  background-color: var(--btn-primary-hover);
+  transform: translateY(-1px);
+}
+
+.btn-primary:active {
+  transform: translateY(0);
+}
+
+/* Range Slider Controls */
+.slider-group {
+  margin: 1.25rem 0 1.5rem 0;
+  text-align: left;
+}
+
+.slider-group label {
+  display: block;
+  color: var(--text-muted);
+  font-size: 1rem;
+  margin-bottom: 0.5rem;
+}
+
+.slider-group label strong {
+  color: var(--accent);
+  font-size: 1.1rem;
+}
+
+input[type="range"] {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 100%;
+  height: 8px;
+  border-radius: 4px;
+  background: var(--border);
+  outline: none;
+  cursor: pointer;
+}
+
+input[type="range"]::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 22px;
+  height: 22px;
+  border-radius: 50%;
+  background: var(--btn-primary);
+  cursor: pointer;
+  transition: background-color 0.2s ease, transform 0.2s ease;
+}
+
+input[type="range"]::-webkit-slider-thumb:hover {
+  background: var(--accent);
+  transform: scale(1.15);
+}
+
+input[type="range"]::-moz-range-thumb {
+  width: 22px;
+  height: 22px;
+  border-radius: 50%;
+  background: var(--btn-primary);
+  border: none;
+  cursor: pointer;
+  transition: background-color 0.2s ease, transform 0.2s ease;
+}
+
+input[type="range"]::-moz-range-thumb:hover {
+  background: var(--accent);
+  transform: scale(1.15);
+}
+
 .seo-article {
   color: var(--text-muted);
   line-height: 1.7;
@@ -205,7 +341,7 @@ footer {
   color: var(--text-main);
 }
 
-/* Component Placeholders (Prevents CLS Layout Shifts) */
+/* Component Placeholders */
 #site-header {
   min-height: 65px;
   background-color: var(--card-bg);
