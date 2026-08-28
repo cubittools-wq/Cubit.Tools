@@ -58,14 +58,19 @@ function renderDynamicNav(navItems) {
 }
 
 /**
- * 3. Password Generation Logic (with Word Count Slider)
+ * 3. Password Generation Logic (with Word Count Slider & Checkboxes)
  */
 function generatePassword() {
   const outputEl = document.getElementById('password-output');
   const countEl = document.getElementById('word-count-slider');
+  const numCheck = document.getElementById('include-numbers');
+  const symCheck = document.getElementById('include-symbols');
+
   if (!outputEl) return;
 
   const wordCount = countEl ? parseInt(countEl.value, 10) : 3;
+  const includeNumbers = numCheck ? numCheck.checked : true;
+  const includeSymbols = symCheck ? symCheck.checked : true;
 
   if (!currentWordList || currentWordList.length === 0) {
     currentWordList = ['apple', 'river', 'stove', 'cloud', 'timber', 'beacon', 'shadow', 'magnet'];
@@ -78,12 +83,21 @@ function generatePassword() {
     selectedWords.push(randomWord);
   }
 
-  // Append 2-digit number and special character
-  const num = Math.floor(Math.random() * 90) + 10;
-  const symbols = ['!', '@', '#', '$', '%', '&', '*'];
-  const symbol = symbols[Math.floor(Math.random() * symbols.length)];
+  let passphrase = selectedWords.join('-');
 
-  const passphrase = `${selectedWords.join('-')}-${num}${symbol}`;
+  // Append 2-digit number if checked
+  if (includeNumbers) {
+    const num = Math.floor(Math.random() * 90) + 10;
+    passphrase += `-${num}`;
+  }
+
+  // Append special character if checked
+  if (includeSymbols) {
+    const symbols = ['!', '@', '#', '$', '%', '&', '*'];
+    const symbol = symbols[Math.floor(Math.random() * symbols.length)];
+    passphrase += symbol;
+  }
+
   outputEl.value = passphrase;
 }
 
@@ -101,7 +115,7 @@ function renderToolUI() {
         <button id="copy-btn" class="btn-secondary">Copy</button>
       </div>
 
-      <div class="slider-group" style="margin: 1.25rem 0;">
+      <div class="slider-group">
         <label for="word-count-slider">
           Number of Words: <strong id="word-count-val">3</strong>
         </label>
@@ -112,8 +126,18 @@ function renderToolUI() {
           max="6" 
           value="3" 
           step="1" 
-          style="width: 100%; margin-top: 0.5rem;"
         />
+      </div>
+
+      <div class="checkbox-group">
+        <label class="checkbox-label">
+          <input type="checkbox" id="include-numbers" checked />
+          <span>Include Numbers (e.g., -42)</span>
+        </label>
+        <label class="checkbox-label">
+          <input type="checkbox" id="include-symbols" checked />
+          <span>Include Symbols (e.g., !)</span>
+        </label>
       </div>
 
       <button id="generate-btn" class="btn-primary">Generate New Passphrase</button>
@@ -123,11 +147,16 @@ function renderToolUI() {
   // Attach Event Listeners
   const slider = document.getElementById('word-count-slider');
   const sliderValDisplay = document.getElementById('word-count-val');
+  const numCheck = document.getElementById('include-numbers');
+  const symCheck = document.getElementById('include-symbols');
 
   slider.addEventListener('input', (e) => {
     sliderValDisplay.innerText = e.target.value;
     generatePassword();
   });
+
+  numCheck.addEventListener('change', generatePassword);
+  symCheck.addEventListener('change', generatePassword);
 
   document.getElementById('generate-btn').addEventListener('click', generatePassword);
   
