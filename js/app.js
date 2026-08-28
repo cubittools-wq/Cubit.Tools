@@ -21,22 +21,40 @@ async function loadComponents() {
   const prefix = getRelativePrefix();
 
   try {
-    const [headerRes, footerRes] = await Promise.all([
+    const [headerRes, footerRes, navRes] = await Promise.all([
       fetch(`${prefix}components/header.html`),
-      fetch(`${prefix}components/footer.html`)
+      fetch(`${prefix}components/footer.html`),
+      fetch(`${prefix}data/nav.json`)
     ]);
 
     if (headerRes.ok && document.getElementById('site-header')) {
       document.getElementById('site-header').innerHTML = await headerRes.text();
-      highlightActiveNavLink();
+      
+      // Inject links built from Google Sheet
+      if (navRes.ok) {
+        const navItems = await navRes.json();
+        renderDynamicNav(navItems);
+      }
     }
     
     if (footerRes.ok && document.getElementById('site-footer')) {
       document.getElementById('site-footer').innerHTML = await footerRes.text();
     }
   } catch (err) {
-    console.error('Error loading global components:', err);
+    console.error('Error loading global components or navigation:', err);
   }
+}
+
+function renderDynamicNav(navItems) {
+  const navUl = document.getElementById('main-nav-links');
+  if (!navUl) return;
+
+  const currentPath = window.location.pathname;
+
+  navUl.innerHTML = navItems.map(item => {
+    const isActive = currentPath.includes(item.url) ? 'class="active"' : '';
+    return `<li><a href="${item.url}" ${isActive}>${item.title}</a></li>`;
+  }).join('');
 }
 
 /**
