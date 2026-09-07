@@ -104,7 +104,7 @@ function renderBreadcrumbs(categoryPath, pageTitle) {
   const container = document.getElementById('breadcrumb-container');
   if (!container || !categoryPath) return;
 
-  const parts = categoryPath.split('/').map(p => p.strip());
+  const parts = categoryPath.split('/').map(p => p.trim());
   let accumPath = '/Cubit.Tools/passwords/';
 
   const crumbs = parts.map(part => {
@@ -243,6 +243,9 @@ function initQuickSearch() {
  * 7. Page Initialization
  */
 async function initPage() {
+  // Reset state on page load
+  currentWordList = [];
+
   await loadComponents();
   initQuickSearch();
 
@@ -262,8 +265,8 @@ async function initPage() {
     
     const pageData = data.find(item => 
       item.Slug === currentSegment || 
-      item.Slug.includes(currentSegment) ||
-      currentSegment.includes(item.Slug)
+      item.Slug.endsWith('/' + currentSegment) ||
+      currentSegment === item.Slug.split('/').pop()
     ) || data[0];
 
     if (pageData) {
@@ -273,10 +276,13 @@ async function initPage() {
       if (document.getElementById('page-intro')) document.getElementById('page-intro').innerText = pageData.Intro_Text;
       if (document.getElementById('seo-body')) document.getElementById('seo-body').innerText = pageData.SEO_Body;
 
-      renderBreadcrumbs(pageData.Category_Path, pageData.H1_Title);
+      renderBreadcrumbs(pageData.Category || pageData.Category_Path, pageData.H1_Title);
 
-      if (pageData.Word_List) {
+      // Populate currentWordList or fallback
+      if (pageData.Word_List && pageData.Word_List.trim().length > 0) {
         currentWordList = pageData.Word_List.split(',').map(w => w.trim());
+      } else {
+        currentWordList = ['apple', 'river', 'stove', 'cloud', 'timber', 'beacon', 'shadow', 'magnet'];
       }
 
       renderToolUI();
@@ -284,6 +290,7 @@ async function initPage() {
     }
   } catch (err) {
     console.error('Error loading page JSON data:', err);
+    currentWordList = ['apple', 'river', 'stove', 'cloud', 'timber', 'beacon', 'shadow', 'magnet'];
     renderToolUI();
     generatePassword();
   }
