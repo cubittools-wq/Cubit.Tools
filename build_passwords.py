@@ -1,6 +1,7 @@
 import csv
 import json
 import os
+import shutil
 import urllib.request
 
 PASSWORDS_CSV_URL = "https://docs.google.com/spreadsheets/d/e/2PACX-1vSbdhn9SqIHgrMpqTdkBbl-enWc18IWbX8ixuxjJY6SYdaaNoQrkUZ9cLunkewSy1HqJILhKR5comZD/pub?gid=0&single=true&output=csv"
@@ -81,6 +82,11 @@ def build_passwords():
     print("Fetching sheet data...")
     rows = fetch_csv(PASSWORDS_CSV_URL)
     
+    # 1. Clean up old passwords directory to remove deleted Google Sheet entries
+    if os.path.exists("passwords"):
+        shutil.rmtree("passwords")
+    os.makedirs("passwords", exist_ok=True)
+
     json_dataset = []
     nav_tree = {}
 
@@ -103,7 +109,7 @@ def build_passwords():
             "url": f"/Cubit.Tools/passwords/{raw_slug}/"
         }
 
-        # 1. Store full dataset item
+        # 2. Store full dataset item
         json_dataset.append({
             "Category_Path": category_path,
             "Slug": raw_slug,
@@ -115,16 +121,16 @@ def build_passwords():
             "SEO_Body": seo_body
         })
 
-        # 2. Build Category Navigation Tree for nav.json
+        # 3. Build Category Navigation Tree for nav.json
         path_parts = [p.strip() for p in category_path.split('/') if p.strip()]
         if path_parts:
             insert_into_tree(nav_tree, path_parts, item)
 
-        # 3. Create subfolders dynamically
+        # 4. Create subfolders dynamically
         folder_path = os.path.join("passwords", *raw_slug.split('/'))
         os.makedirs(folder_path, exist_ok=True)
 
-        # 4. Write index.html file
+        # 5. Write index.html file
         html_file = os.path.join(folder_path, "index.html")
         content = HTML_TEMPLATE.format(
             meta_title=meta_title,
@@ -136,7 +142,7 @@ def build_passwords():
         with open(html_file, "w", encoding="utf-8") as f:
             f.write(content)
 
-    # Save output JSON files
+    # 6. Save output JSON files
     os.makedirs("data", exist_ok=True)
     with open(os.path.join("data", "passwords.json"), "w", encoding="utf-8") as f:
         json.dump(json_dataset, f, indent=2)
@@ -144,7 +150,7 @@ def build_passwords():
     with open(os.path.join("data", "nav.json"), "w", encoding="utf-8") as f:
         json.dump(nav_tree, f, indent=2)
 
-    print("Successfully updated pages, passwords.json, and hierarchical nav.json!")
+    print("Successfully built clean site pages, passwords.json, and hierarchical nav.json!")
 
 if __name__ == "__main__":
     build_passwords()
