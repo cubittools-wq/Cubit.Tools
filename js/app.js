@@ -50,25 +50,42 @@ function renderTopLevelNav(navTree) {
   const topCategories = Object.keys(navTree);
 
   navUl.innerHTML = topCategories.map(cat => {
+    const rootItems = navTree[cat]._items || [];
     const subCategories = navTree[cat]._sub || {};
     const subKeys = Object.keys(subCategories);
 
     let dropHTML = '';
-    if (subKeys.length > 0) {
-      dropHTML = `
-        <ul class="dropdown-menu">
-          ${subKeys.map(sub => `
-            <li class="nav-subgroup">
-              <span class="subgroup-title">${sub}</span>
-              <ul>
-                ${(subCategories[sub]._items || []).map(item => `
-                  <li><a href="${item.url}">${item.title}</a></li>
-                `).join('')}
-              </ul>
-            </li>
-          `).join('')}
-        </ul>
-      `;
+
+    // If there are subcategories OR direct items, build a dropdown menu
+    if (subKeys.length > 0 || rootItems.length > 0) {
+      let itemsListHTML = '';
+
+      // Render direct items if present (e.g. Category_Path = "General")
+      if (rootItems.length > 0) {
+        itemsListHTML += `
+          <li class="nav-subgroup">
+            <ul>
+              ${rootItems.map(item => `<li><a href="${item.url}">${item.title}</a></li>`).join('')}
+            </ul>
+          </li>
+        `;
+      }
+
+      // Render subcategory items if present (e.g. Category_Path = "Sports/Football")
+      if (subKeys.length > 0) {
+        itemsListHTML += subKeys.map(sub => `
+          <li class="nav-subgroup">
+            <span class="subgroup-title">${sub}</span>
+            <ul>
+              ${(subCategories[sub]._items || []).map(item => `
+                <li><a href="${item.url}">${item.title}</a></li>
+              `).join('')}
+            </ul>
+          </li>
+        `).join('');
+      }
+
+      dropHTML = `<ul class="dropdown-menu">${itemsListHTML}</ul>`;
     }
 
     return `

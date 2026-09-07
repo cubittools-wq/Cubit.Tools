@@ -67,15 +67,17 @@ def fetch_csv(url):
     return list(csv.DictReader(csv_data))
 
 def insert_into_tree(tree, path_parts, item):
-    """Recursively builds the navigation tree for N-levels of subcategories."""
+    """Recursively builds category trees, handling both top-level and nested items cleanly."""
     current = path_parts[0]
     
     if current not in tree:
         tree[current] = {"_items": [], "_sub": {}}
 
     if len(path_parts) == 1:
+        # Top-level entry or leaf node item
         tree[current]["_items"].append(item)
     else:
+        # Subcategory path exists (e.g., Sports -> Football)
         insert_into_tree(tree[current]["_sub"], path_parts[1:], item)
 
 def build_passwords():
