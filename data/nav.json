@@ -1,14 +1,383 @@
-[
-  {
-    "title": "Sci-Fi Themed Password Generator",
-    "url": "/Cubit.Tools/passwords/sci-fi-password-generator/"
-  },
-  {
-    "title": "3-Word Random Passphrase Generator",
-    "url": "/Cubit.Tools/passwords/3-word-passphrase-generator/"
-  },
-  {
-    "title": "Leeds United Password Generator",
-    "url": "/Cubit.Tools/passwords/sports/efl/leeds-utd-password-generator/"
+{
+  "General": {
+    "_items": [
+      {
+        "title": "Sci-Fi Themed Password Generator",
+        "url": "/Cubit.Tools/passwords/sci-fi-password-generator/"
+      },
+      {
+        "title": "3-Word Random Passphrase Generator",
+        "url": "/Cubit.Tools/passwords/3-word-passphrase-generator/"
+      },
+      {
+        "title": "Arsenal Password Generator",
+        "url": "/Cubit.Tools/passwords/sports/football/england/arsenal-password-generator/"
+      },
+      {
+        "title": "Aston Villa Password Generator",
+        "url": "/Cubit.Tools/passwords/sports/football/england/aston_villa-password-generator/"
+      },
+      {
+        "title": "Bournemouth Password Generator",
+        "url": "/Cubit.Tools/passwords/sports/football/england/bournemouth-password-generator/"
+      },
+      {
+        "title": "Brentford Password Generator",
+        "url": "/Cubit.Tools/passwords/sports/football/england/brentford-password-generator/"
+      },
+      {
+        "title": "Brighton & Hove Albion Password Generator",
+        "url": "/Cubit.Tools/passwords/sports/football/england/brighton_&_hove_albion-password-generator/"
+      },
+      {
+        "title": "Chelsea Password Generator",
+        "url": "/Cubit.Tools/passwords/sports/football/england/chelsea-password-generator/"
+      },
+      {
+        "title": "Coventry City Password Generator",
+        "url": "/Cubit.Tools/passwords/sports/football/england/coventry_city-password-generator/"
+      },
+      {
+        "title": "Crystal Palace Password Generator",
+        "url": "/Cubit.Tools/passwords/sports/football/england/crystal_palace-password-generator/"
+      },
+      {
+        "title": "Everton Password Generator",
+        "url": "/Cubit.Tools/passwords/sports/football/england/everton-password-generator/"
+      },
+      {
+        "title": "Fulham Password Generator",
+        "url": "/Cubit.Tools/passwords/sports/football/england/fulham-password-generator/"
+      },
+      {
+        "title": "Hull City Password Generator",
+        "url": "/Cubit.Tools/passwords/sports/football/england/hull_city-password-generator/"
+      },
+      {
+        "title": "Ipswich Town Password Generator",
+        "url": "/Cubit.Tools/passwords/sports/football/england/ipswich_town-password-generator/"
+      },
+      {
+        "title": "Leeds United Password Generator",
+        "url": "/Cubit.Tools/passwords/sports/football/england/leeds_united-password-generator/"
+      },
+      {
+        "title": "Liverpool Password Generator",
+        "url": "/Cubit.Tools/passwords/sports/football/england/liverpool-password-generator/"
+      },
+      {
+        "title": "Manchester City Password Generator",
+        "url": "/Cubit.Tools/passwords/sports/football/england/manchester_city-password-generator/"
+      },
+      {
+        "title": "Manchester United Password Generator",
+        "url": "/Cubit.Tools/passwords/sports/football/england/manchester_united-password-generator/"
+      },
+      {
+        "title": "Newcastle United Password Generator",
+        "url": "/Cubit.Tools/passwords/sports/football/england/newcastle_united-password-generator/"
+      },
+      {
+        "title": "Nottingham Forest Password Generator",
+        "url": "/Cubit.Tools/passwords/sports/football/england/nottingham_forest-password-generator/"
+      },
+      {
+        "title": "Sunderland Password Generator",
+        "url": "/Cubit.Tools/passwords/sports/football/england/sunderland-password-generator/"
+      },
+      {
+        "title": "Tottenham Hotspur Password Generator",
+        "url": "/Cubit.Tools/passwords/sports/football/england/tottenham_hotspur-password-generator/"
+      },
+      {
+        "title": "Birmingham City Password Generator",
+        "url": "/Cubit.Tools/passwords/sports/football/england/birmingham_city-password-generator/"
+      },
+      {
+        "title": "Blackburn Rovers Password Generator",
+        "url": "/Cubit.Tools/passwords/sports/football/england/blackburn_rovers-password-generator/"
+      },
+      {
+        "title": "Bolton Wanderers Password Generator",
+        "url": "/Cubit.Tools/passwords/sports/football/england/bolton_wanderers-password-generator/"
+      },
+      {
+        "title": "Burnley Password Generator",
+        "url": "/Cubit.Tools/passwords/sports/football/england/burnley-password-generator/"
+      },
+      {
+        "title": "Bristol City Password Generator",
+        "url": "/Cubit.Tools/passwords/sports/football/england/bristol_city-password-generator/"
+      },
+      {
+        "title": "Cardiff City Password Generator",
+        "url": "/Cubit.Tools/passwords/sports/football/england/cardiff_city-password-generator/"
+      },
+      {
+        "title": "Charlton Athletic Password Generator",
+        "url": "/Cubit.Tools/passwords/sports/football/england/charlton_athletic-password-generator/"
+      },
+      {
+        "title": "Derby County Password Generator",
+        "url": "/Cubit.Tools/passwords/sports/football/england/derby_county-password-generator/"
+      },
+      {
+        "title": "Lincoln City Password Generator",
+        "url": "/Cubit.Tools/passwords/sports/football/england/lincoln_city-password-generator/"
+      },
+      {
+        "title": "Middlesbrough Password Generator",
+        "url": "/Cubit.Tools/passwords/sports/football/england/middlesbrough-password-generator/"
+      },
+      {
+        "title": "Millwall Password Generator",
+        "url": "/Cubit.Tools/passwords/sports/football/england/millwall-password-generator/"
+      },
+      {
+        "title": "Norwich City Password Generator",
+        "url": "/Cubit.Tools/passwords/sports/football/england/norwich_city-password-generator/"
+      },
+      {
+        "title": "Portsmouth Password Generator",
+        "url": "/Cubit.Tools/passwords/sports/football/england/portsmouth-password-generator/"
+      },
+      {
+        "title": "Preston North End Password Generator",
+        "url": "/Cubit.Tools/passwords/sports/football/england/preston_north_end-password-generator/"
+      },
+      {
+        "title": "Queens Park Rangers Password Generator",
+        "url": "/Cubit.Tools/passwords/sports/football/england/queens_park_rangers-password-generator/"
+      },
+      {
+        "title": "Sheffield United Password Generator",
+        "url": "/Cubit.Tools/passwords/sports/football/england/sheffield_united-password-generator/"
+      },
+      {
+        "title": "Southampton Password Generator",
+        "url": "/Cubit.Tools/passwords/sports/football/england/southampton-password-generator/"
+      },
+      {
+        "title": "Stoke City Password Generator",
+        "url": "/Cubit.Tools/passwords/sports/football/england/stoke_city-password-generator/"
+      },
+      {
+        "title": "Swansea City Password Generator",
+        "url": "/Cubit.Tools/passwords/sports/football/england/swansea_city-password-generator/"
+      },
+      {
+        "title": "Watford Password Generator",
+        "url": "/Cubit.Tools/passwords/sports/football/england/watford-password-generator/"
+      },
+      {
+        "title": "West Bromwich Albion Password Generator",
+        "url": "/Cubit.Tools/passwords/sports/football/england/west_bromwich_albion-password-generator/"
+      },
+      {
+        "title": "West Ham United Password Generator",
+        "url": "/Cubit.Tools/passwords/sports/football/england/west_ham_united-password-generator/"
+      },
+      {
+        "title": "Wolverhampton Wanderers Password Generator",
+        "url": "/Cubit.Tools/passwords/sports/football/england/wolverhampton_wanderers-password-generator/"
+      },
+      {
+        "title": "Wrexham Password Generator",
+        "url": "/Cubit.Tools/passwords/sports/football/england/wrexham-password-generator/"
+      },
+      {
+        "title": "AFC Wimbledon Password Generator",
+        "url": "/Cubit.Tools/passwords/sports/football/england/afc_wimbledon-password-generator/"
+      },
+      {
+        "title": "Barnsley Password Generator",
+        "url": "/Cubit.Tools/passwords/sports/football/england/barnsley-password-generator/"
+      },
+      {
+        "title": "Blackpool Password Generator",
+        "url": "/Cubit.Tools/passwords/sports/football/england/blackpool-password-generator/"
+      },
+      {
+        "title": "Bradford City Password Generator",
+        "url": "/Cubit.Tools/passwords/sports/football/england/bradford_city-password-generator/"
+      },
+      {
+        "title": "Bromley Password Generator",
+        "url": "/Cubit.Tools/passwords/sports/football/england/bromley-password-generator/"
+      },
+      {
+        "title": "Burton Albion Password Generator",
+        "url": "/Cubit.Tools/passwords/sports/football/england/burton_albion-password-generator/"
+      },
+      {
+        "title": "Cambridge United Password Generator",
+        "url": "/Cubit.Tools/passwords/sports/football/england/cambridge_united-password-generator/"
+      },
+      {
+        "title": "Doncaster Rovers Password Generator",
+        "url": "/Cubit.Tools/passwords/sports/football/england/doncaster_rovers-password-generator/"
+      },
+      {
+        "title": "Huddersfield Town Password Generator",
+        "url": "/Cubit.Tools/passwords/sports/football/england/huddersfield_town-password-generator/"
+      },
+      {
+        "title": "Leyton Orient Password Generator",
+        "url": "/Cubit.Tools/passwords/sports/football/england/leyton_orient-password-generator/"
+      },
+      {
+        "title": "Leicester City Password Generator",
+        "url": "/Cubit.Tools/passwords/sports/football/england/leicester_city-password-generator/"
+      },
+      {
+        "title": "Luton Town Password Generator",
+        "url": "/Cubit.Tools/passwords/sports/football/england/luton_town-password-generator/"
+      },
+      {
+        "title": "Mansfield Town Password Generator",
+        "url": "/Cubit.Tools/passwords/sports/football/england/mansfield_town-password-generator/"
+      },
+      {
+        "title": "Milton Keynes Dons Password Generator",
+        "url": "/Cubit.Tools/passwords/sports/football/england/milton_keynes_dons-password-generator/"
+      },
+      {
+        "title": "Notts County Password Generator",
+        "url": "/Cubit.Tools/passwords/sports/football/england/notts_county-password-generator/"
+      },
+      {
+        "title": "Oxford United Password Generator",
+        "url": "/Cubit.Tools/passwords/sports/football/england/oxford_united-password-generator/"
+      },
+      {
+        "title": "Peterborough United Password Generator",
+        "url": "/Cubit.Tools/passwords/sports/football/england/peterborough_united-password-generator/"
+      },
+      {
+        "title": "Plymouth Argyle Password Generator",
+        "url": "/Cubit.Tools/passwords/sports/football/england/plymouth_argyle-password-generator/"
+      },
+      {
+        "title": "Reading Password Generator",
+        "url": "/Cubit.Tools/passwords/sports/football/england/reading-password-generator/"
+      },
+      {
+        "title": "Sheffield Wednesday Password Generator",
+        "url": "/Cubit.Tools/passwords/sports/football/england/sheffield_wednesday-password-generator/"
+      },
+      {
+        "title": "Stevenage Password Generator",
+        "url": "/Cubit.Tools/passwords/sports/football/england/stevenage-password-generator/"
+      },
+      {
+        "title": "Stockport County Password Generator",
+        "url": "/Cubit.Tools/passwords/sports/football/england/stockport_county-password-generator/"
+      },
+      {
+        "title": "Wigan Athletic Password Generator",
+        "url": "/Cubit.Tools/passwords/sports/football/england/wigan_athletic-password-generator/"
+      },
+      {
+        "title": "Wycombe Wanderers Password Generator",
+        "url": "/Cubit.Tools/passwords/sports/football/england/wycombe_wanderers-password-generator/"
+      },
+      {
+        "title": "Accrington Stanley Password Generator",
+        "url": "/Cubit.Tools/passwords/sports/football/england/accrington_stanley-password-generator/"
+      },
+      {
+        "title": "Barnet Password Generator",
+        "url": "/Cubit.Tools/passwords/sports/football/england/barnet-password-generator/"
+      },
+      {
+        "title": "Bristol Rovers Password Generator",
+        "url": "/Cubit.Tools/passwords/sports/football/england/bristol_rovers-password-generator/"
+      },
+      {
+        "title": "Cheltenham Town Password Generator",
+        "url": "/Cubit.Tools/passwords/sports/football/england/cheltenham_town-password-generator/"
+      },
+      {
+        "title": "Chesterfield Password Generator",
+        "url": "/Cubit.Tools/passwords/sports/football/england/chesterfield-password-generator/"
+      },
+      {
+        "title": "Colchester United Password Generator",
+        "url": "/Cubit.Tools/passwords/sports/football/england/colchester_united-password-generator/"
+      },
+      {
+        "title": "Crawley Town Password Generator",
+        "url": "/Cubit.Tools/passwords/sports/football/england/crawley_town-password-generator/"
+      },
+      {
+        "title": "Crewe Alexandra Password Generator",
+        "url": "/Cubit.Tools/passwords/sports/football/england/crewe_alexandra-password-generator/"
+      },
+      {
+        "title": "Exeter City Password Generator",
+        "url": "/Cubit.Tools/passwords/sports/football/england/exeter_city-password-generator/"
+      },
+      {
+        "title": "Fleetwood Town Password Generator",
+        "url": "/Cubit.Tools/passwords/sports/football/england/fleetwood_town-password-generator/"
+      },
+      {
+        "title": "Gillingham Password Generator",
+        "url": "/Cubit.Tools/passwords/sports/football/england/gillingham-password-generator/"
+      },
+      {
+        "title": "Grimsby Town Password Generator",
+        "url": "/Cubit.Tools/passwords/sports/football/england/grimsby_town-password-generator/"
+      },
+      {
+        "title": "Newport County Password Generator",
+        "url": "/Cubit.Tools/passwords/sports/football/england/newport_county-password-generator/"
+      },
+      {
+        "title": "Northampton Town Password Generator",
+        "url": "/Cubit.Tools/passwords/sports/football/england/northampton_town-password-generator/"
+      },
+      {
+        "title": "Oldham Athletic Password Generator",
+        "url": "/Cubit.Tools/passwords/sports/football/england/oldham_athletic-password-generator/"
+      },
+      {
+        "title": "Port Vale Password Generator",
+        "url": "/Cubit.Tools/passwords/sports/football/england/port_vale-password-generator/"
+      },
+      {
+        "title": "Rochdale Password Generator",
+        "url": "/Cubit.Tools/passwords/sports/football/england/rochdale-password-generator/"
+      },
+      {
+        "title": "Rotherham United Password Generator",
+        "url": "/Cubit.Tools/passwords/sports/football/england/rotherham_united-password-generator/"
+      },
+      {
+        "title": "Salford City Password Generator",
+        "url": "/Cubit.Tools/passwords/sports/football/england/salford_city-password-generator/"
+      },
+      {
+        "title": "Shrewsbury Town Password Generator",
+        "url": "/Cubit.Tools/passwords/sports/football/england/shrewsbury_town-password-generator/"
+      },
+      {
+        "title": "Swindon Town Password Generator",
+        "url": "/Cubit.Tools/passwords/sports/football/england/swindon_town-password-generator/"
+      },
+      {
+        "title": "Tranmere Rovers Password Generator",
+        "url": "/Cubit.Tools/passwords/sports/football/england/tranmere_rovers-password-generator/"
+      },
+      {
+        "title": "Walsall Password Generator",
+        "url": "/Cubit.Tools/passwords/sports/football/england/walsall-password-generator/"
+      },
+      {
+        "title": "York City Password Generator",
+        "url": "/Cubit.Tools/passwords/sports/football/england/york_city-password-generator/"
+      }
+    ],
+    "_sub": {}
   }
-]
+}
