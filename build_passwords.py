@@ -29,6 +29,8 @@ HTML_TEMPLATE = """<!DOCTYPE html>
   <div class="main-wrapper">
     <div class="content-grid">
       <main>
+        <div id="breadcrumb-container"></div>
+
         <header>
           <h1 id="page-h1">{h1_title}</h1>
           <p id="page-intro" class="intro-text">{intro_text}</p>
@@ -63,14 +65,27 @@ def fetch_csv(url):
     csv_data = req.read().decode('utf-8').splitlines()
     return list(csv.DictReader(csv_data))
 
+def insert_into_tree(tree, path_parts, item):
+    """Recursively builds the navigation tree for N-levels of subcategories."""
+    current = path_parts[0]
+    
+    if current not in tree:
+        tree[current] = {"_items": [], "_sub": {}}
+
+    if len(path_parts) == 1:
+        tree[current]["_items"].append(item)
+    else:
+        insert_into_tree(tree[current]["_sub"], path_parts[1:], item)
+
 def build_passwords():
     print("Fetching sheet data...")
     rows = fetch_csv(PASSWORDS_CSV_URL)
     
     json_dataset = []
-    nav_links = []
+    nav_tree = {}
 
     for row in rows:
+        category_path = row.get("Category_Path", "General").strip()
         raw_slug = row.get("Slug", "").strip().strip('/')
         h1_title = row.get("H1_Title", "").strip()
         
@@ -83,8 +98,14 @@ def build_passwords():
         word_list = row.get("Word_List", "")
         seo_body = row.get("SEO_Body", "")
 
-        # 1. Add entry to main dataset
+        item = {
+            "title": h1_title,
+            "url": f"/Cubit.Tools/passwords/{raw_slug}/"
+        }
+
+        # 1. Store full dataset item
         json_dataset.append({
+            "Category_Path": category_path,
             "Slug": raw_slug,
             "H1_Title": h1_title,
             "Meta_Title": meta_title,
@@ -94,17 +115,16 @@ def build_passwords():
             "SEO_Body": seo_body
         })
 
-        # 2. Add entry to dynamic navigation array
-        nav_links.append({
-            "title": h1_title,
-            "url": f"/Cubit.Tools/passwords/{raw_slug}/"
-        })
+        # 2. Build Category Navigation Tree for nav.json
+        path_parts = [p.strip() for p in category_path.split('/') if p.strip()]
+        if path_parts:
+            insert_into_tree(nav_tree, path_parts, item)
 
-        # 3. Create subfolders dynamically (handles nested slashes)
+        # 3. Create subfolders dynamically
         folder_path = os.path.join("passwords", *raw_slug.split('/'))
         os.makedirs(folder_path, exist_ok=True)
 
-        # 4. Write index.html file inside the folder
+        # 4. Write index.html file
         html_file = os.path.join(folder_path, "index.html")
         content = HTML_TEMPLATE.format(
             meta_title=meta_title,
@@ -116,17 +136,15 @@ def build_passwords():
         with open(html_file, "w", encoding="utf-8") as f:
             f.write(content)
 
-        print(f"Generated folder & index.html for: passwords/{raw_slug}/")
-
-    # Save data files
+    # Save output JSON files
     os.makedirs("data", exist_ok=True)
     with open(os.path.join("data", "passwords.json"), "w", encoding="utf-8") as f:
         json.dump(json_dataset, f, indent=2)
 
     with open(os.path.join("data", "nav.json"), "w", encoding="utf-8") as f:
-        json.dump(nav_links, f, indent=2)
+        json.dump(nav_tree, f, indent=2)
 
-    print("Successfully generated all folders, index.html files, passwords.json, and nav.json!")
+    print("Successfully updated pages, passwords.json, and hierarchical nav.json!")
 
 if __name__ == "__main__":
     build_passwords()

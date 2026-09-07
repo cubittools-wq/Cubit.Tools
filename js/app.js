@@ -1,18 +1,17 @@
 let currentWordList = [];
 
 /**
- * 1. Calculate Folder Depth & Generate Relative Path Prefixes
+ * 1. Folder Depth & Relative Path Helpers
  */
 function getRelativePrefix() {
   const path = window.location.pathname;
   const cleanPath = path.replace(/^\/Cubit\.Tools/, '');
   const segments = cleanPath.split('/').filter(Boolean);
-  
   return segments.length > 0 ? '../'.repeat(segments.length) : './';
 }
 
 /**
- * 2. Fetch Shared Header, Footer, and Navigation Components
+ * 2. Fetch Header, Footer, and Hierarchical Navigation
  */
 async function loadComponents() {
   const prefix = getRelativePrefix();
@@ -28,8 +27,8 @@ async function loadComponents() {
       document.getElementById('site-header').innerHTML = await headerRes.text();
       
       if (navRes.ok) {
-        const navItems = await navRes.json();
-        renderDynamicNav(navItems);
+        const navTree = await navRes.json();
+        renderTopLevelNav(navTree);
       }
     }
     
@@ -37,28 +36,76 @@ async function loadComponents() {
       document.getElementById('site-footer').innerHTML = await footerRes.text();
     }
   } catch (err) {
-    console.error('Error loading global components or navigation:', err);
+    console.error('Error loading global components:', err);
   }
 }
 
 /**
- * Render Dynamic Navigation Links & Set Active State
+ * Render Header Nav (Shows Top-Level Categories as Dropdowns)
  */
-function renderDynamicNav(navItems) {
+function renderTopLevelNav(navTree) {
   const navUl = document.getElementById('main-nav-links');
   if (!navUl) return;
 
-  const currentPath = window.location.pathname.replace(/\/$/, '');
+  const topCategories = Object.keys(navTree);
 
-  navUl.innerHTML = navItems.map(item => {
-    const cleanItemUrl = item.url.replace(/\/$/, '');
-    const isActive = currentPath === cleanItemUrl || currentPath.endsWith(cleanItemUrl) ? 'class="active"' : '';
-    return `<li><a href="${item.url}" ${isActive}>${item.title}</a></li>`;
+  navUl.innerHTML = topCategories.map(cat => {
+    const subCategories = navTree[cat]._sub || {};
+    const subKeys = Object.keys(subCategories);
+
+    let dropHTML = '';
+    if (subKeys.length > 0) {
+      dropHTML = `
+        <ul class="dropdown-menu">
+          ${subKeys.map(sub => `
+            <li class="nav-subgroup">
+              <span class="subgroup-title">${sub}</span>
+              <ul>
+                ${(subCategories[sub]._items || []).map(item => `
+                  <li><a href="${item.url}">${item.title}</a></li>
+                `).join('')}
+              </ul>
+            </li>
+          `).join('')}
+        </ul>
+      `;
+    }
+
+    return `
+      <li class="nav-dropdown">
+        <a href="#" class="dropdown-toggle">${cat} ▾</a>
+        ${dropHTML}
+      </li>
+    `;
   }).join('');
 }
 
 /**
- * 3. Password Generation Logic (with Word Count Slider & Checkboxes)
+ * 3. Render Dynamic Breadcrumb Trail
+ */
+function renderBreadcrumbs(categoryPath, pageTitle) {
+  const container = document.getElementById('breadcrumb-container');
+  if (!container || !categoryPath) return;
+
+  const parts = categoryPath.split('/').map(p => p.strip());
+  let accumPath = '/Cubit.Tools/passwords/';
+
+  const crumbs = parts.map(part => {
+    accumPath += `${part.toLowerCase().replace(/\s+/g, '-')}/`;
+    return `<a href="${accumPath}">${part}</a>`;
+  });
+
+  container.innerHTML = `
+    <nav class="breadcrumbs">
+      <a href="/Cubit.Tools/">Home</a> &gt; 
+      ${crumbs.join(' &gt; ')} &gt; 
+      <span>${pageTitle}</span>
+    </nav>
+  `;
+}
+
+/**
+ * 4. Password Generator Logic
  */
 function generatePassword() {
   const outputEl = document.getElementById('password-output');
@@ -76,7 +123,6 @@ function generatePassword() {
     currentWordList = ['apple', 'river', 'stove', 'cloud', 'timber', 'beacon', 'shadow', 'magnet'];
   }
 
-  // Pick N random words based on slider selection
   const selectedWords = [];
   for (let i = 0; i < wordCount; i++) {
     const randomWord = currentWordList[Math.floor(Math.random() * currentWordList.length)];
@@ -85,24 +131,20 @@ function generatePassword() {
 
   let passphrase = selectedWords.join('-');
 
-  // Append 2-digit number if checked
   if (includeNumbers) {
-    const num = Math.floor(Math.random() * 90) + 10;
-    passphrase += `-${num}`;
+    passphrase += `-${Math.floor(Math.random() * 90) + 10}`;
   }
 
-  // Append special character if checked
   if (includeSymbols) {
     const symbols = ['!', '@', '#', '$', '%', '&', '*'];
-    const symbol = symbols[Math.floor(Math.random() * symbols.length)];
-    passphrase += symbol;
+    passphrase += symbols[Math.floor(Math.random() * symbols.length)];
   }
 
   outputEl.value = passphrase;
 }
 
 /**
- * 4. Render Interactive Tool UI with Controls
+ * 5. Interactive UI Setup
  */
 function renderToolUI() {
   const container = document.getElementById('tool-container');
@@ -119,14 +161,7 @@ function renderToolUI() {
         <label for="word-count-slider">
           Number of Words: <strong id="word-count-val">3</strong>
         </label>
-        <input 
-          type="range" 
-          id="word-count-slider" 
-          min="2" 
-          max="6" 
-          value="3" 
-          step="1" 
-        />
+        <input type="range" id="word-count-slider" min="2" max="6" value="3" step="1" />
       </div>
 
       <div class="checkbox-group">
@@ -144,7 +179,6 @@ function renderToolUI() {
     </div>
   `;
 
-  // Attach Event Listeners
   const slider = document.getElementById('word-count-slider');
   const sliderValDisplay = document.getElementById('word-count-val');
   const numCheck = document.getElementById('include-numbers');
@@ -157,9 +191,8 @@ function renderToolUI() {
 
   numCheck.addEventListener('change', generatePassword);
   symCheck.addEventListener('change', generatePassword);
-
   document.getElementById('generate-btn').addEventListener('click', generatePassword);
-  
+
   document.getElementById('copy-btn').addEventListener('click', () => {
     const output = document.getElementById('password-output');
     if (output && output.value) {
@@ -172,10 +205,29 @@ function renderToolUI() {
 }
 
 /**
- * 5. Main Application Initialization
+ * 6. Quick Search Filter for Hub / Directory Pages
+ */
+function initQuickSearch() {
+  const searchInput = document.getElementById('hub-search-input');
+  if (!searchInput) return;
+
+  searchInput.addEventListener('input', (e) => {
+    const query = e.target.value.toLowerCase();
+    const cards = document.querySelectorAll('.hub-card');
+
+    cards.forEach(card => {
+      const title = card.innerText.toLowerCase();
+      card.style.display = title.includes(query) ? 'block' : 'none';
+    });
+  });
+}
+
+/**
+ * 7. Page Initialization
  */
 async function initPage() {
   await loadComponents();
+  initQuickSearch();
 
   const toolContainer = document.getElementById('tool-container');
   if (!toolContainer) return;
@@ -203,6 +255,8 @@ async function initPage() {
       if (document.getElementById('page-h1')) document.getElementById('page-h1').innerText = pageData.H1_Title;
       if (document.getElementById('page-intro')) document.getElementById('page-intro').innerText = pageData.Intro_Text;
       if (document.getElementById('seo-body')) document.getElementById('seo-body').innerText = pageData.SEO_Body;
+
+      renderBreadcrumbs(pageData.Category_Path, pageData.H1_Title);
 
       if (pageData.Word_List) {
         currentWordList = pageData.Word_List.split(',').map(w => w.trim());
