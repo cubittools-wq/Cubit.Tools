@@ -1,62 +1,90 @@
-let currentWordList = [];
+/**
+ * Global Navigation Loader for Cubit.Tools
+ */
+async function loadComponents() {
+  const prefix = getRelativePrefix();
 
-function getRelativePrefix() {
-  const path = window.location.pathname;
-  const cleanPath = path.replace(/^\/Cubit\.Tools/, '');
-  const segments = cleanPath.split('/').filter(Boolean);
-  return segments.length > 0 ? '../'.repeat(segments.length) : './';
+  try {
+    const [headerRes, footerRes, navRes] = await Promise.all([
+      fetch(`${prefix}components/header-combined.html`),
+      fetch(`${prefix}components/footer.html`),
+      fetch(`${prefix}data/nav.json`)
+    ]);
+
+    if (headerRes.ok && document.getElementById('site-header')) {
+      document.getElementById('site-header').innerHTML = await headerRes.text();
+      
+      if (navRes.ok) {
+        const navTree = await navRes.json();
+        
+        // 1. Build main top nav (Level 1 & Level 2)
+        renderPrimaryNav(navTree);
+        
+        // 2. Build left sidebar breakdown (Full Depth)
+        renderLeftSidebarNav(navTree);
+        
+        // 3. Attach interactive toggles
+        setupNavInteractions();
+      }
+    }
+    
+    if (footerRes.ok && document.getElementById('site-footer')) {
+      document.getElementById('site-footer').innerHTML = await footerRes.text();
+    }
+  } catch (err) {
+    console.error('Error loading dynamic navigation:', err);
+  }
 }
 
-/* --- Mega Nav Builder --- */
-function buildMegaTreeHTML(node) {
-  let html = '';
-  const subKeys = Object.keys(node._sub || {});
-  const items = node._items || [];
+/**
+ * Render Top Nav Bar (Password Generators, Date and Time, Calculators)
+ * Shows up to 2 levels deep
+ */
+function renderPrimaryNav(navTree) {
+  const primaryNavUl = document.getElementById('primary-nav-links');
+  if (!primaryNavUl) return;
 
-  if (subKeys.length > 0) {
-    subKeys.forEach(subKey => {
-      html += `
-        <div class="mega-column">
-          <span class="mega-group-title">${subKey}</span>
-          ${buildMegaTreeHTML(node._sub[subKey])}
+  // Define top-level section buckets
+  const sections = [
+    { key: 'Password Generators', label: 'Password Generators' },
+    { key: 'Date and Time', label: 'Date & Time' },
+    { key: 'Calculators', label: 'Calculators' }
+  ];
+
+  primaryNavUl.innerHTML = sections.map(sec => {
+    const sectionData = navTree[sec.key] || { _sub: {}, _items: [] };
+    const levelTwoKeys = Object.keys(sectionData._sub || {});
+
+    let dropdownHTML = '';
+
+    if (levelTwoKeys.length > 0) {
+      dropdownHTML = `
+        <div class="top-dropdown-panel">
+          <ul class="level-two-list">
+            ${levelTwoKeys.map(subKey => `
+              <li class="level-two-item">
+                <span class="level-two-title">${subKey}</span>
+              </li>
+            `).join('')}
+          </ul>
         </div>
       `;
-    });
-  }
+    }
 
-  if (items.length > 0) {
-    html += '<ul class="mega-links">';
-    items.forEach(item => {
-      html += `<li><a href="${item.url}">${item.title}</a></li>`;
-    });
-    html += '</ul>';
-  }
-
-  return html;
-}
-
-function renderMegaNav(navTree) {
-  const navUl = document.getElementById('main-nav-links');
-  if (!navUl) return;
-
-  const topCategories = Object.keys(navTree);
-
-  navUl.innerHTML = topCategories.map(cat => {
-    const treeHTML = buildMegaTreeHTML(navTree[cat]);
     return `
-      <li class="mega-dropdown">
-        <button type="button" class="mega-toggle" aria-expanded="false">
-          ${cat} <span class="arrow">▾</span>
+      <li class="primary-nav-item">
+        <button type="button" class="primary-nav-btn" aria-expanded="false">
+          ${sec.label} ${levelTwoKeys.length > 0 ? '<span class="arrow">▾</span>' : ''}
         </button>
-        <div class="mega-panel">
-          <div class="mega-grid">${treeHTML}</div>
-        </div>
+        ${dropdownHTML}
       </li>
     `;
   }).join('');
 }
 
-/* --- Sidebar Nav Builder --- */
+/**
+ * Recursively render unlimited depth for the Left Sidebar
+ */
 function buildSidebarTreeHTML(node) {
   let html = '<ul class="sidebar-tree">';
 
@@ -64,7 +92,7 @@ function buildSidebarTreeHTML(node) {
   subKeys.forEach(subKey => {
     html += `
       <li class="sidebar-branch">
-        <details>
+        <details open>
           <summary class="sidebar-folder">${subKey}</summary>
           ${buildSidebarTreeHTML(node._sub[subKey])}
         </details>
@@ -85,54 +113,57 @@ function buildSidebarTreeHTML(node) {
   return html;
 }
 
-function renderSidebarNav(navTree) {
+/**
+ * Render Sidebar contents broken down by subcategory
+ */
+function renderLeftSidebarNav(navTree) {
   const container = document.getElementById('sidebar-nav-container');
   if (!container) return;
 
-  const topCategories = Object.keys(navTree);
+  const activeSection = 'Password Generators'; // Automatically target the password tree
+  const sectionData = navTree[activeSection] || navTree;
 
-  container.innerHTML = topCategories.map(cat => `
-    <div class="sidebar-section">
-      <details>
-        <summary class="sidebar-root-title">${cat}</summary>
-        ${buildSidebarTreeHTML(navTree[cat])}
-      </details>
+  container.innerHTML = `
+    <div class="sidebar-section-group">
+      ${buildSidebarTreeHTML(sectionData)}
     </div>
-  `).join('');
+  `;
 }
 
-/* --- Interaction Handlers --- */
-function setupInteractions() {
-  // Mega Nav Toggles
-  const toggles = document.querySelectorAll('.mega-toggle');
-  toggles.forEach(toggle => {
-    toggle.addEventListener('click', (e) => {
-      e.stopPropagation();
-      const parent = toggle.closest('.mega-dropdown');
-      const isExpanded = toggle.getAttribute('aria-expanded') === 'true';
+/**
+ * Toggle interactions for top nav and sidebar drawer
+ */
+function setupNavInteractions() {
+  const navBtns = document.querySelectorAll('.primary-nav-btn');
 
-      document.querySelectorAll('.mega-dropdown').forEach(item => {
+  navBtns.forEach(btn => {
+    btn.addEventListener('click', (e) => {
+      e.stopPropagation();
+      const parent = btn.closest('.primary-nav-item');
+      const isExpanded = btn.getAttribute('aria-expanded') === 'true';
+
+      document.querySelectorAll('.primary-nav-item').forEach(item => {
         item.classList.remove('active');
-        const btn = item.querySelector('.mega-toggle');
-        if (btn) btn.setAttribute('aria-expanded', 'false');
+        const b = item.querySelector('.primary-nav-btn');
+        if (b) b.setAttribute('aria-expanded', 'false');
       });
 
       if (!isExpanded) {
         parent.classList.add('active');
-        toggle.setAttribute('aria-expanded', 'true');
+        btn.setAttribute('aria-expanded', 'true');
       }
     });
   });
 
   document.addEventListener('click', () => {
-    document.querySelectorAll('.mega-dropdown').forEach(item => {
+    document.querySelectorAll('.primary-nav-item').forEach(item => {
       item.classList.remove('active');
-      const btn = item.querySelector('.mega-toggle');
-      if (btn) btn.setAttribute('aria-expanded', 'false');
+      const b = item.querySelector('.primary-nav-btn');
+      if (b) b.setAttribute('aria-expanded', 'false');
     });
   });
 
-  // Sidebar Drawer Toggles
+  // Sidebar Controls
   const openBtn = document.getElementById('sidebar-open-btn');
   const closeBtn = document.getElementById('sidebar-close-btn');
   const drawer = document.getElementById('sidebar-drawer');
@@ -150,33 +181,11 @@ function setupInteractions() {
   if (overlay) overlay.addEventListener('click', () => toggleSidebar(false));
 }
 
-/* --- Global Loader --- */
-async function loadComponents() {
-  const prefix = getRelativePrefix();
-
-  try {
-    const [headerRes, footerRes, navRes] = await Promise.all([
-      fetch(`${prefix}components/header-combined.html`),
-      fetch(`${prefix}components/footer.html`),
-      fetch(`${prefix}data/nav.json`)
-    ]);
-
-    if (headerRes.ok && document.getElementById('site-header')) {
-      document.getElementById('site-header').innerHTML = await headerRes.text();
-      if (navRes.ok) {
-        const navTree = await navRes.json();
-        renderMegaNav(navTree);
-        renderSidebarNav(navTree);
-        setupInteractions();
-      }
-    }
-    
-    if (footerRes.ok && document.getElementById('site-footer')) {
-      document.getElementById('site-footer').innerHTML = await footerRes.text();
-    }
-  } catch (err) {
-    console.error('Error loading global components:', err);
-  }
+function getRelativePrefix() {
+  const path = window.location.pathname;
+  const cleanPath = path.replace(/^\/Cubit\.Tools/, '');
+  const segments = cleanPath.split('/').filter(Boolean);
+  return segments.length > 0 ? '../'.repeat(segments.length) : './';
 }
 
 document.addEventListener('DOMContentLoaded', loadComponents);

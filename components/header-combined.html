@@ -1,24 +1,26 @@
-<header>
+<header class="site-header">
   <div class="header-container">
     <a href="/Cubit.Tools/" class="logo">cubit<span>.tools</span></a>
     
-    <!-- Top Mega Nav -->
-    <nav class="mega-nav">
-      <ul id="main-nav-links" class="mega-nav-list"></ul>
+    <!-- Core Section Top Navigation -->
+    <nav class="main-nav">
+      <ul id="primary-nav-links" class="primary-nav-list">
+        <!-- Rendered dynamically by app-combined-nav.js -->
+      </ul>
     </nav>
 
-    <!-- Sidebar Open Button -->
-    <button type="button" id="sidebar-open-btn" class="sidebar-toggle-btn" aria-label="Open Navigation">
+    <!-- Mobile / Drawer Toggle -->
+    <button type="button" id="sidebar-open-btn" class="sidebar-toggle-btn" aria-label="Open Category Navigation">
       <span class="hamburger-icon">☰ Categories</span>
     </button>
   </div>
 </header>
 
-<!-- Slide-Out Sidebar Drawer -->
+<!-- Left Sidebar Navigation Drawer -->
 <div id="sidebar-overlay" class="sidebar-overlay"></div>
-<aside id="sidebar-drawer" class="sidebar-drawer" aria-hidden="true">
+<aside id="sidebar-drawer" class="left-sidebar" aria-hidden="true">
   <div class="sidebar-header">
-    <h2>All Categories</h2>
+    <h3 id="sidebar-section-title">Categories</h3>
     <button type="button" id="sidebar-close-btn" class="sidebar-close-btn" aria-label="Close Navigation">✕</button>
   </div>
   <nav id="sidebar-nav-container" class="sidebar-nav"></nav>
