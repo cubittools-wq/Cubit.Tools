@@ -4,8 +4,6 @@ import os
 import shutil
 import urllib.request
 
-# Define CSV export URLs for each Google Sheet tab
-# (Replace these with your actual published CSV export links for each tab)
 TABS = {
     "passwords": "https://docs.google.com/spreadsheets/d/e/2PACX-1vSbdhn9SqIHgrMpqTdkBbl-enWc18IWbX8ixuxjJY6SYdaaNoQrkUZ9cLunkewSy1HqJILhKR5comZD/pub?gid=0&single=true&output=csv",
     "calculators": "https://docs.google.com/spreadsheets/d/e/2PACX-1vSbdhn9SqIHgrMpqTdkBbl-enWc18IWbX8ixuxjJY6SYdaaNoQrkUZ9cLunkewSy1HqJILhKR5comZD/pub?gid=1797593927&single=true&output=csv",
@@ -19,9 +17,9 @@ HTML_TEMPLATE = """<!DOCTYPE html>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title id="meta-title">{meta_title}</title>
   <meta id="meta-desc" name="description" content="{meta_desc}">
-  <link rel="stylesheet" href="/Cubit.Tools/css/style.css">
-  <link rel="stylesheet" href="/Cubit.Tools/css/mega-nav.css">
-  <link rel="stylesheet" href="/Cubit.Tools/css/sidebar-nav.css">
+  <link rel="stylesheet" href="{rel_prefix}css/style.css">
+  <link rel="stylesheet" href="{rel_prefix}css/mega-nav.css">
+  <link rel="stylesheet" href="{rel_prefix}css/sidebar-nav.css">
 </head>
 <body>
 
@@ -67,7 +65,7 @@ HTML_TEMPLATE = """<!DOCTYPE html>
 
   <div id="site-footer"></div>
 
-  <script src="/Cubit.Tools/js/app.js" type="module" defer></script>
+  <script src="{rel_prefix}js/app.js" type="module" defer></script>
 </body>
 </html>
 """
@@ -150,9 +148,14 @@ def build_site():
             folder_path = os.path.join(*raw_slug.split('/'))
             os.makedirs(folder_path, exist_ok=True)
 
+            # Calculate relative prefix based on depth of the slug
+            path_segments = [s for s in raw_slug.split('/') if s]
+            rel_prefix = "../" * (len(path_segments) - 1) if len(path_segments) > 1 else "./"
+
             # Write individual static HTML file
             html_file = os.path.join(folder_path, "index.html")
             content = HTML_TEMPLATE.format(
+                rel_prefix=rel_prefix,
                 meta_title=meta_title,
                 meta_desc=meta_desc,
                 h1_title=h1_title,
