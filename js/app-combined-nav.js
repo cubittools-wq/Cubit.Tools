@@ -211,4 +211,125 @@ function setupNavInteractions() {
   if (overlay) overlay.addEventListener('click', () => toggleSidebar(false));
 }
 
-document.addEventListener('DOMContentLoaded', loadComponents);
+/**
+ * Load a widget module by type. Uses dynamic import() so this file can stay
+ * a plain (non type="module") script - the <script> tags across the site
+ * that load app-combined-nav.js don't set type="module".
+ */
+async function loadWidgetClass(widgetType) {
+  switch (widgetType) {
+    case 'password_gen':
+    case 'lyrics_gen':
+      return (await import(`${BASE_URL}js/widgets/password_gen.js`)).default;
+    case 'finance_margin':
+      return (await import(`${BASE_URL}js/widgets/finance_margin.js`)).default;
+    case 'unit_converter':
+      return (await import(`${BASE_URL}js/widgets/unit_converter.js`)).default;
+    case 'elec_calc':
+      return (await import(`${BASE_URL}js/widgets/elec_calc.js`)).default;
+    case 'appliance_calc':
+      return (await import(`${BASE_URL}js/widgets/appliance_calc.js`)).default;
+    case 'countdown':
+      return (await import(`${BASE_URL}js/widgets/countdown.js`)).default;
+    case 'date_diff_calc':
+      return (await import(`${BASE_URL}js/widgets/date_diff_calc.js`)).default;
+    case 'age_calc':
+      return (await import(`${BASE_URL}js/widgets/age_calc.js`)).default;
+    default:
+      return null;
+  }
+}
+
+/**
+ * Modular Widget Dispatcher
+ */
+async function mountWidget(container) {
+  const widgetType = container.dataset.widget;
+
+  try {
+    const WidgetClass = await loadWidgetClass(widgetType);
+    if (WidgetClass) {
+      new WidgetClass(container);
+    } else {
+      container.innerHTML = `<p>Widget type "${widgetType}" not configured.</p>`;
+    }
+  } catch (err) {
+    console.error(`Error loading widget "${widgetType}":`, err);
+    container.innerHTML = `<p>Widget type "${widgetType}" failed to load.</p>`;
+  }
+}
+
+/**
+ * Render Dynamic Breadcrumb Trail
+ */
+function renderBreadcrumbs(categoryPath, pageTitle) {
+  const container = document.getElementById('breadcrumb-container');
+  if (!container || !categoryPath) return;
+
+  const parts = categoryPath.split('/').map(p => p.trim());
+  let accumPath = BASE_URL;
+
+  const crumbs = parts.map(part => {
+    accumPath += `${part.toLowerCase().replace(/\s+/g, '-')}/`;
+    return `<a href="${accumPath}">${part}</a>`;
+  });
+
+  container.innerHTML = `
+    <nav class="breadcrumbs">
+      <a href="${BASE_URL}">Home</a> &gt; 
+      ${crumbs.join(' &gt; ')} &gt; 
+      <span>${pageTitle}</span>
+    </nav>
+  `;
+}
+
+/**
+ * Find this page's row in the data sheets and mount its widget
+ */
+async function initToolPage() {
+  const toolContainer = document.getElementById('tool-container');
+  if (!toolContainer) return;
+
+  const pathSegments = window.location.pathname.split('/').filter(Boolean);
+  const currentSegment = pathSegments.length > 0 ? pathSegments[pathSegments.length - 1] : '';
+
+  const dataFiles = ['passwords.json', 'calculators.json', 'date_time.json'];
+
+  for (const file of dataFiles) {
+    try {
+      const response = await fetch(`${BASE_URL}data/${file}`);
+      if (!response.ok) continue;
+
+      const data = await response.json();
+      const pageData = data.find(item =>
+        item.Slug === currentSegment ||
+        item.Slug.endsWith('/' + currentSegment) ||
+        currentSegment === item.Slug.split('/').pop()
+      );
+
+      if (pageData) {
+        if (document.getElementById('meta-title')) document.title = pageData.Meta_Title;
+        if (document.getElementById('meta-desc')) document.getElementById('meta-desc').setAttribute('content', pageData.Meta_Desc);
+        if (document.getElementById('page-h1')) document.getElementById('page-h1').innerText = pageData.H1_Title;
+        if (document.getElementById('page-intro')) document.getElementById('page-intro').innerText = pageData.Intro_Text;
+        if (document.getElementById('seo-body')) document.getElementById('seo-body').innerHTML = pageData.SEO_Body;
+
+        renderBreadcrumbs(pageData.Category, pageData.H1_Title);
+
+        toolContainer.dataset.widget = pageData.Widget_Type;
+        toolContainer.dataset.config = pageData.Config_JSON;
+        toolContainer.dataset.list = pageData.Data_List || '';
+
+        await mountWidget(toolContainer);
+        break;
+      }
+    } catch (err) {
+      console.warn(`Could not load dataset from ${file}:`, err);
+    }
+  }
+}
+
+document.addEventListener('DOMContentLoaded', () => {
+  loadComponents();
+  initToolPage();
+});
