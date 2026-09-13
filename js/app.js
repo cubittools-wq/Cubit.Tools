@@ -1,11 +1,11 @@
-import PasswordGenWidget from './widgets/password_gen.js';
-import FinanceMarginWidget from './widgets/finance_margin.js';
-import UnitConverterWidget from './widgets/unit_converter.js';
-import ElecCalcWidget from './widgets/elec_calc.js';
-import ApplianceCalcWidget from './widgets/appliance_calc.js';
-import CountdownWidget from './widgets/countdown.js';
-import DateDiffCalcWidget from './widgets/date_diff_calc.js';
-import AgeCalcWidget from './widgets/age_calc.js';
+import PasswordGenWidget from '../widgets/password_gen.js';
+import FinanceMarginWidget from '../widgets/finance_margin.js';
+import UnitConverterWidget from '../widgets/unit_converter.js';
+import ElecCalcWidget from '../widgets/elec_calc.js';
+import ApplianceCalcWidget from '../widgets/appliance_calc.js';
+import CountdownWidget from '../widgets/countdown.js';
+import DateDiffCalcWidget from '../widgets/date_diff_calc.js';
+import AgeCalcWidget from '../widgets/age_calc.js';
 
 /**
  * 1. Folder Depth & Relative Path Helpers
