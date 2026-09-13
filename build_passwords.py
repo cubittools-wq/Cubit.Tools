@@ -32,10 +32,8 @@ HTML_TEMPLATE = """<!DOCTYPE html>
       <main>
         <div id="breadcrumb-container"></div>
 
-        <header>
-          <h1 id="page-h1">{h1_title}</h1>
-          <p id="page-intro" class="intro-text">{intro_text}</p>
-        </header>
+        <h1 id="page-h1">{h1_title}</h1>
+        <p id="page-intro" class="intro-text">{intro_text}</p>
 
         <section class="tool-card" id="tool-container"></section>
 
@@ -60,7 +58,6 @@ HTML_TEMPLATE = """<!DOCTYPE html>
 </body>
 </html>
 """
-
 def fetch_csv(url):
     req = urllib.request.urlopen(url)
     csv_data = req.read().decode('utf-8').splitlines()
