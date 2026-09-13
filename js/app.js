@@ -69,10 +69,10 @@ async function loadComponents() {
 }
 
 /**
- * Render Header Nav (Shows Top-Level Categories as Dropdowns)
+ * Render Header Nav (Shows Top-Level Categories with Nested Subcategories)
  */
 function renderTopLevelNav(navTree) {
-  const navUl = document.getElementById('main-nav-links');
+  const navUl = document.getElementById('primary-nav-links');
   if (!navUl) return;
 
   const topCategories = Object.keys(navTree);
@@ -89,7 +89,7 @@ function renderTopLevelNav(navTree) {
 
       if (rootItems.length > 0) {
         itemsListHTML += `
-          <li class="nav-subgroup">
+          <li class="level-two-item">
             <ul>
               ${rootItems.map(item => `<li><a href="${item.url}">${item.title}</a></li>`).join('')}
             </ul>
@@ -99,8 +99,8 @@ function renderTopLevelNav(navTree) {
 
       if (subKeys.length > 0) {
         itemsListHTML += subKeys.map(sub => `
-          <li class="nav-subgroup">
-            <span class="subgroup-title">${sub}</span>
+          <li class="level-two-item">
+            <span class="level-two-title">${sub}</span>
             <ul>
               ${(subCategories[sub]._items || []).map(item => `
                 <li><a href="${item.url}">${item.title}</a></li>
@@ -110,12 +110,20 @@ function renderTopLevelNav(navTree) {
         `).join('');
       }
 
-      dropHTML = `<ul class="dropdown-menu">${itemsListHTML}</ul>`;
+      dropHTML = `
+        <div class="top-dropdown-panel">
+          <ul class="level-two-list">
+            ${itemsListHTML}
+          </ul>
+        </div>
+      `;
     }
 
     return `
-      <li class="nav-dropdown">
-        <a href="#" class="dropdown-toggle">${cat} ▾</a>
+      <li class="primary-nav-item">
+        <button type="button" class="primary-nav-btn" aria-expanded="false">
+          ${cat} <span class="arrow">▾</span>
+        </button>
         ${dropHTML}
       </li>
     `;
