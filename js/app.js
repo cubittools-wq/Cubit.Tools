@@ -18,6 +18,25 @@ function getRelativePrefix() {
 }
 
 /**
+ * Theme Toggle Handler
+ */
+function initThemeToggle() {
+  const toggleBtn = document.getElementById('theme-toggle');
+  if (!toggleBtn) return;
+
+  const savedTheme = localStorage.getItem('theme') || 'dark';
+  document.documentElement.setAttribute('data-theme', savedTheme);
+
+  toggleBtn.addEventListener('click', () => {
+    const currentTheme = document.documentElement.getAttribute('data-theme');
+    const newTheme = currentTheme === 'light' ? 'dark' : 'light';
+    
+    document.documentElement.setAttribute('data-theme', newTheme);
+    localStorage.setItem('theme', newTheme);
+  });
+}
+
+/**
  * 2. Fetch Header, Footer, and Hierarchical Navigation
  */
 async function loadComponents() {
@@ -33,6 +52,8 @@ async function loadComponents() {
     if (headerRes.ok && document.getElementById('site-header')) {
       document.getElementById('site-header').innerHTML = await headerRes.text();
       
+      initThemeToggle();
+
       if (navRes.ok) {
         const navTree = await navRes.json();
         renderTopLevelNav(navTree);
@@ -217,7 +238,6 @@ async function initPage() {
 
         renderBreadcrumbs(pageData.Category, pageData.H1_Title);
 
-        // Bind attributes for the widget dispatcher
         toolContainer.dataset.widget = pageData.Widget_Type;
         toolContainer.dataset.config = pageData.Config_JSON;
         toolContainer.dataset.list = pageData.Data_List || '';
