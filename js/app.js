@@ -1,11 +1,11 @@
-import PasswordGenWidget from 'https://cubittools-wq.github.io/Cubit.Tools/widgets/password_gen.js';
-import FinanceMarginWidget from 'https://cubittools-wq.github.io/Cubit.Tools/widgets/finance_margin.js';
-import UnitConverterWidget from 'https://cubittools-wq.github.io/Cubit.Tools/widgets/unit_converter.js';
-import ElecCalcWidget from 'https://cubittools-wq.github.io/Cubit.Tools/widgets/elec_calc.js';
-import ApplianceCalcWidget from 'https://cubittools-wq.github.io/Cubit.Tools/widgets/appliance_calc.js';
-import CountdownWidget from 'https://cubittools-wq.github.io/Cubit.Tools/widgets/countdown.js';
-import DateDiffCalcWidget from 'https://cubittools-wq.github.io/Cubit.Tools/widgets/date_diff_calc.js';
-import AgeCalcWidget from 'https://cubittools-wq.github.io/Cubit.Tools/widgets/age_calc.js';
+import PasswordGenWidget from 'https://cubittools-wq.github.io/Cubit.Tools/js/widgets/password_gen.js';
+import FinanceMarginWidget from 'https://cubittools-wq.github.io/Cubit.Tools/js/widgets/finance_margin.js';
+import UnitConverterWidget from 'https://cubittools-wq.github.io/Cubit.Tools/js/widgets/unit_converter.js';
+import ElecCalcWidget from 'https://cubittools-wq.github.io/Cubit.Tools/js/widgets/elec_calc.js';
+import ApplianceCalcWidget from 'https://cubittools-wq.github.io/Cubit.Tools/js/widgets/appliance_calc.js';
+import CountdownWidget from 'https://cubittools-wq.github.io/Cubit.Tools/js/widgets/countdown.js';
+import DateDiffCalcWidget from 'https://cubittools-wq.github.io/Cubit.Tools/js/widgets/date_diff_calc.js';
+import AgeCalcWidget from 'https://cubittools-wq.github.io/Cubit.Tools/js/widgets/age_calc.js';
 
 const BASE_URL = 'https://cubittools-wq.github.io/Cubit.Tools/';
 
