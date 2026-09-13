@@ -88,6 +88,8 @@
   <div id="site-footer"></div>
 
   <!-- Global JavaScript Application Logic -->
-  <script src="js/app.js" type="module" defer></script>
+  <script type="module">
+    import { loadComponents } from './js/app.js'; // Adjust if loadComponents is exported, or ensure initPage handles it
+  </script>
 </body>
 </html>
