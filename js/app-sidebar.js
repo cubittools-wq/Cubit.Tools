@@ -1,11 +1,5 @@
+const BASE_URL = 'https://cubittools-wq.github.io/Cubit.Tools/';
 let currentWordList = [];
-
-function getRelativePrefix() {
-  const path = window.location.pathname;
-  const cleanPath = path.replace(/^\/Cubit\.Tools/, '');
-  const segments = cleanPath.split('/').filter(Boolean);
-  return segments.length > 0 ? '../'.repeat(segments.length) : './';
-}
 
 function buildSidebarTreeHTML(node) {
   let html = '<ul class="sidebar-tree">';
@@ -26,7 +20,7 @@ function buildSidebarTreeHTML(node) {
   items.forEach(item => {
     html += `
       <li class="sidebar-leaf">
-        <a href="${item.url}">${item.title}</a>
+        <a href="${BASE_URL}${item.url.replace(/^\//, '')}">${item.title}</a>
       </li>
     `;
   });
@@ -69,13 +63,11 @@ function setupSidebarInteractions() {
 }
 
 async function loadComponents() {
-  const prefix = getRelativePrefix();
-
   try {
     const [headerRes, footerRes, navRes] = await Promise.all([
-      fetch(`${prefix}components/header-sidebar.html`),
-      fetch(`${prefix}components/footer.html`),
-      fetch(`${prefix}data/nav.json`)
+      fetch(`${BASE_URL}components/header-sidebar.html`),
+      fetch(`${BASE_URL}components/footer.html`),
+      fetch(`${BASE_URL}data/nav.json`)
     ]);
 
     if (headerRes.ok && document.getElementById('site-header')) {

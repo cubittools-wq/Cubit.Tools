@@ -1,14 +1,15 @@
+const DOMAIN = 'https://cubittools-wq.github.io';
+const BASE_URL = 'https://cubittools-wq.github.io/Cubit.Tools/';
+
 /**
  * Global Navigation Loader for Cubit.Tools
  */
 async function loadComponents() {
-  const prefix = getRelativePrefix();
-
   try {
     const [headerRes, footerRes, navRes] = await Promise.all([
-      fetch(`${prefix}components/header-combined.html`),
-      fetch(`${prefix}components/footer.html`),
-      fetch(`${prefix}data/nav.json`)
+      fetch(`${BASE_URL}components/header-combined.html`),
+      fetch(`${BASE_URL}components/footer.html`),
+      fetch(`${BASE_URL}data/nav.json`)
     ]);
 
     if (headerRes.ok && document.getElementById('site-header')) {
@@ -59,7 +60,7 @@ function renderPrimaryNav(navTree) {
         itemsListHTML += `
           <li class="level-two-item">
             <ul>
-              ${rootItems.map(item => `<li><a href="${item.url}">${item.title}</a></li>`).join('')}
+              ${rootItems.map(item => `<li><a href="${DOMAIN}${item.url}">${item.title}</a></li>`).join('')}
             </ul>
           </li>
         `;
@@ -71,7 +72,7 @@ function renderPrimaryNav(navTree) {
             <span class="level-two-title">${subKey}</span>
             <ul>
               ${(sectionData._sub[subKey]._items || []).map(item => `
-                <li><a href="${item.url}">${item.title}</a></li>
+                <li><a href="${DOMAIN}${item.url}">${item.title}</a></li>
               `).join('')}
             </ul>
           </li>
@@ -120,7 +121,7 @@ function buildSidebarTreeHTML(node) {
   items.forEach(item => {
     html += `
       <li class="sidebar-leaf">
-        <a href="${item.url}">${item.title}</a>
+        <a href="${DOMAIN}${item.url}">${item.title}</a>
       </li>
     `;
   });
@@ -139,11 +140,9 @@ function renderLeftSidebarNav(navTree) {
   const topCategories = Object.keys(navTree);
   if (topCategories.length === 0) return;
 
-  // Determine active section based on URL path or default to the first category
   const pathSegments = window.location.pathname.split('/').filter(Boolean);
   let activeSection = topCategories[0];
 
-  // Simple heuristic: check if any top category name matches a segment or path pattern
   for (const cat of topCategories) {
     const slugifiedCat = cat.toLowerCase().replace(/\s+/g, '-');
     if (pathSegments.some(seg => seg.toLowerCase() === slugifiedCat)) {
@@ -210,13 +209,6 @@ function setupNavInteractions() {
   if (openBtn) openBtn.addEventListener('click', () => toggleSidebar(true));
   if (closeBtn) closeBtn.addEventListener('click', () => toggleSidebar(false));
   if (overlay) overlay.addEventListener('click', () => toggleSidebar(false));
-}
-
-function getRelativePrefix() {
-  const path = window.location.pathname;
-  const cleanPath = path.replace(/^\/Cubit\.Tools/, '');
-  const segments = cleanPath.split('/').filter(Boolean);
-  return segments.length > 0 ? '../'.repeat(segments.length) : './';
 }
 
 document.addEventListener('DOMContentLoaded', loadComponents);

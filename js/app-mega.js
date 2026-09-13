@@ -1,11 +1,5 @@
+const BASE_URL = 'https://cubittools-wq.github.io/Cubit.Tools/';
 let currentWordList = [];
-
-function getRelativePrefix() {
-  const path = window.location.pathname;
-  const cleanPath = path.replace(/^\/Cubit\.Tools/, '');
-  const segments = cleanPath.split('/').filter(Boolean);
-  return segments.length > 0 ? '../'.repeat(segments.length) : './';
-}
 
 function buildMegaTreeHTML(node) {
   let html = '';
@@ -26,7 +20,7 @@ function buildMegaTreeHTML(node) {
   if (items.length > 0) {
     html += '<ul class="mega-links">';
     items.forEach(item => {
-      html += `<li><a href="${item.url}">${item.title}</a></li>`;
+      html += `<li><a href="${BASE_URL}${item.url.replace(/^\//, '')}">${item.title}</a></li>`;
     });
     html += '</ul>';
   }
@@ -91,13 +85,11 @@ function setupMegaInteractions() {
 }
 
 async function loadComponents() {
-  const prefix = getRelativePrefix();
-
   try {
     const [headerRes, footerRes, navRes] = await Promise.all([
-      fetch(`${prefix}components/header-mega.html`),
-      fetch(`${prefix}components/footer.html`),
-      fetch(`${prefix}data/nav.json`)
+      fetch(`${BASE_URL}components/header-mega.html`),
+      fetch(`${BASE_URL}components/footer.html`),
+      fetch(`${BASE_URL}data/nav.json`)
     ]);
 
     if (headerRes.ok && document.getElementById('site-header')) {
