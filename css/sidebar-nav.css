@@ -1,0 +1,97 @@
+/* Sidebar Button */
+.sidebar-toggle-btn {
+  background-color: var(--card-bg);
+  border: 1px solid var(--border);
+  color: var(--text-main);
+  padding: 0.5rem 1rem;
+  border-radius: 6px;
+  font-weight: 600;
+  cursor: pointer;
+
+  &:hover {
+    border-color: var(--accent);
+    color: var(--accent);
+  }
+}
+
+/* Slide-out Panel */
+.sidebar-drawer {
+  position: fixed;
+  top: 0;
+  right: -320px;
+  width: 320px;
+  height: 100vh;
+  background-color: var(--card-bg);
+  border-left: 1px solid var(--border);
+  z-index: 2000;
+  padding: 1.5rem;
+  overflow-y: auto;
+  transition: right 0.3s ease;
+}
+
+.sidebar-drawer.open {
+  right: 0;
+}
+
+.sidebar-overlay {
+  position: fixed;
+  inset: 0;
+  background-color: rgba(0, 0, 0, 0.6);
+  z-index: 1999;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.3s ease;
+}
+
+.sidebar-overlay.open {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+.sidebar-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 1.5rem;
+  border-bottom: 1px solid var(--border);
+  padding-bottom: 0.75rem;
+}
+
+.sidebar-close-btn {
+  background: none;
+  border: none;
+  color: var(--text-muted);
+  font-size: 1.25rem;
+  cursor: pointer;
+
+  &:hover {
+    color: var(--text-main);
+  }
+}
+
+/* Nested Accordions */
+.sidebar-root-title,
+.sidebar-folder {
+  font-weight: 600;
+  color: var(--accent);
+  cursor: pointer;
+  padding: 0.5rem 0;
+  user-select: none;
+}
+
+.sidebar-tree {
+  list-style: none;
+  padding-left: 1rem;
+}
+
+.sidebar-leaf a {
+  display: block;
+  padding: 0.35rem 0;
+  color: var(--text-muted);
+  text-decoration: none;
+  font-size: 0.9rem;
+
+  &:hover {
+    color: var(--text-main);
+  }
+}

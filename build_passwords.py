@@ -14,6 +14,8 @@ HTML_TEMPLATE = """<!DOCTYPE html>
   <title id="meta-title">{meta_title}</title>
   <meta id="meta-desc" name="description" content="{meta_desc}">
   <link rel="stylesheet" href="/Cubit.Tools/css/style.css">
+  <link rel="stylesheet" href="/Cubit.Tools/css/mega-nav.css">
+  <link rel="stylesheet" href="/Cubit.Tools/css/sidebar-nav.css">
 </head>
 <body>
 
@@ -54,10 +56,11 @@ HTML_TEMPLATE = """<!DOCTYPE html>
 
   <div id="site-footer"></div>
 
-  <script src="/Cubit.Tools/js/app.js" defer></script>
+  <script src="/Cubit.Tools/js/app-combined-nav.js" defer></script>
 </body>
 </html>
 """
+
 def fetch_csv(url):
     req = urllib.request.urlopen(url)
     csv_data = req.read().decode('utf-8').splitlines()
