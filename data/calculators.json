@@ -1,0 +1,98 @@
+[
+  {
+    "Category": "Calculators/Finance",
+    "Slug": "calculators/finance/simple-net-profit-margin-calculator",
+    "H1_Title": "Net Profit Margin Calculator",
+    "Meta_Title": "Simple Net Profit Margin Calculator | Cubit.tools",
+    "Meta_Desc": "Calculate net profit margin quickly with our free Net Profit Margin Calculator. Enter your total revenue and costs to calculate your net margin percentage.",
+    "Intro_Text": "Calculate your net profit margin quickly and easily with our free Net Profit Margin Calculator. Enter your total revenue and total costs to see your net profit and net margin percentage.",
+    "Widget_Type": "finance_margin",
+    "Config_JSON": "{\"mode\": \"net_margin\", \"currency\": \"$\", \"fields\": [\"revenue\", \"costs\"], \"formula\": \"((revenue - costs) / revenue) * 100\"}",
+    "Data_List": "",
+    "SEO_Body": "<h2>Net Profit Margin Calculator</h2><p>Use our <strong>Net Profit Margin Calculator</strong> to quickly calculate your net profit margin as a percentage. Simply enter your total revenue and total costs to see how much of your revenue remains as profit after costs.</p><h2>Understanding Net Profit Margin</h2><p>Net profit margin displays the percentage of revenue remaining after subtracting all operating expenses, taxes, interest, and costs of goods sold. A higher margin can indicate better expense control and financial sustainability.</p><h3>Net Profit Margin Formula</h3><p><code>Net Profit Margin = ((Total Revenue - Total Costs) / Total Revenue) * 100</code></p><p>For example, if a business generates \u00a3100,000 in revenue and has total costs of \u00a380,000, its net profit is \u00a320,000 and its net profit margin is 20%.</p><h2>How to Calculate Net Profit Margin</h2><p>To calculate your net profit margin, enter your <strong>total revenue</strong> and <strong>total costs</strong> into the calculator. The calculator subtracts your costs from your revenue to determine your net profit, then expresses that profit as a percentage of your total revenue.</p><h2>What Does Net Profit Margin Tell You?</h2><p>Net profit margin helps show how much profit a business retains from each pound of revenue after accounting for its costs. For example, a 15% net profit margin means that a business keeps \u00a315 in net profit for every \u00a3100 of revenue.</p><p>Comparing net profit margins over time can help businesses understand changes in profitability and assess the impact of increasing revenue, reducing costs or changing operating expenses.</p><h2>Net Margin vs Gross Profit Margin</h2><p><strong>Gross profit margin</strong> measures the profit remaining after the cost of goods sold, while <strong>net profit margin</strong> takes a broader view and accounts for additional expenses such as operating costs, interest and taxes. Net profit margin therefore provides a more complete picture of overall profitability.</p><h2>Calculate Your Net Margin</h2><p>Enter your revenue and costs into the <strong>Net Profit Margin Calculator</strong> above to calculate your net profit and net margin percentage. It's a simple way to assess profitability and understand how much of your revenue remains after costs.</p>"
+  },
+  {
+    "Category": "Unit Converters",
+    "Slug": "unit-converters/length-converter",
+    "H1_Title": "Length Unit Converter",
+    "Meta_Title": "Length Unit Converter | Cubit.tools",
+    "Meta_Desc": "Convert length units instantly with our free Length Unit Converter. Convert between metres, feet, inches, kilometres, miles and other metric and imperial units.",
+    "Intro_Text": "Convert length units quickly and easily with our free Length Unit Converter. Convert between metric and imperial measurements including metres, feet, inches, kilometres and miles.",
+    "Widget_Type": "unit_converter",
+    "Config_JSON": "{\"dimension\": \"length\", \"base_unit\": \"meters\", \"default_from\": \"meters\", \"default_to\": \"feet\", \"factors\": {\"meters\": 1.0, \"kilometers\": 1000.0, \"centimeters\": 0.01, \"millimeters\": 0.001, \"miles\": 1609.344, \"yards\": 0.9144, \"feet\": 0.3048, \"inches\": 0.0254}}",
+    "Data_List": "",
+    "SEO_Body": "<h2>Length Unit Converter</h2><p>Use our free <strong>Length Unit Converter</strong> to quickly convert measurements between different metric and imperial units. Enter a value and select your units to instantly see the converted length.</p><h2>Convert Length Units</h2><p>Our length converter makes it easy to convert between common units of measurement, including <strong>metres, centimetres, millimetres, kilometres, feet, inches, yards and miles</strong>. Whether you're working with metric or imperial measurements, you can convert lengths quickly without needing to calculate the conversion yourself.</p><h3>Common Length Conversions</h3><p>Some of the most common length conversions include:</p><ul><li>Metres to feet</li><li>Feet to metres</li><li>Centimetres to inches</li><li>Inches to centimetres</li><li>Kilometres to miles</li><li>Miles to kilometres</li><li>Metres to yards</li><li>Yards to metres</li></ul><h2>Metric and Imperial Length Converter</h2><p>Metric and imperial systems use different units to measure length. The metric system includes units such as millimetres, centimetres, metres and kilometres, while imperial measurements commonly include inches, feet, yards and miles.</p><p>A <strong>metric to imperial converter</strong> can be useful when working with measurements from different countries, comparing product dimensions, planning distances or simply checking a measurement in another unit.</p><h2>How to Convert Length Measurements</h2><p>To convert a length, enter the measurement into the calculator and select the unit you are converting from and the unit you want to convert to. The <strong>Length Unit Converter</strong> calculates the equivalent measurement instantly.</p><p>For example, 1 metre is equal to approximately 3.281 feet, while 1 kilometre is approximately 0.621 miles.</p><h2>Metres, Feet, Inches, Kilometres and Miles</h2><p>Whether you need to convert <strong>metres to feet</strong>, <strong>feet to metres</strong>, <strong>inches to centimetres</strong>, <strong>kilometres to miles</strong> or miles to kilometres, our length converter provides a quick and convenient way to convert measurements.</p><h2>Convert Lengths Instantly</h2><p>Use the <strong>Length Unit Converter</strong> above to convert your measurement between metric and imperial units. Simply enter your value, select the relevant units and get your converted length instantly.</p>"
+  },
+  {
+    "Category": "Unit Converters",
+    "Slug": "unit-converters/weight-converter",
+    "H1_Title": "Weight Unit Converter",
+    "Meta_Title": "Weight Unit Converter | Cubit.tools",
+    "Meta_Desc": "Convert weight and mass units instantly between metric and imperial measurements, including kilograms, pounds, grams, ounces, and stones.",
+    "Intro_Text": "Quickly convert weight and mass measurements across common metric and imperial units with real-time precision.",
+    "Widget_Type": "unit_converter",
+    "Config_JSON": "{\"dimension\": \"weight\", \"base_unit\": \"kilograms\", \"default_from\": \"kilograms\", \"default_to\": \"pounds\", \"factors\": {\"kilograms\": 1.0, \"grams\": 0.001, \"milligrams\": 0.000001, \"metric_tons\": 1000.0, \"pounds\": 0.45359237, \"ounces\": 0.02834952, \"stones\": 6.35029}}",
+    "Data_List": "",
+    "SEO_Body": "<h2>Weight and Mass Conversion</h2><p>Accurate weight conversion is crucial for shipping, cooking, fitness tracking, and scientific calculations. Easily convert between standard metric units like kilograms and grams or imperial units like pounds, ounces, and stones.</p><h3>Common Weight Conversion Rates</h3><ul><li>1 Kilogram = 2.20462 Pounds</li><li>1 Pound = 16 Ounces</li><li>1 Stone = 14 Pounds (6.35029 Kilograms)</li></ul>"
+  },
+  {
+    "Category": "Unit Converters",
+    "Slug": "unit-converters/speed-unit-converter",
+    "H1_Title": "Speed Unit Converter",
+    "Meta_Title": "Speed Unit Converter | Cubit.tools",
+    "Meta_Desc": "Convert speed units instantly between miles per hour, kilometers per hour, meters per second, knots, and feet per second.",
+    "Intro_Text": "Quickly convert velocity and speed measurements across common imperial, metric, and nautical units with real-time precision.",
+    "Widget_Type": "unit_converter",
+    "Config_JSON": "{\"dimension\": \"speed\", \"base_unit\": \"kph\", \"default_from\": \"mph\", \"default_to\": \"kph\", \"factors\": {\"kph\": 1.0, \"mph\": 1.609344, \"m_s\": 3.6, \"knots\": 1.852, \"ft_s\": 1.09728}}",
+    "Data_List": "",
+    "SEO_Body": "<h2>Speed and Velocity Conversion</h2><p>Converting speed measurements is vital for travel planning, aviation, maritime navigation, and sports analytics. Effortlessly switch between terrestrial speeds (mph, km/h) and nautical or aviation units (knots).</p><h3>Common Speed Conversion Rates</h3><ul><li>1 Mile per Hour (mph) = 1.60934 Kilometers per Hour (km/h)</li><li>1 Knot = 1.15078 Miles per Hour (mph)</li><li>1 Meter per Second (m/s) = 3.6 Kilometers per Hour (km/h)</li></ul>"
+  },
+  {
+    "Category": "Unit Converters",
+    "Slug": "unit-converters/temperature-unit-converter",
+    "H1_Title": "Temperature Unit Converter",
+    "Meta_Title": "Temperature Unit Converter | Cubit.tools",
+    "Meta_Desc": "Convert temperatures instantly between Celsius, Fahrenheit, and Kelvin scales.",
+    "Intro_Text": "Quickly convert temperatures between imperial and metric systems with real-time precision.",
+    "Widget_Type": "unit_converter",
+    "Config_JSON": "{\"dimension\": \"temperature\", \"base_unit\": \"celsius\", \"default_from\": \"celsius\", \"default_to\": \"fahrenheit\", \"units\": [\"celsius\", \"fahrenheit\", \"kelvin\"], \"formulas\": {\"celsius_to_fahrenheit\": \"(val * 9/5) + 32\", \"fahrenheit_to_celsius\": \"(val - 32) * 5/9\", \"celsius_to_kelvin\": \"val + 273.15\", \"kelvin_to_celsius\": \"val - 273.15\"}}",
+    "Data_List": "",
+    "SEO_Body": "<h2>Temperature Conversion</h2><p>Temperature conversions are widely used in cooking, weather forecasting, science, and engineering. Easily convert between Celsius, Fahrenheit, and Kelvin.</p><h3>Common Temperature Formulas</h3><ul><li><strong>Fahrenheit to Celsius:</strong> <code>(\u00b0F - 32) \u00d7 5/9 = \u00b0C</code></li><li><strong>Celsius to Fahrenheit:</strong> <code>(\u00b0C \u00d7 9/5) + 32 = \u00b0F</code></li><li><strong>Celsius to Kelvin:</strong> <code>\u00b0C + 273.15 = K</code></li></ul>"
+  },
+  {
+    "Category": "Unit Converters",
+    "Slug": "unit-converters/cooking-unit-converter",
+    "H1_Title": "Cooking Unit Converter",
+    "Meta_Title": "Cooking Unit Converter | Cubit.tools",
+    "Meta_Desc": "Convert cooking and baking measurements instantly between cups, tablespoons, teaspoons, grams, ounces, and milliliters.",
+    "Intro_Text": "Quickly convert recipe ingredients, volume, and weight measurements for baking and cooking precision.",
+    "Widget_Type": "unit_converter",
+    "Config_JSON": "{\"dimension\": \"cooking\", \"base_unit\": \"milliliters\", \"default_from\": \"cups\", \"default_to\": \"milliliters\", \"factors\": {\"milliliters\": 1.0, \"liters\": 1000.0, \"cups\": 240.0, \"tablespoons\": 15.0, \"teaspoons\": 5.0, \"fluid_ounces\": 29.5735, \"grams\": 1.0, \"ounces\": 28.3495}}",
+    "Data_List": "",
+    "SEO_Body": "<h2>Cooking and Baking Measurement Conversion</h2><p>Accurate kitchen measurements ensure recipe success whether baking or cooking. Easily convert between volumetric units like cups and tablespoons, liquid volume like milliliters, and dry weight measurements like grams and ounces.</p><h3>Common Kitchen Conversions</h3><ul><li>1 Cup = 16 Tablespoons = 240 Milliliters</li><li>1 Tablespoon = 3 Teaspoons = 15 Milliliters</li><li>1 Fluid Ounce = 29.57 Milliliters</li></ul>"
+  },
+  {
+    "Category": "Electrical",
+    "Slug": "watts-to-amps-calculator",
+    "H1_Title": "Watts to Amps Calculator",
+    "Meta_Title": "Watts to Amps Calculator | Cubit.tools",
+    "Meta_Desc": "Calculate electrical current in amperes from watts and volts instantly for AC, DC, single-phase, and three-phase circuits.",
+    "Intro_Text": "Quickly convert electrical power in watts to current in amperes based on your circuit voltage and system type.",
+    "Widget_Type": "elec_calc",
+    "Config_JSON": "{\"mode\": \"watts_to_amps\", \"fields\": [\"watts\", \"volts\"], \"formula\": \"watts / volts\"}",
+    "Data_List": "",
+    "SEO_Body": "<h2>How to Convert Watts to Amps</h2><p>Electrical current (amperes) is equal to power (watts) divided by voltage (volts). Use this calculator to determine the required current for your electrical appliances and circuits safely and accurately.</p><h3>Formula</h3><p><code>Amps = Watts / Volts</code></p>"
+  },
+  {
+    "Category": "Energy",
+    "Slug": "fridge-energy-rating",
+    "H1_Title": "Fridge Energy Label Calculator",
+    "Meta_Title": "Fridge Energy Label Calculator | Cubit.tools",
+    "Meta_Desc": "Calculate your refrigerator's annual electricity consumption and running cost based on its EU energy efficiency label and tariff.",
+    "Intro_Text": "Quickly estimate your annual fridge energy use, yearly operating costs, and potential savings by comparing different energy efficiency classes.",
+    "Widget_Type": "appliance_calc",
+    "Config_JSON": "{\"mode\": \"fridge_energy\", \"default_rate\": 0.28, \"classes\": {\"A\": 120, \"B\": 150, \"C\": 190, \"D\": 240, \"E\": 300, \"F\": 370, \"G\": 450}}",
+    "Data_List": "",
+    "SEO_Body": "<h2>Understanding Refrigerator Energy Ratings</h2><p>Because refrigerators and freezers must run continuously 24 hours a day, 365 days a year, their energy efficiency rating has a massive impact on your household electricity bill. Modern rescaled energy labels range from class A (most efficient) down to class G (least efficient).</p><h3>How Costs Are Calculated</h3><p>The energy label lists total annual consumption in kilowatt-hours (kWh/annum). Multiplying this figure by your local electricity utility rate per kWh reveals your exact annual running cost.</p>"
+  }
+]
