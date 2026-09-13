@@ -1,4 +1,11 @@
-let currentWordList = [];
+import PasswordGenWidget from './widgets/password_gen.js';
+import FinanceMarginWidget from './widgets/finance_margin.js';
+import UnitConverterWidget from './widgets/unit_converter.js';
+import ElecCalcWidget from './widgets/elec_calc.js';
+import ApplianceCalcWidget from './widgets/appliance_calc.js';
+import CountdownWidget from './widgets/countdown.js';
+import DateDiffCalcWidget from './widgets/date_diff_calc.js';
+import AgeCalcWidget from './widgets/age_calc.js';
 
 /**
  * 1. Folder Depth & Relative Path Helpers
@@ -56,11 +63,9 @@ function renderTopLevelNav(navTree) {
 
     let dropHTML = '';
 
-    // If there are subcategories OR direct items, build a dropdown menu
     if (subKeys.length > 0 || rootItems.length > 0) {
       let itemsListHTML = '';
 
-      // Render direct items if present (e.g. Category_Path = "General")
       if (rootItems.length > 0) {
         itemsListHTML += `
           <li class="nav-subgroup">
@@ -71,7 +76,6 @@ function renderTopLevelNav(navTree) {
         `;
       }
 
-      // Render subcategory items if present (e.g. Category_Path = "Sports/Football")
       if (subKeys.length > 0) {
         itemsListHTML += subKeys.map(sub => `
           <li class="nav-subgroup">
@@ -105,7 +109,7 @@ function renderBreadcrumbs(categoryPath, pageTitle) {
   if (!container || !categoryPath) return;
 
   const parts = categoryPath.split('/').map(p => p.trim());
-  let accumPath = '/Cubit.Tools/passwords/';
+  let accumPath = '/Cubit.Tools/';
 
   const crumbs = parts.map(part => {
     accumPath += `${part.toLowerCase().replace(/\s+/g, '-')}/`;
@@ -122,107 +126,44 @@ function renderBreadcrumbs(categoryPath, pageTitle) {
 }
 
 /**
- * 4. Password Generator Logic
+ * 4. Modular Widget Dispatcher
  */
-function generatePassword() {
-  const outputEl = document.getElementById('password-output');
-  const countEl = document.getElementById('word-count-slider');
-  const numCheck = document.getElementById('include-numbers');
-  const symCheck = document.getElementById('include-symbols');
+function mountWidget(container) {
+  const widgetType = container.dataset.widget;
 
-  if (!outputEl) return;
-
-  const wordCount = countEl ? parseInt(countEl.value, 10) : 3;
-  const includeNumbers = numCheck ? numCheck.checked : true;
-  const includeSymbols = symCheck ? symCheck.checked : true;
-
-  if (!currentWordList || currentWordList.length === 0) {
-    currentWordList = ['apple', 'river', 'stove', 'cloud', 'timber', 'beacon', 'shadow', 'magnet'];
+  switch (widgetType) {
+    case 'password_gen':
+    case 'lyrics_gen':
+      new PasswordGenWidget(container);
+      break;
+    case 'finance_margin':
+      new FinanceMarginWidget(container);
+      break;
+    case 'unit_converter':
+      new UnitConverterWidget(container);
+      break;
+    case 'elec_calc':
+      new ElecCalcWidget(container);
+      break;
+    case 'appliance_calc':
+      new ApplianceCalcWidget(container);
+      break;
+    case 'countdown':
+      new CountdownWidget(container);
+      break;
+    case 'date_diff_calc':
+      new DateDiffCalcWidget(container);
+      break;
+    case 'age_calc':
+      new AgeCalcWidget(container);
+      break;
+    default:
+      container.innerHTML = `<p>Widget type "${widgetType}" not configured.</p>`;
   }
-
-  const selectedWords = [];
-  for (let i = 0; i < wordCount; i++) {
-    const randomWord = currentWordList[Math.floor(Math.random() * currentWordList.length)];
-    selectedWords.push(randomWord);
-  }
-
-  let passphrase = selectedWords.join('-');
-
-  if (includeNumbers) {
-    passphrase += `-${Math.floor(Math.random() * 90) + 10}`;
-  }
-
-  if (includeSymbols) {
-    const symbols = ['!', '@', '#', '$', '%', '&', '*'];
-    passphrase += symbols[Math.floor(Math.random() * symbols.length)];
-  }
-
-  outputEl.value = passphrase;
 }
 
 /**
- * 5. Interactive UI Setup
- */
-function renderToolUI() {
-  const container = document.getElementById('tool-container');
-  if (!container) return;
-
-  container.innerHTML = `
-    <div class="tool-box">
-      <div class="input-group">
-        <input type="text" id="password-output" readonly placeholder="Generating..." />
-        <button id="copy-btn" class="btn-secondary">Copy</button>
-      </div>
-
-      <div class="slider-group">
-        <label for="word-count-slider">
-          Number of Words: <strong id="word-count-val">3</strong>
-        </label>
-        <input type="range" id="word-count-slider" min="2" max="6" value="3" step="1" />
-      </div>
-
-      <div class="checkbox-group">
-        <label class="checkbox-label">
-          <input type="checkbox" id="include-numbers" checked />
-          <span>Include Numbers (e.g., -42)</span>
-        </label>
-        <label class="checkbox-label">
-          <input type="checkbox" id="include-symbols" checked />
-          <span>Include Symbols (e.g., !)</span>
-        </label>
-      </div>
-
-      <button id="generate-btn" class="btn-primary">Generate New Passphrase</button>
-    </div>
-  `;
-
-  const slider = document.getElementById('word-count-slider');
-  const sliderValDisplay = document.getElementById('word-count-val');
-  const numCheck = document.getElementById('include-numbers');
-  const symCheck = document.getElementById('include-symbols');
-
-  slider.addEventListener('input', (e) => {
-    sliderValDisplay.innerText = e.target.value;
-    generatePassword();
-  });
-
-  numCheck.addEventListener('change', generatePassword);
-  symCheck.addEventListener('change', generatePassword);
-  document.getElementById('generate-btn').addEventListener('click', generatePassword);
-
-  document.getElementById('copy-btn').addEventListener('click', () => {
-    const output = document.getElementById('password-output');
-    if (output && output.value) {
-      navigator.clipboard.writeText(output.value);
-      const copyBtn = document.getElementById('copy-btn');
-      copyBtn.innerText = 'Copied!';
-      setTimeout(() => { copyBtn.innerText = 'Copy'; }, 2000);
-    }
-  });
-}
-
-/**
- * 6. Quick Search Filter for Hub / Directory Pages
+ * 5. Quick Search Filter for Hub / Directory Pages
  */
 function initQuickSearch() {
   const searchInput = document.getElementById('hub-search-input');
@@ -240,12 +181,9 @@ function initQuickSearch() {
 }
 
 /**
- * 7. Page Initialization
+ * 6. Page Initialization
  */
 async function initPage() {
-  // Reset state on page load
-  currentWordList = [];
-
   await loadComponents();
   initQuickSearch();
 
@@ -254,45 +192,42 @@ async function initPage() {
 
   const pathSegments = window.location.pathname.split('/').filter(Boolean);
   const currentSegment = pathSegments.length > 0 ? pathSegments[pathSegments.length - 1] : '';
-
   const prefix = getRelativePrefix();
 
-  try {
-    const response = await fetch(`${prefix}data/passwords.json`);
-    if (!response.ok) throw new Error(`HTTP error! status: ${response.status}`);
-    
-    const data = await response.json();
-    
-    const pageData = data.find(item => 
-      item.Slug === currentSegment || 
-      item.Slug.endsWith('/' + currentSegment) ||
-      currentSegment === item.Slug.split('/').pop()
-    ) || data[0];
+  const dataFiles = ['passwords.json', 'calculators.json', 'date_time.json'];
 
-    if (pageData) {
-      if (document.getElementById('meta-title')) document.title = pageData.Meta_Title;
-      if (document.getElementById('meta-desc')) document.getElementById('meta-desc').setAttribute('content', pageData.Meta_Desc);
-      if (document.getElementById('page-h1')) document.getElementById('page-h1').innerText = pageData.H1_Title;
-      if (document.getElementById('page-intro')) document.getElementById('page-intro').innerText = pageData.Intro_Text;
-      if (document.getElementById('seo-body')) document.getElementById('seo-body').innerText = pageData.SEO_Body;
+  for (const file of dataFiles) {
+    try {
+      const response = await fetch(`${prefix}data/${file}`);
+      if (!response.ok) continue;
+      
+      const data = await response.json();
+      const pageData = data.find(item => 
+        item.Slug === currentSegment || 
+        item.Slug.endsWith('/' + currentSegment) ||
+        currentSegment === item.Slug.split('/').pop()
+      );
 
-      renderBreadcrumbs(pageData.Category || pageData.Category_Path, pageData.H1_Title);
+      if (pageData) {
+        if (document.getElementById('meta-title')) document.title = pageData.Meta_Title;
+        if (document.getElementById('meta-desc')) document.getElementById('meta-desc').setAttribute('content', pageData.Meta_Desc);
+        if (document.getElementById('page-h1')) document.getElementById('page-h1').innerText = pageData.H1_Title;
+        if (document.getElementById('page-intro')) document.getElementById('page-intro').innerText = pageData.Intro_Text;
+        if (document.getElementById('seo-body')) document.getElementById('seo-body').innerHTML = pageData.SEO_Body;
 
-      // Populate currentWordList or fallback
-      if (pageData.Word_List && pageData.Word_List.trim().length > 0) {
-        currentWordList = pageData.Word_List.split(',').map(w => w.trim());
-      } else {
-        currentWordList = ['apple', 'river', 'stove', 'cloud', 'timber', 'beacon', 'shadow', 'magnet'];
+        renderBreadcrumbs(pageData.Category, pageData.H1_Title);
+
+        // Bind attributes for the widget dispatcher
+        toolContainer.dataset.widget = pageData.Widget_Type;
+        toolContainer.dataset.config = pageData.Config_JSON;
+        toolContainer.dataset.list = pageData.Data_List || '';
+
+        mountWidget(toolContainer);
+        break;
       }
-
-      renderToolUI();
-      generatePassword();
+    } catch (err) {
+      console.warn(`Could not load dataset from ${file}:`, err);
     }
-  } catch (err) {
-    console.error('Error loading page JSON data:', err);
-    currentWordList = ['apple', 'river', 'stove', 'cloud', 'timber', 'beacon', 'shadow', 'magnet'];
-    renderToolUI();
-    generatePassword();
   }
 }
 

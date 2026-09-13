@@ -17,10 +17,10 @@ async function loadComponents() {
       if (navRes.ok) {
         const navTree = await navRes.json();
         
-        // 1. Build main top nav (Level 1 & Level 2)
+        // 1. Build main top nav dropdowns
         renderPrimaryNav(navTree);
         
-        // 2. Build left sidebar breakdown (Full Depth)
+        // 2. Build left sidebar breakdown based on current section
         renderLeftSidebarNav(navTree);
         
         // 3. Attach interactive toggles
@@ -37,35 +37,51 @@ async function loadComponents() {
 }
 
 /**
- * Render Top Nav Bar (Password Generators, Date and Time, Calculators)
- * Shows up to 2 levels deep
+ * Render Top Nav Bar dynamically from navTree keys
  */
 function renderPrimaryNav(navTree) {
   const primaryNavUl = document.getElementById('primary-nav-links');
   if (!primaryNavUl) return;
 
-  // Define top-level section buckets
-  const sections = [
-    { key: 'Password Generators', label: 'Password Generators' },
-    { key: 'Date and Time', label: 'Date & Time' },
-    { key: 'Calculators', label: 'Calculators' }
-  ];
+  const topCategories = Object.keys(navTree);
 
-  primaryNavUl.innerHTML = sections.map(sec => {
-    const sectionData = navTree[sec.key] || { _sub: {}, _items: [] };
+  primaryNavUl.innerHTML = topCategories.map(cat => {
+    const sectionData = navTree[cat] || { _sub: {}, _items: [] };
     const levelTwoKeys = Object.keys(sectionData._sub || {});
+    const rootItems = sectionData._items || [];
 
     let dropdownHTML = '';
 
-    if (levelTwoKeys.length > 0) {
+    if (levelTwoKeys.length > 0 || rootItems.length > 0) {
+      let itemsListHTML = '';
+
+      if (rootItems.length > 0) {
+        itemsListHTML += `
+          <li class="level-two-item">
+            <ul>
+              ${rootItems.map(item => `<li><a href="${item.url}">${item.title}</a></li>`).join('')}
+            </ul>
+          </li>
+        `;
+      }
+
+      if (levelTwoKeys.length > 0) {
+        itemsListHTML += levelTwoKeys.map(subKey => `
+          <li class="level-two-item">
+            <span class="level-two-title">${subKey}</span>
+            <ul>
+              ${(sectionData._sub[subKey]._items || []).map(item => `
+                <li><a href="${item.url}">${item.title}</a></li>
+              `).join('')}
+            </ul>
+          </li>
+        `).join('');
+      }
+
       dropdownHTML = `
         <div class="top-dropdown-panel">
           <ul class="level-two-list">
-            ${levelTwoKeys.map(subKey => `
-              <li class="level-two-item">
-                <span class="level-two-title">${subKey}</span>
-              </li>
-            `).join('')}
+            ${itemsListHTML}
           </ul>
         </div>
       `;
@@ -74,7 +90,7 @@ function renderPrimaryNav(navTree) {
     return `
       <li class="primary-nav-item">
         <button type="button" class="primary-nav-btn" aria-expanded="false">
-          ${sec.label} ${levelTwoKeys.length > 0 ? '<span class="arrow">▾</span>' : ''}
+          ${cat} ${dropdownHTML ? '<span class="arrow">▾</span>' : ''}
         </button>
         ${dropdownHTML}
       </li>
@@ -114,17 +130,33 @@ function buildSidebarTreeHTML(node) {
 }
 
 /**
- * Render Sidebar contents broken down by subcategory
+ * Render Sidebar contents dynamically matching the current top-level category
  */
 function renderLeftSidebarNav(navTree) {
   const container = document.getElementById('sidebar-nav-container');
   if (!container) return;
 
-  const activeSection = 'Password Generators'; // Automatically target the password tree
-  const sectionData = navTree[activeSection] || navTree;
+  const topCategories = Object.keys(navTree);
+  if (topCategories.length === 0) return;
+
+  // Determine active section based on URL path or default to the first category
+  const pathSegments = window.location.pathname.split('/').filter(Boolean);
+  let activeSection = topCategories[0];
+
+  // Simple heuristic: check if any top category name matches a segment or path pattern
+  for (const cat of topCategories) {
+    const slugifiedCat = cat.toLowerCase().replace(/\s+/g, '-');
+    if (pathSegments.some(seg => seg.toLowerCase() === slugifiedCat)) {
+      activeSection = cat;
+      break;
+    }
+  }
+
+  const sectionData = navTree[activeSection] || navTree[topCategories[0]];
 
   container.innerHTML = `
     <div class="sidebar-section-group">
+      <h3 class="sidebar-heading">${activeSection}</h3>
       ${buildSidebarTreeHTML(sectionData)}
     </div>
   `;
@@ -163,7 +195,6 @@ function setupNavInteractions() {
     });
   });
 
-  // Sidebar Controls
   const openBtn = document.getElementById('sidebar-open-btn');
   const closeBtn = document.getElementById('sidebar-close-btn');
   const drawer = document.getElementById('sidebar-drawer');
