@@ -123,7 +123,7 @@ nav a:hover {
 
 /* USP Bar */
 .usp-bar {
-  background-color: #162032;
+  background-color: var(--card-bg);
   border-bottom: 1px solid var(--border);
   font-size: 0.85rem;
   color: var(--text-muted);

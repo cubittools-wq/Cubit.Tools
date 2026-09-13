@@ -7,6 +7,7 @@ import CountdownWidget from 'https://cubittools-wq.github.io/Cubit.Tools/js/widg
 import DateDiffCalcWidget from 'https://cubittools-wq.github.io/Cubit.Tools/js/widgets/date_diff_calc.js';
 import AgeCalcWidget from 'https://cubittools-wq.github.io/Cubit.Tools/js/widgets/age_calc.js';
 
+const DOMAIN = 'https://cubittools-wq.github.io';
 const BASE_URL = 'https://cubittools-wq.github.io/Cubit.Tools/';
 
 /**
@@ -47,6 +48,7 @@ async function loadComponents() {
       if (navRes.ok) {
         const navTree = await navRes.json();
         renderTopLevelNav(navTree);
+        setupNavInteractions();
       }
     }
     
@@ -81,7 +83,7 @@ function renderTopLevelNav(navTree) {
         itemsListHTML += `
           <li class="level-two-item">
             <ul>
-              ${rootItems.map(item => `<li><a href="${BASE_URL}${item.url.replace(/^\//, '')}">${item.title}</a></li>`).join('')}
+              ${rootItems.map(item => `<li><a href="${DOMAIN}${item.url}">${item.title}</a></li>`).join('')}
             </ul>
           </li>
         `;
@@ -93,7 +95,7 @@ function renderTopLevelNav(navTree) {
             <span class="level-two-title">${sub}</span>
             <ul>
               ${(subCategories[sub]._items || []).map(item => `
-                <li><a href="${BASE_URL}${item.url.replace(/^\//, '')}">${item.title}</a></li>
+                <li><a href="${DOMAIN}${item.url}">${item.title}</a></li>
               `).join('')}
             </ul>
           </li>
@@ -118,6 +120,40 @@ function renderTopLevelNav(navTree) {
       </li>
     `;
   }).join('');
+}
+
+/**
+ * Toggle interactions for the top nav dropdowns
+ */
+function setupNavInteractions() {
+  const navBtns = document.querySelectorAll('.primary-nav-btn');
+
+  navBtns.forEach(btn => {
+    btn.addEventListener('click', (e) => {
+      e.stopPropagation();
+      const parent = btn.closest('.primary-nav-item');
+      const isExpanded = btn.getAttribute('aria-expanded') === 'true';
+
+      document.querySelectorAll('.primary-nav-item').forEach(item => {
+        item.classList.remove('active');
+        const b = item.querySelector('.primary-nav-btn');
+        if (b) b.setAttribute('aria-expanded', 'false');
+      });
+
+      if (!isExpanded) {
+        parent.classList.add('active');
+        btn.setAttribute('aria-expanded', 'true');
+      }
+    });
+  });
+
+  document.addEventListener('click', () => {
+    document.querySelectorAll('.primary-nav-item').forEach(item => {
+      item.classList.remove('active');
+      const b = item.querySelector('.primary-nav-btn');
+      if (b) b.setAttribute('aria-expanded', 'false');
+    });
+  });
 }
 
 /**
