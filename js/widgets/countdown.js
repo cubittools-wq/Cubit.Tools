@@ -79,7 +79,7 @@ export default class CountdownWidget {
         hoursEl.innerText = '00';
         minsEl.innerText = '00';
         secsEl.innerText = '00';
-        msgEl.innerText = 'Merry Christmas! Today is the day!';
+        msgEl.innerText = this.config.arrival_message || 'The countdown is over!';
         return;
       }
 
