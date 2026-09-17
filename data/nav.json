@@ -474,6 +474,42 @@
           {
             "title": "Cooking Unit Converter",
             "url": "/Cubit.Tools/calculators/unit converters/cooking_unit_converter/"
+          },
+          {
+            "title": "Volume Unit Converter",
+            "url": "/Cubit.Tools/unit-converters/volume-converter/"
+          },
+          {
+            "title": "Area Unit Converter",
+            "url": "/Cubit.Tools/unit-converters/area-converter/"
+          },
+          {
+            "title": "Data Storage Unit Converter",
+            "url": "/Cubit.Tools/unit-converters/data-storage-converter/"
+          },
+          {
+            "title": "Pressure Unit Converter",
+            "url": "/Cubit.Tools/unit-converters/pressure-converter/"
+          },
+          {
+            "title": "Energy Unit Converter",
+            "url": "/Cubit.Tools/unit-converters/energy-converter/"
+          },
+          {
+            "title": "Power Unit Converter",
+            "url": "/Cubit.Tools/unit-converters/power-converter/"
+          },
+          {
+            "title": "Fuel Consumption Converter (MPG to L/100km)",
+            "url": "/Cubit.Tools/unit-converters/fuel-consumption-converter/"
+          },
+          {
+            "title": "Angle Unit Converter",
+            "url": "/Cubit.Tools/unit-converters/angle-converter/"
+          },
+          {
+            "title": "Time Unit Converter",
+            "url": "/Cubit.Tools/unit-converters/time-converter/"
           }
         ],
         "_sub": {}
@@ -514,6 +550,22 @@
           {
             "title": "New Years Day Countdown",
             "url": "/Cubit.Tools/date_time/countdown/new_years_day_countdown/"
+          },
+          {
+            "title": "Valentine's Day Countdown",
+            "url": "/Cubit.Tools/valentines-day-countdown/"
+          },
+          {
+            "title": "St Patrick's Day Countdown",
+            "url": "/Cubit.Tools/st-patricks-day-countdown/"
+          },
+          {
+            "title": "Bonfire Night Countdown",
+            "url": "/Cubit.Tools/bonfire-night-countdown/"
+          },
+          {
+            "title": "Independence Day Countdown",
+            "url": "/Cubit.Tools/independence-day-countdown/"
           }
         ],
         "_sub": {}
