@@ -4,17 +4,67 @@
 //
 // - Randomness comes from crypto.getRandomValues (never Math.random), with rejection
 //   sampling so every pick is uniform.
-// - Pages tagged "topic": "football" (or with an explicit "shared_pool" in Config_JSON) get a
-//   large shared word pool from js/pools/<name>.js. Each passphrase always contains one
-//   club-specific word from the page's Data_List; the remaining words come from the shared pool.
-// - The strength shown to the user is a conservative estimate that assumes an attacker knows
-//   the word lists, the separator and the number/symbol pattern.
+// - Pages tagged "topic": "football" (or with an explicit "shared_pool" in Config_JSON) also get a
+//   pool of generic football words from js/pools/<name>.js. About half of every passphrase comes
+//   from the club's own Data_List (nicknames, ground, players, managers, chants...), so it reads as
+//   that club, and the rest comes from the generic pool so the result stays varied.
+// - Multi-part words (e.g. "marcelo-bielsa") are joined in CamelCase ("MarceloBielsa") so that
+//   the separator only ever sits between whole words, and the slider count matches what you see.
+// - Long entries (e.g. whole lyric lines) would make very long passphrases, so any entry of more
+//   than MAX_WORDS_PER_ENTRY words is shortened to one word taken from it. Each pick is still one
+//   random entry from the Data_List, so the number of possible passphrases is unchanged.
 
 const DEFAULT_WORD_COUNT = 4;
 const MIN_WORDS = 3;
 const MAX_WORDS = 8;
+// Below this many distinctive club words we use the whole list.
+const MIN_PREFERRED_CLUB_WORDS = 20;
 const SYMBOLS = ['!', '@', '#', '$', '%', '&', '*'];
 const FALLBACK_WORDS = ['apple', 'river', 'stove', 'cloud', 'timber', 'beacon', 'shadow', 'magnet'];
+
+// Entries with more words than this (lyric lines, chants) are shortened to a single word.
+const MAX_WORDS_PER_ENTRY = 3;
+
+// Words that make poor "keywords" when a long line is shortened.
+const STOP_WORDS = new Set((
+  'about above after again against all also always among and any are because been before being between both ' +
+  'but can come could does done down each else even ever every for from get gets gone got had has have here ' +
+  'her hers him his how into its just keep know like made make many may might more most much must never not ' +
+  'now off once one only onto other our out over own really same she should since some than that the their ' +
+  'them then there these they this those through too under until upon very want was were what when where ' +
+  'which while who whom whose why will with without would yes you your yours ' +
+  'dont im youre thats its ive ill wont cant theyre weve hes shes whats wheres whos theyd id youve couldnt ' +
+  'isnt didnt doesnt wasnt werent wouldnt shouldnt havent hasnt arent gonna wanna gotta ' +
+  'a am an as at be by do go he i if in is it me my no of on or so to up us we ' +
+  'look take back next side call need said feel went comes stay tell mean means still think'
+).split(' '));
+
+// Rude words are never used as a keyword, and short entries containing them are left out.
+const PROFANE = /fuck|shit|cunt|bitch|wank|twat|bollock/;
+
+/** Removes apostrophes ("don't" -> "dont") so passphrases are easy to type on any site. */
+function stripApostrophes(text) {
+  return text.replace(/['\u2019`]/g, '');
+}
+
+function capitalise(word) {
+  return word.charAt(0).toUpperCase() + word.slice(1).toLowerCase();
+}
+
+/** One random meaningful word from a long entry, e.g. "there-are-doors-that-open-by-themselves" -> "doors". */
+function keywordFromEntry(entry) {
+  const words = entry.split('-').map(stripApostrophes).filter(Boolean);
+  const usable = words.filter(w => !PROFANE.test(w.toLowerCase()) && !/^\d+$/.test(w));
+  const meaningful = usable.filter(w => !STOP_WORDS.has(w.toLowerCase()));
+  // Prefer longer, more distinctive words (5+ letters), then 4+, then whatever is left.
+  for (const minLength of [5, 4]) {
+    const candidates = meaningful.filter(w => w.length >= minLength);
+    if (candidates.length > 0) return candidates[randomInt(candidates.length)];
+  }
+  const fallback = meaningful.length > 0 ? meaningful : usable;
+  if (fallback.length === 0) return words[0] || entry;
+  return fallback.reduce((a, b) => (b.length > a.length ? b : a));
+}
 
 // Topic -> shared pool file name (js/pools/<name>.js). Add more topics here as pools are written.
 const POOLS_BY_TOPIC = {
@@ -61,20 +111,20 @@ function pickDistinct(list, count) {
   return picked;
 }
 
-/** log2 of the number of ordered ways to pick `count` distinct items from a list of size `n`. */
-function bitsDistinct(n, count) {
-  if (n <= 0) return 0;
-  if (n < count) return count * Math.log2(n); // repeats allowed for tiny lists
-  let bits = 0;
-  for (let i = 0; i < count; i++) bits += Math.log2(n - i);
-  return bits;
+/** Fixes a doubled final name in a word, e.g. "ben-alnwick-alnwick" -> "ben-alnwick". */
+function tidyWord(word) {
+  const parts = word.split('-');
+  const n = parts.length;
+  if (n >= 3 && parts[n - 1] && parts[n - 1] === parts[n - 2]) parts.pop();
+  return parts.join('-');
 }
 
-function strengthLabel(bits) {
-  if (bits < 40) return 'Weak';
-  if (bits < 60) return 'Fair';
-  if (bits < 80) return 'Strong';
-  return 'Very strong';
+/** Words that don't count as "the same name" when checking two club words for overlap. */
+const NAME_FILLER = new Set(['the', 'of', 'and', 'on', 'de', 'di', 'da', 'del', 'van', 'von', 'le', 'la', 'el', 'al']);
+
+/** Lower-case parts of a word, e.g. "marcelo-bielsa" -> ["marcelo", "bielsa"] (filler words removed). */
+function nameParts(word) {
+  return word.toLowerCase().split('-').filter(p => p && !NAME_FILLER.has(p));
 }
 
 export default class PasswordGenWidget {
@@ -88,11 +138,12 @@ export default class PasswordGenWidget {
       this.config = {};
     }
 
-    // De-duplicated (case-insensitive) so the strength estimate is never inflated by repeats.
+    // De-duplicated (case-insensitive) so a word never appears twice in the list.
     const seen = new Set();
     this.clubWords = (container.dataset.list || '')
       .split(',')
-      .map(w => w.trim())
+      .map(w => tidyWord(w.trim()))
+      .filter(w => !(PROFANE.test(w.toLowerCase()) && w.split('-').length <= MAX_WORDS_PER_ENTRY))
       .filter(w => {
         const key = w.toLowerCase();
         if (!w || seen.has(key)) return false;
@@ -106,6 +157,7 @@ export default class PasswordGenWidget {
     }
 
     this.sharedPool = [];
+    this.preferredClubWords = this.clubWords;
 
     // Sheet rows may still say word_count: 3; never go below the default.
     const requested = parseInt(this.config.word_count, 10) || 0;
@@ -132,6 +184,19 @@ export default class PasswordGenWidget {
       const clubSet = new Set(this.clubWords.map(w => w.toLowerCase()));
       // Keep club words and pool words disjoint so a passphrase never repeats a word.
       this.sharedPool = (mod.default || []).filter(w => !clubSet.has(String(w).toLowerCase()));
+
+      // Club lists include bare first names ("ian", "dean") and some very long chants. They pad out the
+      // list but say little about the club, so prefer everything else and only fall back to them
+      // when a club has hardly any other words.
+      let firstNames = new Set();
+      try {
+        const names = await import(new URL('../pools/first_names.js', import.meta.url).href);
+        firstNames = new Set((names.default || []).map(w => String(w).toLowerCase()));
+      } catch (err) {
+        // Optional file: without it, bare first names are treated like any other club word.
+      }
+      const preferred = this.clubWords.filter(w => !firstNames.has(w.toLowerCase()) && w.split('-').length <= 3);
+      if (preferred.length >= MIN_PREFERRED_CLUB_WORDS) this.preferredClubWords = preferred;
     } catch (err) {
       console.warn(`Could not load shared word pool "${name}":`, err);
       this.sharedPool = [];
@@ -165,39 +230,66 @@ export default class PasswordGenWidget {
         </div>
 
         <button id="generate-btn" class="btn-primary" type="button">Generate New Passphrase</button>
-
-        <p id="strength-info" aria-live="polite" style="margin-top: 1rem; font-size: 0.875rem; color: var(--text-muted);"></p>
       </div>
     `;
   }
 
-  /** Choose the words for one passphrase. */
-  pickWords(wordCount) {
-    let words;
-    if (this.sharedPool.length > 0) {
-      // Always exactly one club word, the rest from the shared pool.
-      words = [
-        ...pickDistinct(this.clubWords, 1),
-        ...pickDistinct(this.sharedPool, wordCount - 1)
-      ];
-      shuffle(words);
-    } else {
-      words = pickDistinct(this.clubWords, wordCount);
+  /**
+   * Pick up to `count` distinct words from the Data_List. When `avoidSharedNames` is set (football
+   * pages), words that share a name are never picked together, so a passphrase never contains both
+   * "billy-bremner" and "bremner" (or "gary" and "gary-speed").
+   */
+  pickClubWords(count, avoidSharedNames) {
+    const chosen = [];
+    const usedParts = new Set();
+    // Distinctive words first; the rest of the list only if those run out.
+    const groups = [this.preferredClubWords, this.clubWords];
+    for (const group of groups) {
+      const candidates = group.filter(w => !chosen.includes(w));
+      while (chosen.length < count && candidates.length > 0) {
+        const idx = randomInt(candidates.length);
+        const word = candidates[idx];
+        candidates[idx] = candidates[candidates.length - 1];
+        candidates.pop();
+        const parts = nameParts(word);
+        if (avoidSharedNames && parts.some(p => usedParts.has(p))) continue;
+        chosen.push(word);
+        parts.forEach(p => usedParts.add(p));
+      }
+      if (chosen.length >= count || group === this.clubWords) break;
     }
-    return words;
+    return chosen;
   }
 
-  /** Conservative entropy estimate (bits) for the current settings. Ignores word order and capitalisation. */
-  estimateBits(wordCount, includeNumbers, includeSymbols) {
-    let bits;
-    if (this.sharedPool.length > 0) {
-      bits = Math.log2(this.clubWords.length) + bitsDistinct(this.sharedPool.length, wordCount - 1);
-    } else {
-      bits = bitsDistinct(this.clubWords.length, wordCount);
+  /** Choose the words for one passphrase. */
+  pickWords(wordCount) {
+    const hasPool = this.sharedPool.length > 0;
+    // With a generic pool: half the words (rounded up) are club words. Without one: all of them.
+    const clubTarget = hasPool ? Math.ceil(wordCount / 2) : wordCount;
+
+    const words = this.pickClubWords(clubTarget, hasPool);
+
+    // Without a generic pool there's nothing else to draw on, so a tiny club list has to repeat words.
+    if (!hasPool && words.length < clubTarget) {
+      const spare = this.clubWords.filter(w => !words.includes(w));
+      words.push(...pickDistinct(spare.length ? spare : this.clubWords, clubTarget - words.length));
     }
-    if (includeNumbers) bits += Math.log2(90);
-    if (includeSymbols) bits += Math.log2(SYMBOLS.length);
-    return bits;
+
+    if (hasPool) {
+      words.push(...pickDistinct(this.sharedPool, wordCount - words.length));
+    }
+    return shuffle(words);
+  }
+
+  /** Turns a Data_List entry into the text used in the passphrase. */
+  displayWord(entry, capitalize) {
+    const parts = entry.split('-').map(stripApostrophes).filter(Boolean);
+    if (parts.length > MAX_WORDS_PER_ENTRY) {
+      const keyword = keywordFromEntry(entry);
+      return capitalize ? capitalise(keyword) : keyword;
+    }
+    // Multi-part words are joined without hyphens (e.g. "marcelo-bielsa" -> "MarceloBielsa")
+    return capitalize ? parts.map(capitalise).join('') : parts.join('-');
   }
 
   generate() {
@@ -205,7 +297,6 @@ export default class PasswordGenWidget {
     const slider = this.container.querySelector('#word-count-slider');
     const numCheck = this.container.querySelector('#include-numbers');
     const symCheck = this.container.querySelector('#include-symbols');
-    const strengthEl = this.container.querySelector('#strength-info');
 
     if (!outputEl) return;
 
@@ -215,11 +306,13 @@ export default class PasswordGenWidget {
     const separator = this.config.separator || '-';
     const capitalize = this.config.capitalize !== false;
 
-    const selectedWords = this.pickWords(wordCount).map(word => {
-      if (!capitalize) return word;
-      // Formats multi-word or hyphenated chunks nicely (e.g., "camp-nou" -> "Camp-Nou")
-      return word.split('-').map(w => w.charAt(0).toUpperCase() + w.slice(1).toLowerCase()).join('-');
-    });
+    // Shortened lyric lines can occasionally give the same keyword twice; try again if so.
+    let selectedWords = [];
+    for (let attempt = 0; attempt < 10; attempt++) {
+      selectedWords = this.pickWords(wordCount).map(word => this.displayWord(word, capitalize));
+      const lower = selectedWords.map(w => w.toLowerCase());
+      if (new Set(lower).size === lower.length) break;
+    }
 
     let passphrase = selectedWords.join(separator);
 
@@ -236,15 +329,6 @@ export default class PasswordGenWidget {
     outputEl.style.height = 'auto';
     // (offsetHeight - clientHeight) is the border, which box-sizing: border-box adds back in.
     outputEl.style.height = `${outputEl.scrollHeight + outputEl.offsetHeight - outputEl.clientHeight}px`;
-
-    if (strengthEl) {
-      const bits = this.estimateBits(wordCount, includeNumbers, includeSymbols);
-      const label = strengthLabel(bits);
-      const tip = bits < 60 ? ' Add a word to make it stronger.' : '';
-      strengthEl.innerHTML =
-        `Estimated strength: <strong>${label}</strong> (about ${Math.round(bits)} bits).${tip} ` +
-        `This assumes an attacker knows our word list, so for important accounts use a password manager.`;
-    }
   }
 
   bindEvents() {
