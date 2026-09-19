@@ -8,6 +8,8 @@ export default class UnitConverterWidget {
     } catch (e) {
       this.config = {};
     }
+    // Which box the user typed in last: the other box is the one that gets calculated.
+    this.lastEdited = 'from';
     this.init();
   }
 
@@ -38,12 +40,13 @@ export default class UnitConverterWidget {
 
           <div class="form-group">
             <label for="conv-to-val" style="display: block; margin-bottom: 0.5rem; font-weight: 600;">To</label>
-            <input type="number" id="conv-to-val" readonly style="width: 100%; padding: 0.5rem; border: 1px solid #ccc; border-radius: 4px; background: #f8f9fa; margin-bottom: 0.5rem;" />
+            <input type="number" id="conv-to-val" step="any" style="width: 100%; padding: 0.5rem; border: 1px solid #ccc; border-radius: 4px; margin-bottom: 0.5rem;" />
             <select id="conv-to-unit" style="width: 100%; padding: 0.5rem; border: 1px solid #ccc; border-radius: 4px;">
               ${optionsToHtml}
             </select>
           </div>
         </div>
+        <p style="margin: 0; font-size: 0.875rem; color: var(--text-muted, #666);">Type a value in either box and the other updates.</p>
       </div>
     `;
   }
@@ -52,6 +55,33 @@ export default class UnitConverterWidget {
     return unit.replace(/_/g, ' ').replace(/\b\w/g, l => l.toUpperCase());
   }
 
+  /** Formats a result for display: up to 10 significant digits, no floating-point noise, no trailing zeros. */
+  formatNumber(n) {
+    if (!Number.isFinite(n)) return '';
+    if (n === 0) return '0';
+    return String(parseFloat(n.toPrecision(10)));
+  }
+
+  /** Converts `val` from one unit to another (linear factors or the config's formulas). */
+  convert(val, fromUnit, toUnit) {
+    if (fromUnit === toUnit) return val;
+
+    // Linear conversion factors
+    if (this.config.factors) {
+      const factors = this.config.factors;
+      return (val * (factors[fromUnit] || 1)) / (factors[toUnit] || 1);
+    }
+    // Non-linear formulas (e.g., temperature)
+    if (this.config.formulas) {
+      return this.computeFormula(val, fromUnit, toUnit);
+    }
+    return val;
+  }
+
+  /**
+   * Recalculates whichever box the user did NOT type in last, so the two boxes work both ways.
+   * Changing a unit keeps the box last typed in and recalculates the other one.
+   */
   calculate() {
     const fromValEl = this.container.querySelector('#conv-from-val');
     const toValEl = this.container.querySelector('#conv-to-val');
@@ -60,27 +90,19 @@ export default class UnitConverterWidget {
 
     if (!fromValEl || !toValEl || !fromUnitEl || !toUnitEl) return;
 
-    const val = parseFloat(fromValEl.value);
+    const fromIsSource = this.lastEdited !== 'to';
+    const sourceEl = fromIsSource ? fromValEl : toValEl;
+    const targetEl = fromIsSource ? toValEl : fromValEl;
+    const sourceUnit = fromIsSource ? fromUnitEl.value : toUnitEl.value;
+    const targetUnit = fromIsSource ? toUnitEl.value : fromUnitEl.value;
+
+    const val = parseFloat(sourceEl.value);
     if (isNaN(val)) {
-      toValEl.value = '';
+      targetEl.value = '';
       return;
     }
 
-    const fromUnit = fromUnitEl.value;
-    const toUnit = toUnitEl.value;
-
-    // Handle linear conversion factors
-    if (this.config.factors) {
-      const factors = this.config.factors;
-      const baseValue = val * (factors[fromUnit] || 1);
-      const targetValue = baseValue / (factors[toUnit] || 1);
-      
-      toValEl.value = parseFloat(targetValue.toFixed(6));
-    } 
-    // Handle non-linear formulas (e.g., temperature)
-    else if (this.config.formulas) {
-      toValEl.value = this.computeFormula(val, fromUnit, toUnit);
-    }
+    targetEl.value = this.formatNumber(this.convert(val, sourceUnit, targetUnit));
   }
 
   computeFormula(val, from, to) {
@@ -91,7 +113,7 @@ export default class UnitConverterWidget {
     if (this.config.formulas && this.config.formulas[directKey]) {
       try {
         const fn = new Function('val', `return ${this.config.formulas[directKey]};`);
-        return parseFloat(fn(val).toFixed(2));
+        return fn(val);
       } catch (e) {
         console.error('Direct formula evaluation error:', e);
       }
@@ -106,10 +128,7 @@ export default class UnitConverterWidget {
       try {
         const toBaseFn = new Function('val', `return ${this.config.formulas[toBaseKey]};`);
         const fromBaseFn = new Function('val', `return ${this.config.formulas[fromBaseKey]};`);
-        
-        const baseVal = toBaseFn(val);
-        const finalVal = fromBaseFn(baseVal);
-        return parseFloat(finalVal.toFixed(2));
+        return fromBaseFn(toBaseFn(val));
       } catch (e) {
         console.error('Base-routed formula evaluation error:', e);
       }
@@ -120,10 +139,12 @@ export default class UnitConverterWidget {
 
   bindEvents() {
     const fromValEl = this.container.querySelector('#conv-from-val');
+    const toValEl = this.container.querySelector('#conv-to-val');
     const fromUnitEl = this.container.querySelector('#conv-from-unit');
     const toUnitEl = this.container.querySelector('#conv-to-unit');
 
-    fromValEl.addEventListener('input', () => this.calculate());
+    fromValEl.addEventListener('input', () => { this.lastEdited = 'from'; this.calculate(); });
+    toValEl.addEventListener('input', () => { this.lastEdited = 'to'; this.calculate(); });
     fromUnitEl.addEventListener('change', () => this.calculate());
     toUnitEl.addEventListener('change', () => this.calculate());
   }

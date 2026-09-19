@@ -228,6 +228,7 @@ SHELL = """<!DOCTYPE html>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title id="meta-title">{title}</title>
+  <link rel="icon" href="/favicon.svg" type="image/svg+xml">
   <meta id="meta-desc" name="description" content="{desc}">
   <link rel="canonical" href="{canonical}">
   <link rel="stylesheet" href="{base}css/style.css">
@@ -765,17 +766,43 @@ def build_site():
     tools, seen_slugs = [], set()
     any_live = False
 
+    # Read every tab first. If the same Slug appears more than once (for example a row copied into the
+    # wrong tab), the row that has a Widget_Type wins; otherwise the first one seen is kept.
+    loaded = {}
+    winners = {}   # slug -> (tab name, row)
     for tab_name, url in TABS.items():
         rows, live = load_rows(tab_name, url)
         any_live = any_live or live
+        loaded[tab_name] = rows
+        for row in rows:
+            slug = (row.get("Slug") or "").strip().strip("/")
+            if not slug:
+                continue
+            has_widget = bool((row.get("Widget_Type") or "").strip())
+            if slug not in winners:
+                winners[slug] = (tab_name, row)
+                continue
+            kept_tab, kept_row = winners[slug]
+            if not (kept_row.get("Widget_Type") or "").strip() and has_widget:
+                print(f"  WARNING: duplicate Slug '{slug}': using the row in tab '{tab_name}' (it has a Widget_Type) "
+                      f"and ignoring the copy in tab '{kept_tab}' - please delete the stray row")
+                winners[slug] = (tab_name, row)
+            else:
+                print(f"  WARNING: duplicate Slug '{slug}' in tab '{tab_name}' ignored (already used in tab '{kept_tab}')")
+
+    for slug, (tab_name, row) in winners.items():
+        if not (row.get("Widget_Type") or "").strip():
+            print(f"  WARNING: '{slug}' (tab '{tab_name}') has no Widget_Type, so its page will show a widget error")
+
+    for tab_name in TABS:
+        rows = loaded[tab_name]
         dataset = []
 
         for row in rows:
             raw_slug = (row.get("Slug") or "").strip().strip("/")
             if not raw_slug:
                 continue
-            if raw_slug in seen_slugs:
-                print(f"  WARNING: duplicate Slug '{raw_slug}' ignored")
+            if winners[raw_slug][1] is not row:
                 continue
             seen_slugs.add(raw_slug)
 
