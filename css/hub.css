@@ -1,0 +1,297 @@
+/* Let grid children shrink below their content width so pages never scroll sideways on phones. */
+.content-grid > * {
+  min-width: 0;
+}
+
+.countdown-card {
+  min-width: 0;
+}
+
+.home-hero {
+  margin-bottom: 1.5rem;
+}
+
+/* Category browse pages, homepage category grid, and "More in ..." blocks on tool pages. */
+
+.hub-total {
+  color: var(--accent);
+  font-weight: 600;
+  font-size: 0.95rem;
+  margin-bottom: 0.75rem;
+}
+
+.count {
+  display: inline-block;
+  font-size: 0.8rem;
+  font-weight: 600;
+  color: var(--text-muted);
+  background: var(--input-bg);
+  border: 1px solid var(--border);
+  border-radius: 999px;
+  padding: 0.05rem 0.55rem;
+  vertical-align: middle;
+}
+
+main h2 {
+  font-size: 1.35rem;
+  margin: 2rem 0 0.75rem;
+  color: var(--text-main);
+}
+
+main h2 a {
+  color: inherit;
+  text-decoration: none;
+}
+
+main h2 a:hover {
+  color: var(--accent);
+}
+
+/* Sub-category sections */
+.hub-section {
+  margin-top: 2rem;
+  padding-top: 1.25rem;
+  border-top: 1px solid var(--border);
+}
+
+.hub-section > h2 {
+  margin-top: 0;
+}
+
+.hub-jump {
+  margin: 1.25rem 0 0;
+}
+
+/* Category chips */
+.chip-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  list-style: none;
+  padding: 0;
+  margin: 0 0 1rem;
+}
+
+.chip {
+  display: inline-block;
+  padding: 0.3rem 0.8rem;
+  border: 1px solid var(--border);
+  border-radius: 999px;
+  background: var(--card-bg);
+  color: var(--text-main);
+  text-decoration: none;
+  font-size: 0.9rem;
+}
+
+.chip small {
+  color: var(--text-muted);
+  margin-left: 0.25rem;
+}
+
+.chip:hover {
+  border-color: var(--accent);
+  color: var(--accent);
+}
+
+/* Tool lists: name plus one-line description */
+.tool-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.tool-list .tool-row {
+  display: flex;
+  flex-direction: column;
+  gap: 0.1rem;
+  padding: 0.6rem 0;
+  border-bottom: 1px solid var(--border);
+}
+
+.tool-list .tool-row:last-child {
+  border-bottom: none;
+}
+
+.tool-row a {
+  color: var(--accent);
+  font-weight: 600;
+  text-decoration: none;
+}
+
+.tool-row a:hover {
+  text-decoration: underline;
+}
+
+.tool-desc {
+  color: var(--text-muted);
+  font-size: 0.9rem;
+}
+
+/* Long lists: title-only, several columns */
+.tool-list.compact {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(210px, 1fr));
+  gap: 0 1.5rem;
+}
+
+.tool-list.compact .tool-row {
+  padding: 0.35rem 0;
+  border-bottom: none;
+}
+
+.tool-list.compact .tool-row a {
+  font-weight: 500;
+}
+
+.see-all {
+  margin-top: 0.75rem;
+  font-weight: 600;
+  font-size: 0.95rem;
+}
+
+.see-all a,
+.view-all {
+  color: var(--accent);
+  text-decoration: none;
+}
+
+.see-all a:hover,
+.view-all:hover {
+  text-decoration: underline;
+}
+
+/* A-Z jump links */
+.az-jump {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.35rem;
+  margin-bottom: 0.5rem;
+}
+
+.az-jump a {
+  min-width: 1.9rem;
+  text-align: center;
+  padding: 0.2rem 0.4rem;
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  color: var(--accent);
+  text-decoration: none;
+  font-weight: 600;
+  font-size: 0.9rem;
+}
+
+.az-jump a:hover {
+  border-color: var(--accent);
+}
+
+.az-heading {
+  font-size: 1.05rem;
+  margin: 1.25rem 0 0.35rem;
+  color: var(--text-muted);
+  scroll-margin-top: 5rem;
+}
+
+/* Homepage category grid */
+.category-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+  gap: 1.25rem;
+}
+
+.category-card {
+  background: var(--card-bg);
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  padding: 1.25rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+.category-card h3 {
+  font-size: 1.15rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.5rem;
+}
+
+.category-card h3 a {
+  color: var(--text-main);
+  text-decoration: none;
+}
+
+.category-card h3 a:hover {
+  color: var(--accent);
+}
+
+.category-links {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  flex: 1;
+}
+
+.category-links li {
+  display: flex;
+  justify-content: space-between;
+  gap: 0.5rem;
+  padding: 0.2rem 0;
+  font-size: 0.925rem;
+}
+
+.category-links a {
+  color: var(--text-muted);
+  text-decoration: none;
+}
+
+.category-links a:hover {
+  color: var(--accent);
+}
+
+.category-links span {
+  color: var(--text-muted);
+  font-size: 0.85rem;
+}
+
+.view-all {
+  font-weight: 600;
+  font-size: 0.9rem;
+}
+
+/* Tool pages: "More in ..." block */
+.related-tools {
+  margin-bottom: 2rem;
+}
+
+.related-tools h2 {
+  margin-top: 0;
+  font-size: 1.15rem;
+}
+
+.peer-cats {
+  margin-top: 1rem;
+  font-size: 0.9rem;
+  color: var(--text-muted);
+}
+
+.peer-cats > span {
+  display: block;
+  margin-bottom: 0.4rem;
+}
+
+/* Search box on homepage and browse pages */
+.hub-search {
+  position: relative;
+}
+
+@media (max-width: 600px) {
+  main h2 {
+    font-size: 1.2rem;
+  }
+
+  .tool-list.compact {
+    grid-template-columns: 1fr 1fr;
+    gap: 0 1rem;
+  }
+}

@@ -6,6 +6,7 @@ import ApplianceCalcWidget from 'https://cubittools-wq.github.io/Cubit.Tools/js/
 import CountdownWidget from 'https://cubittools-wq.github.io/Cubit.Tools/js/widgets/countdown.js';
 import DateDiffCalcWidget from 'https://cubittools-wq.github.io/Cubit.Tools/js/widgets/date_diff_calc.js';
 import AgeCalcWidget from 'https://cubittools-wq.github.io/Cubit.Tools/js/widgets/age_calc.js';
+import { attachSearch } from 'https://cubittools-wq.github.io/Cubit.Tools/js/site-search.js';
 
 const DOMAIN = 'https://cubittools-wq.github.io';
 const BASE_URL = 'https://cubittools-wq.github.io/Cubit.Tools/';
@@ -44,10 +45,15 @@ async function loadComponents() {
       document.getElementById('site-header').innerHTML = await headerRes.text();
       
       initThemeToggle();
+      attachSearch(
+        document.getElementById('header-search-input'),
+        document.getElementById('header-search-results'),
+        { scope: '', limit: 8 }
+      );
 
       if (navRes.ok) {
-        const navTree = await navRes.json();
-        renderTopLevelNav(navTree);
+        const nav = await navRes.json();
+        renderBrowseMenu(nav);
         setupNavInteractions();
       }
     }
@@ -61,65 +67,47 @@ async function loadComponents() {
 }
 
 /**
- * Render Header Nav (Shows Top-Level Categories with Nested Subcategories)
+ * Render the "Browse" mega-menu: every top-level category with its sub-categories and tool counts.
+ * Data comes from data/nav.json, which build_site.py generates from the Google Sheet.
  */
-function renderTopLevelNav(navTree) {
+function renderBrowseMenu(nav) {
   const navUl = document.getElementById('primary-nav-links');
   if (!navUl) return;
 
-  const topCategories = Object.keys(navTree);
+  const categories = (nav && nav.categories) || [];
+  if (categories.length === 0) return;
 
-  navUl.innerHTML = topCategories.map(cat => {
-    const rootItems = navTree[cat]._items || [];
-    const subCategories = navTree[cat]._sub || {};
-    const subKeys = Object.keys(subCategories);
-
-    let dropHTML = '';
-
-    if (subKeys.length > 0 || rootItems.length > 0) {
-      let itemsListHTML = '';
-
-      if (rootItems.length > 0) {
-        itemsListHTML += `
-          <li class="level-two-item">
-            <ul>
-              ${rootItems.map(item => `<li><a href="${DOMAIN}${item.url}">${item.title}</a></li>`).join('')}
-            </ul>
-          </li>
-        `;
-      }
-
-      if (subKeys.length > 0) {
-        itemsListHTML += subKeys.map(sub => `
-          <li class="level-two-item">
-            <span class="level-two-title">${sub}</span>
-            <ul>
-              ${(subCategories[sub]._items || []).map(item => `
-                <li><a href="${DOMAIN}${item.url}">${item.title}</a></li>
-              `).join('')}
-            </ul>
-          </li>
-        `).join('');
-      }
-
-      dropHTML = `
-        <div class="top-dropdown-panel">
-          <ul class="level-two-list">
-            ${itemsListHTML}
-          </ul>
-        </div>
-      `;
-    }
-
+  const MAX_SUBS = 8;
+  const columns = categories.map(cat => {
+    const subs = cat.children || [];
+    const subLinks = subs.slice(0, MAX_SUBS).map(sub =>
+      `<li><a href="${sub.url}">${escapeHtml(sub.name)}<span>${sub.count}</span></a></li>`
+    ).join('');
+    const more = subs.length > MAX_SUBS
+      ? `<li class="more"><a href="${cat.url}">All ${subs.length} categories &rarr;</a></li>`
+      : '';
     return `
-      <li class="primary-nav-item">
-        <button type="button" class="primary-nav-btn" aria-expanded="false">
-          ${cat} <span class="arrow">▾</span>
-        </button>
-        ${dropHTML}
-      </li>
+      <div class="browse-col">
+        <h4><a href="${cat.url}">${escapeHtml(cat.name)} (${cat.count})</a></h4>
+        <ul>${subLinks}${more}</ul>
+      </div>
     `;
   }).join('');
+
+  navUl.innerHTML = `
+    <li class="primary-nav-item">
+      <button type="button" class="primary-nav-btn" aria-expanded="false">
+        Browse <span class="arrow">&#9662;</span>
+      </button>
+      <div class="top-dropdown-panel browse-panel">
+        <div class="browse-grid">${columns}</div>
+      </div>
+    </li>
+  `;
+}
+
+function escapeHtml(text) {
+  return String(text).replace(/[&<>"']/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
 }
 
 /**
@@ -162,6 +150,8 @@ function setupNavInteractions() {
 function renderBreadcrumbs(categoryPath, pageTitle) {
   const container = document.getElementById('breadcrumb-container');
   if (!container || !categoryPath) return;
+  // Pages built by build_site.py already contain a full breadcrumb trail (with links to real category pages).
+  if (container.querySelector('nav')) return;
 
   const parts = categoryPath.split('/').map(p => p.trim());
   let accumPath = BASE_URL;
@@ -218,21 +208,14 @@ function mountWidget(container) {
 }
 
 /**
- * Quick Search Filter for Hub / Directory Pages
+ * Search box on the homepage and category pages (scoped to the category via data-scope).
  */
-function initQuickSearch() {
-  const searchInput = document.getElementById('hub-search-input');
-  if (!searchInput) return;
-
-  searchInput.addEventListener('input', (e) => {
-    const query = e.target.value.toLowerCase();
-    const cards = document.querySelectorAll('.hub-card');
-
-    cards.forEach(card => {
-      const title = card.innerText.toLowerCase();
-      card.style.display = title.includes(query) ? 'block' : 'none';
-    });
-  });
+function initHubSearch() {
+  attachSearch(
+    document.getElementById('hub-search-input'),
+    document.getElementById('hub-search-results'),
+    { limit: 20 }
+  );
 }
 
 /**
@@ -240,10 +223,17 @@ function initQuickSearch() {
  */
 async function initPage() {
   await loadComponents();
-  initQuickSearch();
+  initHubSearch();
 
   const toolContainer = document.getElementById('tool-container');
   if (!toolContainer) return;
+
+  // Pages built by the current build_site.py carry their own widget config and data, so there is no need to
+  // download the full tool datasets. Older pages fall through to the lookup below.
+  if (toolContainer.dataset.baked === '1' && toolContainer.dataset.widget) {
+    mountWidget(toolContainer);
+    return;
+  }
 
   const pathSegments = window.location.pathname.split('/').filter(Boolean);
   const currentSegment = pathSegments.length > 0 ? pathSegments[pathSegments.length - 1] : '';

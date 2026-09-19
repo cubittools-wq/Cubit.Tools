@@ -1,12 +1,17 @@
 <header>
   <div class="header-container">
     <a href="/Cubit.Tools/" class="logo">Cubit.<span>tools</span></a>
-    
-    <nav>
+
+    <nav aria-label="Main">
       <ul id="primary-nav-links">
-        <!-- Dynamically rendered navigation -->
+        <!-- "Browse" mega-menu rendered from data/nav.json by app.js -->
       </ul>
     </nav>
+
+    <div class="header-search">
+      <input id="header-search-input" type="search" placeholder="Search tools..." autocomplete="off" aria-label="Search all tools">
+      <div id="header-search-results" class="search-results" hidden></div>
+    </div>
 
     <div class="header-right" style="display: flex; align-items: center; gap: 1rem;">
       <button id="theme-toggle" class="theme-toggle-btn" aria-label="Toggle theme">
