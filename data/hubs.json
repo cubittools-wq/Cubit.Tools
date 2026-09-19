@@ -1,0 +1,17 @@
+[
+  "business",
+  "business/margins-and-pricing",
+  "converters",
+  "date-time",
+  "date-time/countdowns",
+  "date-time/date-calculators",
+  "home-diy",
+  "home-diy/electrical",
+  "home-diy/energy-and-appliances",
+  "passwords",
+  "passwords/darts-passphrases",
+  "passwords/football-club-passphrases-england",
+  "passwords/music-passphrases",
+  "passwords/passphrase-generators",
+  "passwords/tv-and-film-passphrases"
+]
