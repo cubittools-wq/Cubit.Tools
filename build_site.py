@@ -15,6 +15,9 @@ Categories are inferred from the Category column, e.g. "Passwords/Sports/Footbal
 /passwords/, /passwords/sports/ and /passwords/sports/football/ browse pages. No extra Sheet
 tab is needed.
 
+When a tool's Slug changes in the Sheet, the old page becomes a redirect to the new one (matched by H1_Title);
+pages for tools that were deleted from the Sheet are removed.
+
 Optional Sheet columns (ignored if absent):
   Short_Desc  one-line description shown in category lists (falls back to the first sentence of Meta_Desc)
   Featured    put Y to show the tool in "Popular tools" on the homepage
@@ -45,6 +48,22 @@ DISPLAY_NAMES = {
     "tv-film": "TV & Film",
 }
 
+# Shorter URLs for top-level categories (key = slugified Category text, value = folder name used in URLs).
+# Tool slugs in the Sheet should start with the same folder, e.g. /passwords/arsenal-password-generator/.
+SLUG_ALIASES = {
+    "passwords-and-security": "passwords",
+    "finance-and-money": "finance",
+    "business-and-e-commerce": "business",
+    "home-and-diy": "home-diy",
+    "health-and-fitness": "health",
+    "maths-and-statistics": "maths",
+    "science-and-engineering": "science",
+    "date-and-time": "date-time",
+    "text-and-writing": "text",
+    "generators-and-random": "generators",
+    "sports-and-games": "sports",
+}
+
 # Folders that already exist at the site root and must never be replaced by a category page.
 RESERVED_TOP = {"about", "contact", "privacy", "terms", "css", "js", "data", "components", "assets"}
 
@@ -57,7 +76,10 @@ HOME_SUBCATEGORY_LINKS = 6
 
 FEATURED_VALUES = {"y", "yes", "true", "1", "x", "featured"}
 HUB_MARKER = "<!-- cubit:generated-browse-page -->"
+REDIRECT_MARKER = "<!-- cubit:generated-redirect -->"
 HUBS_MANIFEST = os.path.join("data", "hubs.json")
+REDIRECTS_MANIFEST = os.path.join("data", "redirects.json")
+MAX_SAFE_DELETIONS = 20   # if more pages than this (and over 30% of the site) would vanish, assume a Sheet problem and keep them
 
 
 def esc(text):
@@ -144,7 +166,8 @@ def natural_key(text):
 def get_node(root, parts):
     node = root
     for part in parts:
-        key = slugify(part)
+        base = slugify(part)
+        key = SLUG_ALIASES.get(base, base) if node is root else base
         if key not in node.children:
             node.children[key] = Node(key, tidy_name(part), node)
         node = node.children[key]
@@ -158,7 +181,10 @@ def get_node(root, parts):
 def fetch_csv(url):
     with urllib.request.urlopen(url, timeout=60) as resp:
         text = resp.read().decode("utf-8-sig")
-    return list(csv.DictReader(io.StringIO(text, newline="")))
+    rows = list(csv.DictReader(io.StringIO(text, newline="")))
+    if not rows or "Slug" not in rows[0]:
+        raise ValueError("response was empty or had no Slug column (Sheet unpublished or an error page?)")
+    return rows
 
 
 def load_rows(tab_name, url):
@@ -600,12 +626,140 @@ def write_file(path, content):
 
 
 # ---------------------------------------------------------------------------
+# Pages whose Slug changed or was deleted
+# ---------------------------------------------------------------------------
+
+def previous_pages():
+    """Slug -> H1_Title for every tool page in the last build (read from data/*.json before it is overwritten)."""
+    prev = {}
+    for tab in TABS:
+        path = os.path.join("data", f"{tab}.json")
+        if not os.path.exists(path):
+            continue
+        try:
+            with open(path, encoding="utf-8") as f:
+                rows = json.load(f)
+        except Exception:
+            continue
+        for r in rows:
+            slug = (r.get("Slug") or "").strip().strip("/")
+            if slug:
+                prev[slug] = (r.get("H1_Title") or "").strip()
+    return prev
+
+
+def read_json(path, default):
+    if os.path.exists(path):
+        try:
+            with open(path, encoding="utf-8") as f:
+                return json.load(f)
+        except Exception:
+            pass
+    return default
+
+
+def slug_from_url(url):
+    from urllib.parse import unquote
+    return unquote(url[len(BASE_URL):]).strip("/")
+
+
+def page_file(slug):
+    return os.path.join(*slug.split("/"), "index.html")
+
+
+def file_text(path):
+    try:
+        with open(path, encoding="utf-8") as f:
+            return f.read()
+    except OSError:
+        return ""
+
+
+def remove_page(slug):
+    path = page_file(slug)
+    if os.path.exists(path):
+        os.remove(path)
+        try:
+            os.removedirs(os.path.dirname(path))
+        except OSError:
+            pass
+
+
+def write_redirect(slug, target):
+    body = f"""<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  {REDIRECT_MARKER}
+  <title>Page moved | {SITE_NAME}</title>
+  <link rel="canonical" href="{esc(target)}">
+  <meta http-equiv="refresh" content="0; url={esc(target)}">
+</head>
+<body>
+  <p>This page has moved to <a href="{esc(target)}">{esc(target)}</a>.</p>
+</body>
+</html>
+"""
+    write_file(page_file(slug), body)
+
+
+def handle_moved_pages(previous, tools, hub_paths):
+    """Old URLs whose Slug changed get a redirect page; pages for deleted tools are removed."""
+    new_slugs = {t["slug"] for t in tools}
+    by_title = {t["title"].strip().lower(): t["url"] for t in tools}
+    occupied = new_slugs | set(hub_paths)
+    old_redirects = read_json(REDIRECTS_MANIFEST, {})
+    redirects = {}
+
+    gone = {s: title for s, title in previous.items() if s not in occupied}
+    moved = {s: by_title[title.lower()] for s, title in gone.items() if title and title.lower() in by_title}
+    deleted = [s for s in gone if s not in moved and "tool-container" in file_text(page_file(s))]
+
+    if len(deleted) > MAX_SAFE_DELETIONS and len(deleted) > 0.3 * max(len(previous), 1):
+        print(f"  WARNING: {len(deleted)} pages would be deleted and {len(moved)} redirected; that looks like a Sheet "
+              "problem, so no old pages were touched.")
+        redirects = old_redirects
+        write_file(REDIRECTS_MANIFEST, json.dumps(redirects, indent=2, sort_keys=True))
+        return
+
+    for slug, target in moved.items():
+        text = file_text(page_file(slug))
+        if "tool-container" in text or REDIRECT_MARKER in text:
+            write_redirect(slug, target)
+            redirects[slug] = target
+            print(f"  redirect /{slug}/ -> {target}")
+    for slug in deleted:
+        remove_page(slug)
+        print(f"  removed page /{slug}/ (no longer in the Sheet)")
+
+    # stubs from earlier builds: keep them pointed at a live page, follow one hop if the target moved again
+    live_urls = {t["url"] for t in tools}
+    for slug, target in old_redirects.items():
+        if slug in occupied or slug in redirects:
+            continue
+        if target not in live_urls:
+            hop = redirects.get(slug_from_url(target))
+            target = hop if hop else None
+        path = page_file(slug)
+        if target and REDIRECT_MARKER in file_text(path):
+            if target != old_redirects[slug]:
+                write_redirect(slug, target)
+            redirects[slug] = target
+        elif REDIRECT_MARKER in file_text(path):
+            remove_page(slug)
+            print(f"  removed redirect /{slug}/ (its target no longer exists)")
+    write_file(REDIRECTS_MANIFEST, json.dumps(redirects, indent=2, sort_keys=True))
+
+
+# ---------------------------------------------------------------------------
 # Main build
 # ---------------------------------------------------------------------------
 
 def build_site():
     print("Fetching sheet data across all tabs...")
     os.makedirs("data", exist_ok=True)
+
+    previous = previous_pages()   # must be read before data/*.json is rewritten below
 
     root = Node("", "Home")
     tools, seen_slugs = [], set()
@@ -711,6 +865,9 @@ def build_site():
                         pass
                     print(f"  removed old category page /{path}/")
     write_file(HUBS_MANIFEST, json.dumps(sorted(hub_paths), indent=2))
+
+    # ---- redirects for changed slugs, removal of deleted tools
+    handle_moved_pages(previous, tools, hub_paths)
 
     # ---- homepage, nav, search, sitemap
     write_file("index.html", render_home(root, tools))
