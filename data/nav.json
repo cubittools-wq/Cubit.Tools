@@ -55,7 +55,7 @@
     {
       "name": "Passwords & Security",
       "url": "https://cubittools-wq.github.io/Cubit.Tools/passwords/",
-      "count": 99,
+      "count": 101,
       "children": [
         {
           "name": "Darts Passphrases",
@@ -75,7 +75,7 @@
         {
           "name": "Passphrase Generators",
           "url": "https://cubittools-wq.github.io/Cubit.Tools/passwords/passphrase-generators/",
-          "count": 1
+          "count": 3
         },
         {
           "name": "TV & Film Passphrases",
