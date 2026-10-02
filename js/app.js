@@ -6,6 +6,7 @@ import ApplianceCalcWidget from './widgets/appliance_calc.js';
 import CountdownWidget from './widgets/countdown.js';
 import DateDiffCalcWidget from './widgets/date_diff_calc.js';
 import AgeCalcWidget from './widgets/age_calc.js';
+import FormulaCalcWidget from './widgets/formula_calc.js';
 import { attachSearch } from './site-search.js';
 
 // The site's root address, worked out from where this file is loaded (…/js/app.js), so nothing here
@@ -115,7 +116,7 @@ function renderBrowseMenu(nav) {
   navUl.innerHTML = `
     <li class="primary-nav-item">
       <button type="button" class="primary-nav-btn" aria-expanded="false">
-        Browse <span class="arrow">&#9662;</span>
+        All Tools <span class="arrow">&#9662;</span>
       </button>
       <div class="top-dropdown-panel browse-panel">
         <div class="browse-grid">${columns}</div>
@@ -219,6 +220,9 @@ function mountWidget(container) {
       break;
     case 'age_calc':
       new AgeCalcWidget(container);
+      break;
+    case 'formula_calc':
+      new FormulaCalcWidget(container);
       break;
     default:
       container.innerHTML = `<p>Widget type "${widgetType}" not configured.</p>`;
