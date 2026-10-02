@@ -1,6 +1,9 @@
 [
   "business",
   "business/margins-and-pricing",
+  "business/marketing-and-advertising",
+  "business/sales-and-stock",
+  "business/staff-and-operations",
   "converters",
   "date-time",
   "date-time/countdowns",

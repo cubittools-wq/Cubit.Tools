@@ -1,14 +1,29 @@
 {
   "categories": [
     {
-      "name": "Business & E-commerce",
+      "name": "Business",
       "url": "https://cubittools-wq.github.io/Cubit.Tools/business/",
-      "count": 1,
+      "count": 33,
       "children": [
         {
           "name": "Margins & Pricing",
           "url": "https://cubittools-wq.github.io/Cubit.Tools/business/margins-and-pricing/",
-          "count": 1
+          "count": 10
+        },
+        {
+          "name": "Marketing & Advertising",
+          "url": "https://cubittools-wq.github.io/Cubit.Tools/business/marketing-and-advertising/",
+          "count": 10
+        },
+        {
+          "name": "Sales & Stock",
+          "url": "https://cubittools-wq.github.io/Cubit.Tools/business/sales-and-stock/",
+          "count": 7
+        },
+        {
+          "name": "Staff & Operations",
+          "url": "https://cubittools-wq.github.io/Cubit.Tools/business/staff-and-operations/",
+          "count": 6
         }
       ]
     },

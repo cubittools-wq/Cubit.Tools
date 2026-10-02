@@ -3,6 +3,9 @@
   <url><loc>https://cubittools-wq.github.io/Cubit.Tools/</loc></url>
   <url><loc>https://cubittools-wq.github.io/Cubit.Tools/business/</loc></url>
   <url><loc>https://cubittools-wq.github.io/Cubit.Tools/business/margins-and-pricing/</loc></url>
+  <url><loc>https://cubittools-wq.github.io/Cubit.Tools/business/marketing-and-advertising/</loc></url>
+  <url><loc>https://cubittools-wq.github.io/Cubit.Tools/business/sales-and-stock/</loc></url>
+  <url><loc>https://cubittools-wq.github.io/Cubit.Tools/business/staff-and-operations/</loc></url>
   <url><loc>https://cubittools-wq.github.io/Cubit.Tools/converters/</loc></url>
   <url><loc>https://cubittools-wq.github.io/Cubit.Tools/date-time/</loc></url>
   <url><loc>https://cubittools-wq.github.io/Cubit.Tools/date-time/countdowns/</loc></url>
@@ -53,6 +56,38 @@
   <url><loc>https://cubittools-wq.github.io/Cubit.Tools/converters/fuel-consumption-converter/</loc></url>
   <url><loc>https://cubittools-wq.github.io/Cubit.Tools/converters/angle-unit-converter/</loc></url>
   <url><loc>https://cubittools-wq.github.io/Cubit.Tools/converters/time-unit-converter/</loc></url>
+  <url><loc>https://cubittools-wq.github.io/Cubit.Tools/business/gross-profit-margin-calculator/</loc></url>
+  <url><loc>https://cubittools-wq.github.io/Cubit.Tools/business/markup-calculator/</loc></url>
+  <url><loc>https://cubittools-wq.github.io/Cubit.Tools/business/selling-price-calculator/</loc></url>
+  <url><loc>https://cubittools-wq.github.io/Cubit.Tools/business/vat-calculator/</loc></url>
+  <url><loc>https://cubittools-wq.github.io/Cubit.Tools/business/reverse-vat-calculator/</loc></url>
+  <url><loc>https://cubittools-wq.github.io/Cubit.Tools/business/discount-calculator/</loc></url>
+  <url><loc>https://cubittools-wq.github.io/Cubit.Tools/business/break-even-calculator/</loc></url>
+  <url><loc>https://cubittools-wq.github.io/Cubit.Tools/business/contribution-margin-calculator/</loc></url>
+  <url><loc>https://cubittools-wq.github.io/Cubit.Tools/business/price-increase-calculator/</loc></url>
+  <url><loc>https://cubittools-wq.github.io/Cubit.Tools/business/sell-through-rate-calculator/</loc></url>
+  <url><loc>https://cubittools-wq.github.io/Cubit.Tools/business/stock-turnover-calculator/</loc></url>
+  <url><loc>https://cubittools-wq.github.io/Cubit.Tools/business/gmroi-calculator/</loc></url>
+  <url><loc>https://cubittools-wq.github.io/Cubit.Tools/business/safety-stock-calculator/</loc></url>
+  <url><loc>https://cubittools-wq.github.io/Cubit.Tools/business/cost-of-goods-sold-calculator/</loc></url>
+  <url><loc>https://cubittools-wq.github.io/Cubit.Tools/business/sales-commission-calculator/</loc></url>
+  <url><loc>https://cubittools-wq.github.io/Cubit.Tools/business/average-order-value-calculator/</loc></url>
+  <url><loc>https://cubittools-wq.github.io/Cubit.Tools/business/roas-calculator/</loc></url>
+  <url><loc>https://cubittools-wq.github.io/Cubit.Tools/business/cpa-calculator/</loc></url>
+  <url><loc>https://cubittools-wq.github.io/Cubit.Tools/business/cpm-calculator/</loc></url>
+  <url><loc>https://cubittools-wq.github.io/Cubit.Tools/business/cpc-calculator/</loc></url>
+  <url><loc>https://cubittools-wq.github.io/Cubit.Tools/business/ctr-calculator/</loc></url>
+  <url><loc>https://cubittools-wq.github.io/Cubit.Tools/business/conversion-rate-calculator/</loc></url>
+  <url><loc>https://cubittools-wq.github.io/Cubit.Tools/business/customer-acquisition-cost-calculator/</loc></url>
+  <url><loc>https://cubittools-wq.github.io/Cubit.Tools/business/customer-lifetime-value-calculator/</loc></url>
+  <url><loc>https://cubittools-wq.github.io/Cubit.Tools/business/churn-rate-calculator/</loc></url>
+  <url><loc>https://cubittools-wq.github.io/Cubit.Tools/business/roi-calculator/</loc></url>
+  <url><loc>https://cubittools-wq.github.io/Cubit.Tools/business/revenue-per-employee-calculator/</loc></url>
+  <url><loc>https://cubittools-wq.github.io/Cubit.Tools/business/staff-turnover-calculator/</loc></url>
+  <url><loc>https://cubittools-wq.github.io/Cubit.Tools/business/bradford-factor-calculator/</loc></url>
+  <url><loc>https://cubittools-wq.github.io/Cubit.Tools/business/fte-calculator/</loc></url>
+  <url><loc>https://cubittools-wq.github.io/Cubit.Tools/business/payback-period-calculator/</loc></url>
+  <url><loc>https://cubittools-wq.github.io/Cubit.Tools/business/burn-rate-calculator/</loc></url>
   <url><loc>https://cubittools-wq.github.io/Cubit.Tools/date-time/christmas-countdown/</loc></url>
   <url><loc>https://cubittools-wq.github.io/Cubit.Tools/date-time/halloween-countdown/</loc></url>
   <url><loc>https://cubittools-wq.github.io/Cubit.Tools/date-time/new-years-day-countdown/</loc></url>

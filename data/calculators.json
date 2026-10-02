@@ -1,6 +1,6 @@
 [
   {
-    "Category": "Business & E-commerce/Margins & Pricing",
+    "Category": "Business/Margins & Pricing",
     "Slug": "business/net-profit-margin-calculator",
     "H1_Title": "Net Profit Margin Calculator",
     "Meta_Title": "Simple Net Profit Margin Calculator | Cubit.tools",
@@ -10,7 +10,7 @@
     "Config_JSON": "{\"mode\": \"net_margin\", \"currency\": \"£\", \"bidirectional\": true, \"fields\": [\"revenue\", \"costs\"], \"formula\": \"((revenue - costs) / revenue) * 100\"}",
     "Data_List": "",
     "SEO_Body": "<h2>Net Profit Margin Calculator</h2><p>Use our <strong>Net Profit Margin Calculator</strong> to quickly calculate your net profit margin as a percentage. Simply enter your total revenue and total costs to see how much of your revenue remains as profit after costs.</p><h2>Understanding Net Profit Margin</h2><p>Net profit margin displays the percentage of revenue remaining after subtracting all operating expenses, taxes, interest, and costs of goods sold. A higher margin can indicate better expense control and financial sustainability.</p><h3>Net Profit Margin Formula</h3><p><code>Net Profit Margin = ((Total Revenue - Total Costs) / Total Revenue) * 100</code></p><p>For example, if a business generates £100,000 in revenue and has total costs of £80,000, its net profit is £20,000 and its net profit margin is 20%.</p><h2>How to Calculate Net Profit Margin</h2><p>To calculate your net profit margin, enter your <strong>total revenue</strong> and <strong>total costs</strong> into the calculator. The calculator subtracts your costs from your revenue to determine your net profit, then expresses that profit as a percentage of your total revenue.</p><h2>What Does Net Profit Margin Tell You?</h2><p>Net profit margin helps show how much profit a business retains from each pound of revenue after accounting for its costs. For example, a 15% net profit margin means that a business keeps £15 in net profit for every £100 of revenue.</p><p>Comparing net profit margins over time can help businesses understand changes in profitability and assess the impact of increasing revenue, reducing costs or changing operating expenses.</p><h2>Net Margin vs Gross Profit Margin</h2><p><strong>Gross profit margin</strong> measures the profit remaining after the cost of goods sold, while <strong>net profit margin</strong> takes a broader view and accounts for additional expenses such as operating costs, interest and taxes. Net profit margin therefore provides a more complete picture of overall profitability.</p><h2>Calculate Your Net Margin</h2><p>Enter your revenue and costs into the <strong>Net Profit Margin Calculator</strong> above to calculate your net profit and net margin percentage. It's a simple way to assess profitability and understand how much of your revenue remains after costs.</p>",
-    "Short_Desc": "",
+    "Short_Desc": "Net profit and net margin from revenue and total costs.",
     "Featured": ""
   },
   {
@@ -24,8 +24,8 @@
     "Config_JSON": "{\"dimension\": \"length\", \"base_unit\": \"meters\", \"default_from\": \"meters\", \"default_to\": \"feet\", \"factors\": {\"meters\": 1.0, \"kilometers\": 1000.0, \"centimeters\": 0.01, \"millimeters\": 0.001, \"miles\": 1609.344, \"yards\": 0.9144, \"feet\": 0.3048, \"inches\": 0.0254}}",
     "Data_List": "",
     "SEO_Body": "<h2>Length Unit Converter</h2><p>Use our free <strong>Length Unit Converter</strong> to quickly convert measurements between different metric and imperial units. Enter a value and select your units to instantly see the converted length.</p><h2>Convert Length Units</h2><p>Our length converter makes it easy to convert between common units of measurement, including <strong>metres, centimetres, millimetres, kilometres, feet, inches, yards and miles</strong>. Whether you're working with metric or imperial measurements, you can convert lengths quickly without needing to calculate the conversion yourself.</p><h3>Common Length Conversions</h3><p>Some of the most common length conversions include:</p><ul><li>Metres to feet</li><li>Feet to metres</li><li>Centimetres to inches</li><li>Inches to centimetres</li><li>Kilometres to miles</li><li>Miles to kilometres</li><li>Metres to yards</li><li>Yards to metres</li></ul><h2>Metric and Imperial Length Converter</h2><p>Metric and imperial systems use different units to measure length. The metric system includes units such as millimetres, centimetres, metres and kilometres, while imperial measurements commonly include inches, feet, yards and miles.</p><p>A <strong>metric to imperial converter</strong> can be useful when working with measurements from different countries, comparing product dimensions, planning distances or simply checking a measurement in another unit.</p><h2>How to Convert Length Measurements</h2><p>To convert a length, enter the measurement into the calculator and select the unit you are converting from and the unit you want to convert to. The <strong>Length Unit Converter</strong> calculates the equivalent measurement instantly.</p><p>For example, 1 metre is equal to approximately 3.281 feet, while 1 kilometre is approximately 0.621 miles.</p><h2>Metres, Feet, Inches, Kilometres and Miles</h2><p>Whether you need to convert <strong>metres to feet</strong>, <strong>feet to metres</strong>, <strong>inches to centimetres</strong>, <strong>kilometres to miles</strong> or miles to kilometres, our length converter provides a quick and convenient way to convert measurements.</p><h2>Convert Lengths Instantly</h2><p>Use the <strong>Length Unit Converter</strong> above to convert your measurement between metric and imperial units. Simply enter your value, select the relevant units and get your converted length instantly.</p>",
-    "Short_Desc": "",
-    "Featured": ""
+    "Short_Desc": "Convert between metres, feet, inches, miles and other lengths.",
+    "Featured": "Y"
   },
   {
     "Category": "Converters",
@@ -38,7 +38,7 @@
     "Config_JSON": "{\"dimension\": \"weight\", \"base_unit\": \"kilograms\", \"default_from\": \"kilograms\", \"default_to\": \"pounds\", \"factors\": {\"kilograms\": 1.0, \"grams\": 0.001, \"milligrams\": 0.000001, \"metric_tons\": 1000.0, \"pounds\": 0.45359237, \"ounces\": 0.02834952, \"stones\": 6.35029}}",
     "Data_List": "",
     "SEO_Body": "<h2>Weight and Mass Conversion</h2><p>Accurate weight conversion is crucial for shipping, cooking, fitness tracking, and scientific calculations. Easily convert between standard metric units like kilograms and grams or imperial units like pounds, ounces, and stones.</p><h3>Common Weight Conversion Rates</h3><ul><li>1 Kilogram = 2.20462 Pounds</li><li>1 Pound = 16 Ounces</li><li>1 Stone = 14 Pounds (6.35029 Kilograms)</li></ul>",
-    "Short_Desc": "",
+    "Short_Desc": "Convert between kilograms, pounds, stones, ounces and more.",
     "Featured": ""
   },
   {
@@ -52,7 +52,7 @@
     "Config_JSON": "{\"dimension\": \"speed\", \"base_unit\": \"kph\", \"default_from\": \"mph\", \"default_to\": \"kph\", \"factors\": {\"kph\": 1.0, \"mph\": 1.609344, \"m_s\": 3.6, \"knots\": 1.852, \"ft_s\": 1.09728}}",
     "Data_List": "",
     "SEO_Body": "<h2>Speed and Velocity Conversion</h2><p>Converting speed measurements is vital for travel planning, aviation, maritime navigation, and sports analytics. Effortlessly switch between terrestrial speeds (mph, km/h) and nautical or aviation units (knots).</p><h3>Common Speed Conversion Rates</h3><ul><li>1 Mile per Hour (mph) = 1.60934 Kilometers per Hour (km/h)</li><li>1 Knot = 1.15078 Miles per Hour (mph)</li><li>1 Meter per Second (m/s) = 3.6 Kilometers per Hour (km/h)</li></ul>",
-    "Short_Desc": "",
+    "Short_Desc": "Convert between mph, km/h, metres per second and knots.",
     "Featured": ""
   },
   {
@@ -66,8 +66,8 @@
     "Config_JSON": "{\"dimension\": \"temperature\", \"base_unit\": \"celsius\", \"default_from\": \"celsius\", \"default_to\": \"fahrenheit\", \"units\": [\"celsius\", \"fahrenheit\", \"kelvin\"], \"formulas\": {\"celsius_to_fahrenheit\": \"(val * 9/5) + 32\", \"fahrenheit_to_celsius\": \"(val - 32) * 5/9\", \"celsius_to_kelvin\": \"val + 273.15\", \"kelvin_to_celsius\": \"val - 273.15\"}}",
     "Data_List": "",
     "SEO_Body": "<h2>Temperature Conversion</h2><p>Temperature conversions are widely used in cooking, weather forecasting, science, and engineering. Easily convert between Celsius, Fahrenheit, and Kelvin.</p><h3>Common Temperature Formulas</h3><ul><li><strong>Fahrenheit to Celsius:</strong> <code>(°F - 32) × 5/9 = °C</code></li><li><strong>Celsius to Fahrenheit:</strong> <code>(°C × 9/5) + 32 = °F</code></li><li><strong>Celsius to Kelvin:</strong> <code>°C + 273.15 = K</code></li></ul>",
-    "Short_Desc": "",
-    "Featured": ""
+    "Short_Desc": "Convert between Celsius, Fahrenheit and Kelvin.",
+    "Featured": "Y"
   },
   {
     "Category": "Converters",
@@ -80,8 +80,8 @@
     "Config_JSON": "{\"dimension\": \"cooking\", \"base_unit\": \"milliliters\", \"default_from\": \"cups\", \"default_to\": \"milliliters\", \"factors\": {\"milliliters\": 1.0, \"liters\": 1000.0, \"cups\": 240.0, \"tablespoons\": 15.0, \"teaspoons\": 5.0, \"fluid_ounces\": 29.5735, \"grams\": 1.0, \"ounces\": 28.3495}}",
     "Data_List": "",
     "SEO_Body": "<h2>Cooking and Baking Measurement Conversion</h2><p>Accurate kitchen measurements ensure recipe success whether baking or cooking. Easily convert between volumetric units like cups and tablespoons, liquid volume like milliliters, and dry weight measurements like grams and ounces.</p><h3>Common Kitchen Conversions</h3><ul><li>1 Cup = 16 Tablespoons = 240 Milliliters</li><li>1 Tablespoon = 3 Teaspoons = 15 Milliliters</li><li>1 Fluid Ounce = 29.57 Milliliters</li></ul>",
-    "Short_Desc": "",
-    "Featured": ""
+    "Short_Desc": "Convert cups, spoons, millilitres and other kitchen measures.",
+    "Featured": "Y"
   },
   {
     "Category": "Home & DIY/Electrical",
@@ -94,8 +94,8 @@
     "Config_JSON": "{\"mode\": \"watts_to_amps\", \"fields\": [\"watts\", \"volts\"], \"formula\": \"watts / volts\"}",
     "Data_List": "",
     "SEO_Body": "<h2>How to Convert Watts to Amps</h2><p>Electrical current (amperes) is equal to power (watts) divided by voltage (volts). Use this calculator to determine the required current for your electrical appliances and circuits safely and accurately.</p><h3>Formula</h3><p><code>Amps = Watts / Volts</code></p>",
-    "Short_Desc": "",
-    "Featured": ""
+    "Short_Desc": "Work out the current in amps from watts and volts.",
+    "Featured": "Y"
   },
   {
     "Category": "Home & DIY/Energy & Appliances",
@@ -108,7 +108,7 @@
     "Config_JSON": "{\"mode\": \"fridge_energy\", \"default_rate\": 0.28, \"classes\": {\"A\": 120, \"B\": 150, \"C\": 190, \"D\": 240, \"E\": 300, \"F\": 370, \"G\": 450}}",
     "Data_List": "",
     "SEO_Body": "<h2>Understanding Refrigerator Energy Ratings</h2><p>Because refrigerators and freezers must run continuously 24 hours a day, 365 days a year, their energy efficiency rating has a massive impact on your household electricity bill. Modern rescaled energy labels range from class A (most efficient) down to class G (least efficient).</p><h3>How Costs Are Calculated</h3><p>The energy label lists total annual consumption in kilowatt-hours (kWh/annum). Multiplying this figure by your local electricity utility rate per kWh reveals your exact annual running cost.</p>",
-    "Short_Desc": "",
+    "Short_Desc": "Estimate a fridge's yearly running cost from its energy label.",
     "Featured": ""
   },
   {
@@ -122,7 +122,7 @@
     "Config_JSON": "{\"dimension\": \"volume\", \"base_unit\": \"liters\", \"default_from\": \"liters\", \"default_to\": \"gallons_us\", \"factors\": {\"liters\": 1.0, \"milliliters\": 0.001, \"cubic_meters\": 1000.0, \"gallons_us\": 3.785411784, \"quarts_us\": 0.946352946, \"pints_us\": 0.473176473, \"cubic_feet\": 28.316846592, \"cubic_inches\": 0.016387064}}",
     "Data_List": "",
     "SEO_Body": "<h2>Volume Unit Converter</h2><p>Use our free <strong>Volume Unit Converter</strong> to quickly convert between litres, US gallons, cubic metres, cubic feet and other common volume units. Enter a value, choose your units, and see the converted volume instantly.</p><h2>Convert Volume Units Instantly</h2><p>Our volume converter makes it easy to switch between <strong>litres, millilitres, cubic metres, US gallons, quarts, pints, cubic feet and cubic inches</strong>. Whether you're working with metric or imperial measurements, you can convert volumes without doing the maths yourself.</p><h3>Common Volume Conversions</h3><ul><li>Litres to US gallons</li><li>US gallons to litres</li><li>Cubic metres to cubic feet</li><li>Cubic feet to cubic metres</li><li>Millilitres to litres</li><li>Pints to litres</li></ul><h2>How to Convert Volume Measurements</h2><p>To convert a volume, enter the amount into the calculator and select the unit you are converting from and the unit you want to convert to. The <strong>Volume Unit Converter</strong> calculates the equivalent volume instantly.</p><p>For example, 1 litre is equal to approximately 0.264 US gallons, while 1 cubic metre is approximately 35.31 cubic feet.</p><h2>Litres, Gallons, Cubic Metres and Cubic Feet</h2><p>Whether you need to convert <strong>litres to gallons</strong>, <strong>gallons to litres</strong>, <strong>cubic metres to cubic feet</strong> or <strong>cubic feet to cubic metres</strong>, our volume converter provides a quick and accurate way to convert between units.</p><h2>Convert Volumes Instantly</h2><p>Use the <strong>Volume Unit Converter</strong> above to convert your measurement between metric and imperial volume units. Simply enter your value, select the relevant units and get your converted volume instantly.</p>",
-    "Short_Desc": "",
+    "Short_Desc": "Convert between litres, gallons, pints and other volumes.",
     "Featured": ""
   },
   {
@@ -136,7 +136,7 @@
     "Config_JSON": "{\"dimension\": \"area\", \"base_unit\": \"square_meters\", \"default_from\": \"square_meters\", \"default_to\": \"square_feet\", \"factors\": {\"square_meters\": 1.0, \"square_kilometers\": 1000000.0, \"square_feet\": 0.09290304, \"square_yards\": 0.83612736, \"acres\": 4046.8564224, \"hectares\": 10000.0, \"square_miles\": 2589988.110336}}",
     "Data_List": "",
     "SEO_Body": "<h2>Area Unit Converter</h2><p>Use our free <strong>Area Unit Converter</strong> to quickly convert between square metres, square feet, acres, hectares and other common area units. Enter a value, choose your units, and see the converted area instantly.</p><h2>Convert Area Units Instantly</h2><p>Our area converter makes it easy to switch between <strong>square metres, square kilometres, square feet, square yards, acres, hectares and square miles</strong>. Whether you're measuring land, a room or a plot for building work, you can convert areas without doing the maths yourself.</p><h3>Common Area Conversions</h3><ul><li>Square metres to square feet</li><li>Square feet to square metres</li><li>Acres to hectares</li><li>Hectares to acres</li><li>Square miles to square kilometres</li><li>Square yards to square metres</li></ul><h2>How to Convert Area Measurements</h2><p>To convert an area, enter the measurement into the calculator and select the unit you are converting from and the unit you want to convert to. The <strong>Area Unit Converter</strong> calculates the equivalent area instantly.</p><p>For example, 1 square metre is equal to approximately 10.76 square feet, while 1 acre is approximately 0.405 hectares.</p><h2>Square Metres, Acres and Hectares</h2><p>Whether you need to convert <strong>square metres to square feet</strong>, <strong>acres to hectares</strong>, <strong>hectares to acres</strong> or <strong>square miles to square kilometres</strong>, our area converter provides a quick and accurate way to convert between land and area units.</p><h2>Convert Areas Instantly</h2><p>Use the <strong>Area Unit Converter</strong> above to convert your measurement between metric and imperial area units. Simply enter your value, select the relevant units and get your converted area instantly.</p>",
-    "Short_Desc": "",
+    "Short_Desc": "Convert between square metres, square feet, acres and hectares.",
     "Featured": ""
   },
   {
@@ -150,7 +150,7 @@
     "Config_JSON": "{\"dimension\": \"data_storage\", \"base_unit\": \"bytes\", \"default_from\": \"megabytes\", \"default_to\": \"gigabytes\", \"factors\": {\"bits\": 0.125, \"bytes\": 1.0, \"kilobytes\": 1024.0, \"megabytes\": 1048576.0, \"gigabytes\": 1073741824.0, \"terabytes\": 1099511627776.0}}",
     "Data_List": "",
     "SEO_Body": "<h2>Data Storage Unit Converter</h2><p>Use our free <strong>Data Storage Unit Converter</strong> to quickly convert between bits, bytes, kilobytes, megabytes, gigabytes and terabytes. Enter a value, choose your units, and see the converted file size or storage capacity instantly.</p><h2>Convert Data Storage Units Instantly</h2><p>Our data storage converter makes it easy to switch between <strong>bits, bytes, KB, MB, GB and TB</strong>. Whether you're checking a download size, comparing hard drive or SSD capacity, or working out how much cloud storage you need, you can convert file sizes without doing the maths yourself.</p><h3>Common Data Storage Conversions</h3><ul><li>Megabytes to gigabytes</li><li>Gigabytes to megabytes</li><li>Gigabytes to terabytes</li><li>Kilobytes to megabytes</li><li>Bytes to kilobytes</li></ul><h2>How to Convert Data Storage Units</h2><p>To convert a file size or storage amount, enter the value into the calculator and select the unit you are converting from and the unit you want to convert to. The <strong>Data Storage Unit Converter</strong> calculates the equivalent size instantly.</p><p>For example, 1 megabyte is equal to approximately 0.000977 gigabytes, while 1 gigabyte is 1024 megabytes.</p><h2>Bytes, Kilobytes, Megabytes, Gigabytes and Terabytes</h2><p>Whether you need to convert <strong>MB to GB</strong>, <strong>GB to MB</strong>, <strong>GB to TB</strong> or <strong>bytes to kilobytes</strong>, our data storage converter provides a quick and accurate way to convert between digital storage units.</p><h2>Convert File Sizes Instantly</h2><p>Use the <strong>Data Storage Unit Converter</strong> above to convert your file size or storage capacity between digital units. Simply enter your value, select the relevant units and get your converted result instantly.</p>",
-    "Short_Desc": "",
+    "Short_Desc": "Convert between bytes, megabytes, gigabytes and terabytes.",
     "Featured": ""
   },
   {
@@ -164,7 +164,7 @@
     "Config_JSON": "{\"dimension\": \"pressure\", \"base_unit\": \"pascals\", \"default_from\": \"bar\", \"default_to\": \"psi\", \"factors\": {\"pascals\": 1.0, \"kilopascals\": 1000.0, \"bar\": 100000.0, \"psi\": 6894.757293168, \"atmospheres\": 101325.0, \"mmhg\": 133.322387415}}",
     "Data_List": "",
     "SEO_Body": "<h2>Pressure Unit Converter</h2><p>Use our free <strong>Pressure Unit Converter</strong> to quickly convert between pascals, bar, psi, atmospheres and mmHg. Enter a value, choose your units, and see the converted pressure instantly.</p><h2>Convert Pressure Units Instantly</h2><p>Our pressure converter makes it easy to switch between <strong>pascals, kilopascals, bar, psi (pounds per square inch), atmospheres and millimetres of mercury (mmHg)</strong>. Whether you're checking tyre pressure, working with weather data or handling engineering calculations, you can convert pressure units without doing the maths yourself.</p><h3>Common Pressure Conversions</h3><ul><li>Bar to psi</li><li>Psi to bar</li><li>Atmospheres to pascals</li><li>Kilopascals to psi</li><li>Pascals to bar</li></ul><h2>How to Convert Pressure Measurements</h2><p>To convert a pressure value, enter the amount into the calculator and select the unit you are converting from and the unit you want to convert to. The <strong>Pressure Unit Converter</strong> calculates the equivalent pressure instantly.</p><p>For example, 1 bar is equal to approximately 14.5 psi, while 1 atmosphere is approximately 101,325 pascals.</p><h2>Pascals, Bar, PSI and Atmospheres</h2><p>Whether you need to convert <strong>bar to psi</strong>, <strong>psi to bar</strong>, <strong>pascals to atmospheres</strong> or <strong>atmospheres to pascals</strong>, our pressure converter provides a quick and accurate way to convert between pressure units.</p><h2>Convert Pressure Instantly</h2><p>Use the <strong>Pressure Unit Converter</strong> above to convert your measurement between common pressure units. Simply enter your value, select the relevant units and get your converted pressure instantly.</p>",
-    "Short_Desc": "",
+    "Short_Desc": "Convert between bar, psi, pascals and other pressure units.",
     "Featured": ""
   },
   {
@@ -178,7 +178,7 @@
     "Config_JSON": "{\"dimension\": \"energy\", \"base_unit\": \"joules\", \"default_from\": \"kilojoules\", \"default_to\": \"kilocalories\", \"factors\": {\"joules\": 1.0, \"kilojoules\": 1000.0, \"calories\": 4.184, \"kilocalories\": 4184.0, \"watt_hours\": 3600.0, \"kilowatt_hours\": 3600000.0, \"btu\": 1055.05585262}}",
     "Data_List": "",
     "SEO_Body": "<h2>Energy Unit Converter</h2><p>Use our free <strong>Energy Unit Converter</strong> to quickly convert between joules, calories, kilocalories, watt-hours and BTU. Enter a value, choose your units, and see the converted energy amount instantly.</p><h2>Convert Energy Units Instantly</h2><p>Our energy converter makes it easy to switch between <strong>joules, kilojoules, calories, kilocalories, watt-hours, kilowatt-hours and BTU (British Thermal Units)</strong>. Whether you're comparing food energy, checking appliance energy use or working through a physics problem, you can convert energy units without doing the maths yourself.</p><h3>Common Energy Conversions</h3><ul><li>Kilojoules to kilocalories</li><li>Kilocalories to kilojoules</li><li>Kilowatt-hours to BTU</li><li>Joules to calories</li><li>Watt-hours to joules</li></ul><h2>How to Convert Energy Measurements</h2><p>To convert an energy value, enter the amount into the calculator and select the unit you are converting from and the unit you want to convert to. The <strong>Energy Unit Converter</strong> calculates the equivalent energy instantly.</p><p>For example, 1 kilojoule is equal to approximately 0.239 kilocalories, while 1 kilowatt-hour is approximately 3,412 BTU.</p><h2>Joules, Calories, Watt-Hours and BTU</h2><p>Whether you need to convert <strong>kJ to kcal</strong>, <strong>kcal to kJ</strong>, <strong>kWh to BTU</strong> or <strong>joules to calories</strong>, our energy converter provides a quick and accurate way to convert between energy units.</p><h2>Convert Energy Instantly</h2><p>Use the <strong>Energy Unit Converter</strong> above to convert your value between common energy units. Simply enter your value, select the relevant units and get your converted energy amount instantly.</p>",
-    "Short_Desc": "",
+    "Short_Desc": "Convert between joules, calories, kilowatt-hours and more.",
     "Featured": ""
   },
   {
@@ -192,7 +192,7 @@
     "Config_JSON": "{\"dimension\": \"power\", \"base_unit\": \"watts\", \"default_from\": \"kilowatts\", \"default_to\": \"horsepower\", \"factors\": {\"watts\": 1.0, \"kilowatts\": 1000.0, \"megawatts\": 1000000.0, \"horsepower\": 745.699872, \"btu_per_hour\": 0.29307107}}",
     "Data_List": "",
     "SEO_Body": "<h2>Power Unit Converter</h2><p>Use our free <strong>Power Unit Converter</strong> to quickly convert between watts, kilowatts, megawatts and horsepower. Enter a value, choose your units, and see the converted power instantly.</p><h2>Convert Power Units Instantly</h2><p>Our power converter makes it easy to switch between <strong>watts, kilowatts, megawatts, horsepower and BTU per hour</strong>. Whether you're comparing engine power, checking appliance ratings or working through an electrical or mechanical calculation, you can convert power units without doing the maths yourself.</p><h3>Common Power Conversions</h3><ul><li>Kilowatts to horsepower</li><li>Horsepower to kilowatts</li><li>Watts to kilowatts</li><li>Megawatts to kilowatts</li></ul><h2>How to Convert Power Measurements</h2><p>To convert a power value, enter the amount into the calculator and select the unit you are converting from and the unit you want to convert to. The <strong>Power Unit Converter</strong> calculates the equivalent power instantly.</p><p>For example, 1 kilowatt is equal to approximately 1.34 horsepower, while 1 horsepower is approximately 746 watts.</p><h2>Watts, Kilowatts and Horsepower</h2><p>Whether you need to convert <strong>kW to hp</strong>, <strong>hp to kW</strong>, <strong>watts to kilowatts</strong> or <strong>megawatts to kilowatts</strong>, our power converter provides a quick and accurate way to convert between power units.</p><h2>Convert Power Instantly</h2><p>Use the <strong>Power Unit Converter</strong> above to convert your value between common power units. Simply enter your value, select the relevant units and get your converted power instantly.</p>",
-    "Short_Desc": "",
+    "Short_Desc": "Convert between watts, kilowatts and horsepower.",
     "Featured": ""
   },
   {
@@ -206,7 +206,7 @@
     "Config_JSON": "{\"dimension\": \"fuel_consumption\", \"base_unit\": \"l_100km\", \"default_from\": \"mpg_us\", \"default_to\": \"l_100km\", \"units\": [\"mpg_us\", \"l_100km\"], \"formulas\": {\"mpg_us_to_l_100km\": \"235.214583 / val\", \"l_100km_to_mpg_us\": \"235.214583 / val\"}}",
     "Data_List": "",
     "SEO_Body": "<h2>Fuel Consumption Converter</h2><p>Use our free <strong>Fuel Consumption Converter</strong> to quickly convert between miles per gallon (MPG) and litres per 100 kilometres (L/100km). Enter a value and see the converted fuel economy figure instantly.</p><h2>Convert MPG to L/100km Instantly</h2><p>Our fuel consumption converter makes it easy to switch between <strong>miles per gallon (US)</strong> and <strong>litres per 100 kilometres</strong>, the two most common ways fuel economy is measured around the world. Whether you're comparing a car's official fuel economy figures or converting a spec sheet from another country, you can convert fuel consumption without doing the maths yourself.</p><h3>Why MPG and L/100km Don't Convert Like Other Units</h3><p>Unlike most unit conversions, MPG and L/100km have an <strong>inverse relationship</strong> rather than a simple multiplication. A higher MPG figure means better fuel economy, while a lower L/100km figure means better fuel economy. Our calculator automatically handles this inverse relationship for you.</p><h2>How to Convert Fuel Economy Figures</h2><p>To convert a fuel consumption value, enter the amount into the calculator and select whether you are converting from MPG to L/100km or from L/100km to MPG. The <strong>Fuel Consumption Converter</strong> calculates the equivalent figure instantly.</p><p>For example, 30 MPG (US) is approximately 7.84 L/100km, while 40 MPG (US) is approximately 5.88 L/100km.</p><h2>Miles Per Gallon to Litres Per 100km</h2><p>Whether you need to convert <strong>MPG to L/100km</strong> or <strong>L/100km to MPG</strong>, our fuel consumption converter provides a quick and accurate way to compare fuel economy figures between different measurement systems.</p><h2>Convert Fuel Consumption Instantly</h2><p>Use the <strong>Fuel Consumption Converter</strong> above to convert your fuel economy figure between MPG and L/100km. Simply enter your value and get your converted result instantly.</p>",
-    "Short_Desc": "",
+    "Short_Desc": "Convert fuel economy between miles per gallon and L/100km.",
     "Featured": ""
   },
   {
@@ -220,7 +220,7 @@
     "Config_JSON": "{\"dimension\": \"angle\", \"base_unit\": \"degrees\", \"default_from\": \"degrees\", \"default_to\": \"radians\", \"factors\": {\"degrees\": 1.0, \"radians\": 57.29577951308232, \"gradians\": 0.9}}",
     "Data_List": "",
     "SEO_Body": "<h2>Angle Unit Converter</h2><p>Use our free <strong>Angle Unit Converter</strong> to quickly convert between degrees, radians and gradians. Enter a value, choose your units, and see the converted angle instantly.</p><h2>Convert Angle Units Instantly</h2><p>Our angle converter makes it easy to switch between <strong>degrees, radians and gradians</strong>. Whether you're working through a maths or trigonometry problem, a physics calculation or a programming task, you can convert angle units without doing the maths yourself.</p><h3>Common Angle Conversions</h3><ul><li>Degrees to radians</li><li>Radians to degrees</li><li>Degrees to gradians</li><li>Gradians to degrees</li></ul><h2>How to Convert Angle Measurements</h2><p>To convert an angle, enter the value into the calculator and select the unit you are converting from and the unit you want to convert to. The <strong>Angle Unit Converter</strong> calculates the equivalent angle instantly.</p><p>For example, 1 degree is equal to approximately 0.01745 radians, and 90 degrees is equal to exactly 100 gradians.</p><h2>Degrees, Radians and Gradians</h2><p>Whether you need to convert <strong>degrees to radians</strong>, <strong>radians to degrees</strong> or work with gradians, our angle converter provides a quick and accurate way to convert between angle units.</p><h2>Convert Angles Instantly</h2><p>Use the <strong>Angle Unit Converter</strong> above to convert your value between degrees, radians and gradians. Simply enter your value, select the relevant units and get your converted angle instantly.</p>",
-    "Short_Desc": "",
+    "Short_Desc": "Convert between degrees, radians and other angle units.",
     "Featured": ""
   },
   {
@@ -234,7 +234,455 @@
     "Config_JSON": "{\"dimension\": \"time\", \"base_unit\": \"seconds\", \"default_from\": \"hours\", \"default_to\": \"minutes\", \"factors\": {\"seconds\": 1.0, \"minutes\": 60.0, \"hours\": 3600.0, \"days\": 86400.0, \"weeks\": 604800.0, \"years\": 31536000.0}}",
     "Data_List": "",
     "SEO_Body": "<h2>Time Unit Converter</h2><p>Use our free <strong>Time Unit Converter</strong> to quickly convert between seconds, minutes, hours, days, weeks and years. Enter a value, choose your units, and see the converted amount of time instantly.</p><h2>Convert Time Units Instantly</h2><p>Our time converter makes it easy to switch between <strong>seconds, minutes, hours, days, weeks and years</strong>. Whether you're working out how many hours are in a project timeline, converting seconds into minutes for a video, or figuring out how many days are in a given number of weeks, you can convert time units without doing the maths yourself.</p><h3>Common Time Conversions</h3><ul><li>Hours to minutes</li><li>Minutes to hours</li><li>Days to hours</li><li>Weeks to days</li><li>Years to days</li></ul><h2>How to Convert Time Measurements</h2><p>To convert an amount of time, enter the value into the calculator and select the unit you are converting from and the unit you want to convert to. The <strong>Time Unit Converter</strong> calculates the equivalent amount of time instantly.</p><p>For example, 1 hour is equal to 60 minutes, and 1 week is equal to 7 days.</p><h2>Seconds, Minutes, Hours, Days, Weeks and Years</h2><p>Whether you need to convert <strong>hours to minutes</strong>, <strong>days to hours</strong>, <strong>weeks to days</strong> or <strong>years to days</strong>, our time converter provides a quick and accurate way to convert between units of time.</p><h2>Convert Time Instantly</h2><p>Use the <strong>Time Unit Converter</strong> above to convert your value between seconds, minutes, hours, days, weeks and years. Simply enter your value, select the relevant units and get your converted result instantly.</p>",
-    "Short_Desc": "",
+    "Short_Desc": "Convert between seconds, minutes, hours, days and weeks.",
+    "Featured": ""
+  },
+  {
+    "Category": "Business/Margins & Pricing",
+    "Slug": "business/gross-profit-margin-calculator",
+    "H1_Title": "Gross Profit Margin Calculator",
+    "Meta_Title": "Gross Profit Margin Calculator | Cubit.tools",
+    "Meta_Desc": "Work out gross profit margin from your cost and selling price. See gross profit, margin and markup together with this free calculator.",
+    "Intro_Text": "Enter what an item costs you and what you sell it for to see your gross profit, gross margin and markup.",
+    "Widget_Type": "formula_calc",
+    "Config_JSON": "{\"currency\": \"£\", \"inputs\": [{\"id\": \"cost\", \"label\": \"Cost of goods\", \"type\": \"money\", \"default\": 60, \"help\": \"What the product costs you to buy or make\"}, {\"id\": \"revenue\", \"label\": \"Selling price\", \"type\": \"money\", \"default\": 100, \"help\": \"Excluding VAT\"}], \"outputs\": [{\"id\": \"margin\", \"label\": \"Gross profit margin\", \"type\": \"percent\", \"formula\": \"profit / revenue * 100\", \"primary\": true}, {\"id\": \"profit\", \"label\": \"Gross profit\", \"type\": \"money\", \"formula\": \"revenue - cost\"}, {\"id\": \"markup\", \"label\": \"Markup\", \"type\": \"percent\", \"formula\": \"profit / cost * 100\"}]}",
+    "Data_List": "",
+    "SEO_Body": "<h2>What is gross profit margin?</h2><p>Gross profit margin is the share of your selling price that is left once you have paid for the goods themselves. It ignores overheads such as rent, wages and marketing, so it tells you how profitable the product is before the costs of running the business are taken off.</p><p>The calculator works for a single item or for a whole period: enter one product's cost and price, or your total cost of goods sold and total sales.</p><h2>Gross profit margin formula</h2><p><code>Gross profit = Selling price - Cost of goods</code></p><p><code>Gross profit margin = Gross profit / Selling price x 100</code></p><h2>Worked example</h2><p>You buy a lamp for £60 and sell it for £100 before VAT. Your gross profit is £40, so your gross margin is 40%. The same sale has a markup of 66.67%, because markup is measured against the cost and margin against the selling price.</p><h2>What is a good gross margin?</h2><p>It depends on the trade. Grocers and electronics retailers often work on low margins and high volumes, while clothing, furniture and software businesses usually need much higher margins to cover their overheads. The most useful comparison is with your own figures from earlier periods, and with the margin you need to cover your fixed costs.</p><h2>Frequently asked questions</h2><h3>Should I include VAT?</h3><p>No. If you are VAT registered, use prices and costs without VAT, because the VAT you charge is not your income.</p><h3>Can gross margin be more than 100%?</h3><p>No. Margin is a share of the selling price, so it can never pass 100%. Markup can, and often does.</p><h3>Why is my margin negative?</h3><p>The cost is higher than the selling price, so each sale loses money before overheads.</p>",
+    "Short_Desc": "Gross profit, margin and markup from cost and selling price.",
+    "Featured": ""
+  },
+  {
+    "Category": "Business/Margins & Pricing",
+    "Slug": "business/markup-calculator",
+    "H1_Title": "Markup Calculator",
+    "Meta_Title": "Markup Calculator | Cubit.tools",
+    "Meta_Desc": "Add a percentage markup to your cost price to find the selling price, the profit per item and the margin it gives you. Free and instant.",
+    "Intro_Text": "Enter your cost and the markup you want to add. The calculator shows the selling price, your profit and the margin that markup gives.",
+    "Widget_Type": "formula_calc",
+    "Config_JSON": "{\"currency\": \"£\", \"inputs\": [{\"id\": \"cost\", \"label\": \"Cost price\", \"type\": \"money\", \"default\": 40}, {\"id\": \"markup\", \"label\": \"Markup\", \"type\": \"percent\", \"default\": 50}], \"outputs\": [{\"id\": \"price\", \"label\": \"Selling price\", \"type\": \"money\", \"formula\": \"cost * (1 + markup / 100)\", \"primary\": true}, {\"id\": \"profit\", \"label\": \"Profit per item\", \"type\": \"money\", \"formula\": \"price - cost\"}, {\"id\": \"margin\", \"label\": \"Margin\", \"type\": \"percent\", \"formula\": \"profit / price * 100\"}]}",
+    "Data_List": "",
+    "SEO_Body": "<h2>What is markup?</h2><p>Markup is the amount you add to the cost of a product to reach its selling price, shown as a percentage of the cost. It is the usual way for wholesalers, tradespeople and shops to set prices, because you normally know the cost first.</p><h2>Markup formula</h2><p><code>Selling price = Cost x (1 + Markup / 100)</code></p><p><code>Markup = (Selling price - Cost) / Cost x 100</code></p><h2>Worked example</h2><p>A product costs you £40 and you add a markup of 50%. The selling price is £60, which gives a profit of £20 on each sale. That profit is 33.33% of the selling price, so the margin is lower than the markup.</p><h2>Markup and margin are not the same</h2><p>Both describe the same profit, measured against different numbers. Markup compares profit with cost. Margin compares profit with the selling price. A 50% markup is a 33.33% margin, and a 100% markup is a 50% margin. Mixing the two up is a common reason for prices that look profitable but are not.</p><h2>Frequently asked questions</h2><h3>What markup do I need for a 50% margin?</h3><p>100%. You have to double the cost for half of the selling price to be profit.</p><h3>Does markup include overheads?</h3><p>Only if you build them into the cost. A markup on the purchase price alone has to be high enough to pay for rent, wages, delivery and payment fees as well.</p>",
+    "Short_Desc": "Selling price, profit and margin from a cost and markup percentage.",
+    "Featured": ""
+  },
+  {
+    "Category": "Business/Margins & Pricing",
+    "Slug": "business/selling-price-calculator",
+    "H1_Title": "Selling Price Calculator",
+    "Meta_Title": "Selling Price Calculator | Cubit.tools",
+    "Meta_Desc": "Find the selling price that gives you the profit margin you want. Enter your cost and target margin to see the price, profit and markup.",
+    "Intro_Text": "Know the margin you need but not the price? Enter your cost and target margin to find the selling price that delivers it.",
+    "Widget_Type": "formula_calc",
+    "Config_JSON": "{\"currency\": \"£\", \"inputs\": [{\"id\": \"cost\", \"label\": \"Cost price\", \"type\": \"money\", \"default\": 30}, {\"id\": \"margin\", \"label\": \"Target margin\", \"type\": \"percent\", \"default\": 40, \"help\": \"Must be below 100%\"}], \"outputs\": [{\"id\": \"price\", \"label\": \"Selling price\", \"type\": \"money\", \"formula\": \"if(margin < 100, cost / (1 - margin / 100), 0 / 0)\", \"primary\": true}, {\"id\": \"profit\", \"label\": \"Profit per item\", \"type\": \"money\", \"formula\": \"price - cost\"}, {\"id\": \"markup\", \"label\": \"Equivalent markup\", \"type\": \"percent\", \"formula\": \"profit / cost * 100\"}]}",
+    "Data_List": "",
+    "SEO_Body": "<h2>Pricing from a target margin</h2><p>If your business needs a set margin to cover its overheads, the price has to be worked back from the cost. Adding the margin percentage on top of the cost is a common mistake: adding 40% to a cost gives a margin of only 28.57%.</p><h2>Selling price formula</h2><p><code>Selling price = Cost / (1 - Margin / 100)</code></p><h2>Worked example</h2><p>An item costs you £30 and you want a margin of 40%. The selling price needs to be £50. Each sale then earns £20, which is a markup of 66.67% on the cost.</p><h2>Before you set the price</h2><ul><li><strong>Count every cost.</strong> Include delivery to you, packaging, payment fees and marketplace commission, not only the purchase price.</li><li><strong>Add VAT afterwards.</strong> If you are VAT registered, the result is the price before VAT.</li><li><strong>Check the market.</strong> The calculator shows what you need to charge. Customers and competitors decide whether you can.</li></ul><h2>Frequently asked questions</h2><h3>Why can't I enter a margin of 100%?</h3><p>A 100% margin would mean the product cost nothing. As the target margin gets close to 100%, the price needed rises without limit.</p><h3>Is this the same as a markup calculator?</h3><p>No. A markup calculator adds a percentage of the cost. This one finds the price where a chosen percentage of the price is profit.</p>",
+    "Short_Desc": "The price to charge to hit a target profit margin.",
+    "Featured": ""
+  },
+  {
+    "Category": "Business/Margins & Pricing",
+    "Slug": "business/vat-calculator",
+    "H1_Title": "VAT Calculator",
+    "Meta_Title": "VAT Calculator - Add VAT to a Net Price | Cubit.tools",
+    "Meta_Desc": "Add UK VAT to a net price. Choose the 20%, 5% or 0% rate to see the VAT amount and the total price including VAT. Free and instant.",
+    "Intro_Text": "Enter a price without VAT and choose a rate to see the VAT and the total including VAT.",
+    "Widget_Type": "formula_calc",
+    "Config_JSON": "{\"currency\": \"£\", \"inputs\": [{\"id\": \"net\", \"label\": \"Price excluding VAT\", \"type\": \"money\", \"default\": 100}, {\"id\": \"rate\", \"label\": \"VAT rate\", \"type\": \"select\", \"default\": 20, \"options\": [{\"label\": \"Standard rate (20%)\", \"value\": 20}, {\"label\": \"Reduced rate (5%)\", \"value\": 5}, {\"label\": \"Zero rate (0%)\", \"value\": 0}]}], \"outputs\": [{\"id\": \"gross\", \"label\": \"Price including VAT\", \"type\": \"money\", \"formula\": \"net * (1 + rate / 100)\", \"primary\": true}, {\"id\": \"vat\", \"label\": \"VAT amount\", \"type\": \"money\", \"formula\": \"gross - net\"}]}",
+    "Data_List": "",
+    "SEO_Body": "<h2>How to add VAT</h2><p>VAT (Value Added Tax) is charged as a percentage of the net price. To add it, multiply the net price by the rate and add the result to the net price.</p><p><code>VAT = Net price x Rate / 100</code></p><p><code>Price including VAT = Net price + VAT</code></p><h2>Worked example</h2><p>A net price of £100 at the standard rate of 20% carries £20 of VAT, so the customer pays £120.</p><h2>UK VAT rates</h2><ul><li><strong>Standard rate, 20%:</strong> most goods and services.</li><li><strong>Reduced rate, 5%:</strong> some goods and services, such as home energy and children's car seats.</li><li><strong>Zero rate, 0%:</strong> most food, books and children's clothes.</li></ul><p>Some things are exempt from VAT altogether, which is different from zero rated. Check the rate for your product on GOV.UK if you are unsure.</p><h2>Frequently asked questions</h2><h3>How do I take VAT off a price?</h3><p>Don't subtract 20%. Divide the price by 1.2 instead, or use our Reverse VAT Calculator.</p><h3>Do I have to charge VAT?</h3><p>Only if your business is registered for VAT. Registration is compulsory once your taxable turnover passes the threshold set by HMRC.</p>",
+    "Short_Desc": "Add 20%, 5% or 0% VAT to a net price.",
+    "Featured": ""
+  },
+  {
+    "Category": "Business/Margins & Pricing",
+    "Slug": "business/reverse-vat-calculator",
+    "H1_Title": "Reverse VAT Calculator",
+    "Meta_Title": "Reverse VAT Calculator - Remove VAT from a Price | Cubit.tools",
+    "Meta_Desc": "Take VAT off a price that already includes it. Enter the gross amount and the VAT rate to see the net price and the VAT you paid.",
+    "Intro_Text": "Enter a price that includes VAT to find the price before VAT and how much of it was tax.",
+    "Widget_Type": "formula_calc",
+    "Config_JSON": "{\"currency\": \"£\", \"inputs\": [{\"id\": \"gross\", \"label\": \"Price including VAT\", \"type\": \"money\", \"default\": 120}, {\"id\": \"rate\", \"label\": \"VAT rate\", \"type\": \"select\", \"default\": 20, \"options\": [{\"label\": \"Standard rate (20%)\", \"value\": 20}, {\"label\": \"Reduced rate (5%)\", \"value\": 5}, {\"label\": \"Zero rate (0%)\", \"value\": 0}]}], \"outputs\": [{\"id\": \"net\", \"label\": \"Price excluding VAT\", \"type\": \"money\", \"formula\": \"gross / (1 + rate / 100)\", \"primary\": true}, {\"id\": \"vat\", \"label\": \"VAT amount\", \"type\": \"money\", \"formula\": \"gross - net\"}]}",
+    "Data_List": "",
+    "SEO_Body": "<h2>How to remove VAT from a price</h2><p>VAT is added to the net price, so it has to be taken off by dividing, not by subtracting a percentage of the total.</p><p><code>Net price = Price including VAT / (1 + Rate / 100)</code></p><p>At the standard rate that means dividing by 1.2. At the reduced rate, divide by 1.05.</p><h2>Worked example</h2><p>A receipt shows £120 including VAT at 20%. The price before VAT is £100 and the VAT is £20.</p><h2>The mistake to avoid</h2><p>Taking 20% off a VAT-inclusive price gives the wrong answer. 20% of £120 is £24, but the VAT in £120 is only £20, because the 20% was charged on the net price of £100. A quick check: at the standard rate, the VAT is always one sixth of the total.</p><h2>When you need to reverse VAT</h2><ul><li>Working out your margin from a retail price that includes VAT.</li><li>Recording the net cost of a purchase when the receipt only shows the total.</li><li>Comparing a supplier's ex-VAT quote with a price that includes VAT.</li></ul>",
+    "Short_Desc": "Remove VAT from a gross price to find the net amount.",
+    "Featured": ""
+  },
+  {
+    "Category": "Business/Margins & Pricing",
+    "Slug": "business/discount-calculator",
+    "H1_Title": "Discount Calculator",
+    "Meta_Title": "Discount Calculator | Cubit.tools",
+    "Meta_Desc": "Work out a sale price from a percentage discount. Enter the original price and the percentage off to see the saving and the price to pay.",
+    "Intro_Text": "Enter the original price and the percentage off to see the sale price and how much is saved.",
+    "Widget_Type": "formula_calc",
+    "Config_JSON": "{\"currency\": \"£\", \"inputs\": [{\"id\": \"price\", \"label\": \"Original price\", \"type\": \"money\", \"default\": 80}, {\"id\": \"discount\", \"label\": \"Discount\", \"type\": \"percent\", \"default\": 25}], \"outputs\": [{\"id\": \"sale\", \"label\": \"Sale price\", \"type\": \"money\", \"formula\": \"price * (1 - discount / 100)\", \"primary\": true}, {\"id\": \"saving\", \"label\": \"Saving\", \"type\": \"money\", \"formula\": \"price - sale\"}]}",
+    "Data_List": "",
+    "SEO_Body": "<h2>Discount formula</h2><p><code>Saving = Original price x Discount / 100</code></p><p><code>Sale price = Original price - Saving</code></p><h2>Worked example</h2><p>An item priced at £80 with 25% off is reduced by £20, so the sale price is £60.</p><h2>What a discount does to your margin</h2><p>A discount comes straight out of your profit, because your costs stay the same. If an item costs you £60 and sells for £80, your profit is £20. Take 25% off and the price drops to £60: the whole profit has gone, even though the discount was only a quarter of the price.</p><p>Before running a promotion, work out how many extra sales you need for the lower profit per sale to add up to more profit overall.</p><h2>Frequently asked questions</h2><h3>How do stacked discounts work?</h3><p>They are applied one after another, not added together. 20% off followed by a further 10% off is 28% off in total, not 30%.</p><h3>How do I find the original price from a sale price?</h3><p>Divide the sale price by (1 - discount / 100). An item that costs £60 after 25% off was £80.</p>",
+    "Short_Desc": "Sale price and saving from a percentage discount.",
+    "Featured": ""
+  },
+  {
+    "Category": "Business/Margins & Pricing",
+    "Slug": "business/break-even-calculator",
+    "H1_Title": "Break-Even Calculator",
+    "Meta_Title": "Break-Even Calculator | Cubit.tools",
+    "Meta_Desc": "Find your break-even point. Enter your fixed costs, selling price and variable cost per unit to see how many sales you need to cover your costs.",
+    "Intro_Text": "Enter your fixed costs, your price and the variable cost of each unit to find how many you need to sell before you start making a profit.",
+    "Widget_Type": "formula_calc",
+    "Config_JSON": "{\"currency\": \"£\", \"inputs\": [{\"id\": \"fixed\", \"label\": \"Fixed costs\", \"type\": \"money\", \"default\": 5000, \"help\": \"Rent, salaries, insurance and other costs for the period\"}, {\"id\": \"price\", \"label\": \"Selling price per unit\", \"type\": \"money\", \"default\": 25}, {\"id\": \"variable\", \"label\": \"Variable cost per unit\", \"type\": \"money\", \"default\": 15, \"help\": \"Stock, packaging, delivery and fees for one sale\"}], \"outputs\": [{\"id\": \"units\", \"label\": \"Break-even point\", \"type\": \"number\", \"formula\": \"if(price > variable, ceil(fixed / (price - variable)), 0 / 0)\", \"primary\": true, \"decimals\": 0, \"unit\": \"units\"}, {\"id\": \"sales\", \"label\": \"Break-even sales\", \"type\": \"money\", \"formula\": \"units * price\"}, {\"id\": \"contribution\", \"label\": \"Contribution per unit\", \"type\": \"money\", \"formula\": \"price - variable\"}], \"note\": \"The break-even point is rounded up to the next whole unit.\"}",
+    "Data_List": "",
+    "SEO_Body": "<h2>What is the break-even point?</h2><p>The break-even point is the number of sales at which your income exactly covers your costs. Below it you make a loss. Every sale above it adds to profit.</p><h2>Break-even formula</h2><p><code>Break-even units = Fixed costs / (Selling price - Variable cost per unit)</code></p><p>The amount in brackets is the contribution: what each sale puts towards your fixed costs.</p><h2>Worked example</h2><p>Your fixed costs are £5,000 a month. You sell at £25 and each unit costs you £15, so each sale contributes £10. You need to sell 500 units a month to break even, which is £12,500 of sales.</p><h2>Fixed and variable costs</h2><ul><li><strong>Fixed costs</strong> stay the same however much you sell: rent, salaries, insurance, software subscriptions.</li><li><strong>Variable costs</strong> rise with each sale: stock, packaging, postage, card fees and marketplace commission.</li></ul><h2>How to lower your break-even point</h2><p>There are three ways: raise the price, cut the variable cost of each unit, or reduce fixed costs. Change the figures above to see which makes the most difference to your business.</p><h3>Why is no result shown?</h3><p>If the variable cost is the same as or higher than the price, each sale loses money and no number of sales will cover the fixed costs.</p>",
+    "Short_Desc": "How many sales you need to cover your costs.",
+    "Featured": ""
+  },
+  {
+    "Category": "Business/Margins & Pricing",
+    "Slug": "business/contribution-margin-calculator",
+    "H1_Title": "Contribution Margin Calculator",
+    "Meta_Title": "Contribution Margin Calculator | Cubit.tools",
+    "Meta_Desc": "Calculate contribution margin per unit, the contribution margin ratio and total contribution from your price, variable cost and units sold.",
+    "Intro_Text": "See how much each sale contributes towards your fixed costs and profit, per unit, as a ratio and in total.",
+    "Widget_Type": "formula_calc",
+    "Config_JSON": "{\"currency\": \"£\", \"inputs\": [{\"id\": \"price\", \"label\": \"Selling price per unit\", \"type\": \"money\", \"default\": 50}, {\"id\": \"variable\", \"label\": \"Variable cost per unit\", \"type\": \"money\", \"default\": 30}, {\"id\": \"units\", \"label\": \"Units sold\", \"type\": \"number\", \"default\": 400}], \"outputs\": [{\"id\": \"unit\", \"label\": \"Contribution per unit\", \"type\": \"money\", \"formula\": \"price - variable\", \"primary\": true}, {\"id\": \"ratio\", \"label\": \"Contribution margin ratio\", \"type\": \"percent\", \"formula\": \"unit / price * 100\"}, {\"id\": \"total\", \"label\": \"Total contribution\", \"type\": \"money\", \"formula\": \"unit * units\"}]}",
+    "Data_List": "",
+    "SEO_Body": "<h2>What is contribution margin?</h2><p>Contribution margin is what is left from a sale after paying the costs that sale caused. That money goes towards fixed costs first, and becomes profit once they are covered.</p><h2>Contribution margin formula</h2><p><code>Contribution per unit = Selling price - Variable cost per unit</code></p><p><code>Contribution margin ratio = Contribution per unit / Selling price x 100</code></p><h2>Worked example</h2><p>You sell a product for £50 and each one costs £30 in stock, packaging and delivery. Each sale contributes £20, a ratio of 40%. Selling 400 units gives a total contribution of £8,000. If your fixed costs are below that figure, the rest is profit.</p><h2>How to use it</h2><ul><li><strong>Compare products.</strong> The product with the highest contribution per unit is not always the best seller, but it does the most for profit per sale.</li><li><strong>Judge a discount.</strong> A price cut reduces contribution by the full amount of the cut.</li><li><strong>Find break-even.</strong> Divide fixed costs by the contribution per unit.</li></ul><h2>Contribution margin and gross margin</h2><p>Gross margin takes off the cost of goods sold, which can include some fixed production costs. Contribution margin takes off only costs that change with each sale, and includes selling costs such as commission and postage.</p>",
+    "Short_Desc": "Contribution per unit, contribution ratio and total contribution.",
+    "Featured": ""
+  },
+  {
+    "Category": "Business/Margins & Pricing",
+    "Slug": "business/price-increase-calculator",
+    "H1_Title": "Price Increase Calculator",
+    "Meta_Title": "Price Increase Calculator | Cubit.tools",
+    "Meta_Desc": "Calculate the percentage increase or decrease between an old price and a new price, and the difference in pounds. Free and instant.",
+    "Intro_Text": "Enter the old price and the new price to see the change in pounds and as a percentage.",
+    "Widget_Type": "formula_calc",
+    "Config_JSON": "{\"currency\": \"£\", \"inputs\": [{\"id\": \"old\", \"label\": \"Old price\", \"type\": \"money\", \"default\": 40}, {\"id\": \"new\", \"label\": \"New price\", \"type\": \"money\", \"default\": 46}], \"outputs\": [{\"id\": \"change\", \"label\": \"Percentage change\", \"type\": \"percent\", \"formula\": \"(new - old) / old * 100\", \"primary\": true}, {\"id\": \"diff\", \"label\": \"Difference\", \"type\": \"money\", \"formula\": \"new - old\"}]}",
+    "Data_List": "",
+    "SEO_Body": "<h2>Percentage change formula</h2><p><code>Percentage change = (New price - Old price) / Old price x 100</code></p><p>A positive result is an increase and a negative result is a decrease.</p><h2>Worked example</h2><p>A supplier raises a price from £40 to £46. The difference is £6, which is an increase of 15%.</p><h2>Passing on a cost increase</h2><p>If a supplier's price goes up and you raise your own price by the same number of pounds, your profit per sale stays the same but your margin falls slightly. If you raise your price by the same percentage, your margin stays the same and your profit per sale rises. Decide which you are aiming for before you reprice.</p><h2>Frequently asked questions</h2><h3>Why isn't a 15% rise cancelled out by a 15% cut?</h3><p>The two percentages are taken from different starting prices. £40 plus 15% is £46, but £46 less 15% is £39.10.</p><h3>Can I use this for costs or wages?</h3><p>Yes. The sum is the same for any two amounts.</p>",
+    "Short_Desc": "Percentage change between an old and a new price.",
+    "Featured": ""
+  },
+  {
+    "Category": "Business/Sales & Stock",
+    "Slug": "business/sell-through-rate-calculator",
+    "H1_Title": "Sell-Through Rate Calculator",
+    "Meta_Title": "Sell-Through Rate Calculator - Share of Stock Sold | Cubit.tools",
+    "Meta_Desc": "Calculate sell-through rate from the units you received and the units you sold. See what share of your stock has sold and what is left.",
+    "Intro_Text": "Enter the stock you received and how much of it you have sold to see your sell-through rate.",
+    "Widget_Type": "formula_calc",
+    "Config_JSON": "{\"currency\": \"£\", \"inputs\": [{\"id\": \"received\", \"label\": \"Units received\", \"type\": \"number\", \"default\": 500}, {\"id\": \"sold\", \"label\": \"Units sold\", \"type\": \"number\", \"default\": 320}], \"outputs\": [{\"id\": \"rate\", \"label\": \"Sell-through rate\", \"type\": \"percent\", \"formula\": \"sold / received * 100\", \"primary\": true}, {\"id\": \"left\", \"label\": \"Units remaining\", \"type\": \"number\", \"formula\": \"received - sold\", \"unit\": \"units\"}]}",
+    "Data_List": "",
+    "SEO_Body": "<h2>What is sell-through rate?</h2><p>Sell-through rate is the percentage of the stock you bought that you have sold in a given period. Retailers use it to judge how well a product, range or season is selling, usually over a month.</p><h2>Sell-through rate formula</h2><p><code>Sell-through rate = Units sold / Units received x 100</code></p><h2>Worked example</h2><p>You took delivery of 500 units at the start of the month and sold 320. Your sell-through rate is 64%, with 180 units still in stock.</p><h2>Reading the result</h2><p>A high rate means stock is turning into cash quickly, and may mean you could have sold more. A low rate means money is tied up in stock that might need discounting to clear. What counts as good depends on the product: fashion lines are expected to sell through within a season, while spare parts may sell slowly for years.</p><h2>Frequently asked questions</h2><h3>What period should I measure?</h3><p>Use the same period every time, so results can be compared. A month is the most common.</p><h3>How is it different from stock turnover?</h3><p>Sell-through looks at one delivery or period and counts units. Stock turnover compares the cost of everything sold with the average value of stock held, usually across a year.</p>",
+    "Short_Desc": "The share of received stock that has been sold.",
+    "Featured": ""
+  },
+  {
+    "Category": "Business/Sales & Stock",
+    "Slug": "business/stock-turnover-calculator",
+    "H1_Title": "Stock Turnover Calculator",
+    "Meta_Title": "Stock Turnover Calculator | Cubit.tools",
+    "Meta_Desc": "Calculate your stock turnover ratio and the average number of days stock is held, from your cost of goods sold and average stock value.",
+    "Intro_Text": "Enter your cost of goods sold for the year and the average value of stock you hold to see how many times your stock turns over.",
+    "Widget_Type": "formula_calc",
+    "Config_JSON": "{\"currency\": \"£\", \"inputs\": [{\"id\": \"cogs\", \"label\": \"Cost of goods sold\", \"type\": \"money\", \"default\": 240000, \"help\": \"For the year\"}, {\"id\": \"stock\", \"label\": \"Average stock value\", \"type\": \"money\", \"default\": 40000, \"help\": \"At cost\"}], \"outputs\": [{\"id\": \"turnover\", \"label\": \"Stock turnover\", \"type\": \"x\", \"formula\": \"cogs / stock\", \"primary\": true}, {\"id\": \"days\", \"label\": \"Average days in stock\", \"type\": \"days\", \"formula\": \"365 / turnover\", \"decimals\": 0}]}",
+    "Data_List": "",
+    "SEO_Body": "<h2>What is stock turnover?</h2><p>Stock turnover, also called inventory turnover, is the number of times in a year that a business sells and replaces its stock. It shows how hard the money tied up in stock is working.</p><h2>Stock turnover formula</h2><p><code>Stock turnover = Cost of goods sold / Average stock value</code></p><p><code>Days in stock = 365 / Stock turnover</code></p><p>Average stock is usually the opening stock plus the closing stock, divided by two. Both figures should be at cost, not at selling price.</p><h2>Worked example</h2><p>Your cost of goods sold for the year is £240,000 and you hold £40,000 of stock on average. Your stock turns over 6x a year, so an item sits on the shelf for about 61 days before it sells.</p><h2>Is a higher turnover better?</h2><p>Usually, because less cash is tied up and less stock goes out of date. A very high figure can also mean you are holding too little and running out. Supermarkets turn stock many times a year. Furniture and jewellery shops turn it far more slowly.</p><h2>How to improve it</h2><ul><li>Order smaller quantities more often.</li><li>Clear slow lines with promotions.</li><li>Use sales history to buy closer to real demand.</li></ul>",
+    "Short_Desc": "Stock turnover ratio and average days stock is held.",
+    "Featured": ""
+  },
+  {
+    "Category": "Business/Sales & Stock",
+    "Slug": "business/gmroi-calculator",
+    "H1_Title": "GMROI Calculator",
+    "Meta_Title": "GMROI Calculator | Cubit.tools",
+    "Meta_Desc": "Calculate GMROI, the gross profit earned for every pound invested in stock. Enter your gross profit and average stock cost.",
+    "Intro_Text": "Enter your gross profit and the average cost of the stock you hold to see how much profit each pound of stock earns.",
+    "Widget_Type": "formula_calc",
+    "Config_JSON": "{\"currency\": \"£\", \"inputs\": [{\"id\": \"profit\", \"label\": \"Gross profit\", \"type\": \"money\", \"default\": 90000, \"help\": \"For the year\"}, {\"id\": \"stock\", \"label\": \"Average stock cost\", \"type\": \"money\", \"default\": 30000}], \"outputs\": [{\"id\": \"gmroi\", \"label\": \"GMROI\", \"type\": \"number\", \"formula\": \"profit / stock\", \"primary\": true, \"decimals\": 2}, {\"id\": \"percent\", \"label\": \"As a percentage\", \"type\": \"percent\", \"formula\": \"gmroi * 100\"}]}",
+    "Data_List": "",
+    "SEO_Body": "<h2>What is GMROI?</h2><p>GMROI stands for gross margin return on inventory investment. It tells a retailer how many pounds of gross profit were earned for each pound held in stock, so it combines margin and stock turnover in one figure.</p><h2>GMROI formula</h2><p><code>GMROI = Gross profit / Average stock cost</code></p><h2>Worked example</h2><p>A shop makes £90,000 of gross profit in a year while holding £30,000 of stock on average. Its GMROI is 3.00: every £1 of stock earned £3.00 of gross profit.</p><h2>How to read it</h2><p>A GMROI above 1 means the stock earned more gross profit than it cost to hold. Below 1, it earned less. A product with a modest margin that sells quickly can have a better GMROI than a high-margin product that sits on the shelf, which is why the figure is useful for deciding what to stock and how much space to give it.</p><h2>Frequently asked questions</h2><h3>Is there a good GMROI?</h3><p>It varies by sector, so compare products, categories or shops within your own business first.</p><h3>Should stock be at cost or retail value?</h3><p>At cost. Using retail value would understate the return.</p>",
+    "Short_Desc": "Gross profit earned for every pound held in stock.",
+    "Featured": ""
+  },
+  {
+    "Category": "Business/Sales & Stock",
+    "Slug": "business/safety-stock-calculator",
+    "H1_Title": "Safety Stock Calculator",
+    "Meta_Title": "Safety Stock Calculator | Cubit.tools",
+    "Meta_Desc": "Work out how much safety stock to hold and when to reorder, from your average and maximum daily sales and supplier lead times.",
+    "Intro_Text": "Enter your usual and busiest daily sales and your supplier's usual and longest lead times to see how much spare stock to hold and when to reorder.",
+    "Widget_Type": "formula_calc",
+    "Config_JSON": "{\"currency\": \"£\", \"inputs\": [{\"id\": \"avg_sales\", \"label\": \"Average daily sales\", \"type\": \"number\", \"default\": 20, \"unit\": \"units\"}, {\"id\": \"max_sales\", \"label\": \"Maximum daily sales\", \"type\": \"number\", \"default\": 30, \"unit\": \"units\"}, {\"id\": \"avg_lead\", \"label\": \"Average lead time\", \"type\": \"days\", \"default\": 7}, {\"id\": \"max_lead\", \"label\": \"Maximum lead time\", \"type\": \"days\", \"default\": 10}], \"outputs\": [{\"id\": \"safety\", \"label\": \"Safety stock\", \"type\": \"number\", \"formula\": \"max_sales * max_lead - avg_sales * avg_lead\", \"primary\": true, \"decimals\": 0, \"unit\": \"units\"}, {\"id\": \"reorder\", \"label\": \"Reorder point\", \"type\": \"number\", \"formula\": \"avg_sales * avg_lead + safety\", \"decimals\": 0, \"unit\": \"units\"}]}",
+    "Data_List": "",
+    "SEO_Body": "<h2>What is safety stock?</h2><p>Safety stock is the extra stock you keep in case sales are higher than expected or a delivery arrives late. It is a buffer against running out.</p><h2>Safety stock formula</h2><p>This calculator uses the average and maximum method:</p><p><code>Safety stock = (Maximum daily sales x Maximum lead time) - (Average daily sales x Average lead time)</code></p><p><code>Reorder point = (Average daily sales x Average lead time) + Safety stock</code></p><h2>Worked example</h2><p>You normally sell 20 units a day and your supplier normally takes 7 days to deliver. On your busiest days you sell 30 units, and the slowest delivery took 10 days. You should hold 160 units of safety stock and place a new order when stock falls to 300 units.</p><h2>Things to bear in mind</h2><ul><li>The method covers the worst case you have already seen. It cannot predict a bigger spike or a longer delay.</li><li>More safety stock means more cash tied up and more storage, so review the figures when sales patterns change.</li><li>Seasonal products need different figures at different times of year.</li></ul>",
+    "Short_Desc": "How much buffer stock to hold and when to reorder.",
+    "Featured": ""
+  },
+  {
+    "Category": "Business/Sales & Stock",
+    "Slug": "business/cost-of-goods-sold-calculator",
+    "H1_Title": "Cost of Goods Sold Calculator",
+    "Meta_Title": "Cost of Goods Sold Calculator | Cubit.tools",
+    "Meta_Desc": "Calculate cost of goods sold (COGS) from your opening stock, purchases during the period and closing stock. Free and instant.",
+    "Intro_Text": "Enter your opening stock, what you bought during the period and your closing stock to find your cost of goods sold.",
+    "Widget_Type": "formula_calc",
+    "Config_JSON": "{\"currency\": \"£\", \"inputs\": [{\"id\": \"opening\", \"label\": \"Opening stock\", \"type\": \"money\", \"default\": 12000}, {\"id\": \"purchases\", \"label\": \"Purchases\", \"type\": \"money\", \"default\": 45000, \"help\": \"Stock bought during the period\"}, {\"id\": \"closing\", \"label\": \"Closing stock\", \"type\": \"money\", \"default\": 15000}], \"outputs\": [{\"id\": \"cogs\", \"label\": \"Cost of goods sold\", \"type\": \"money\", \"formula\": \"opening + purchases - closing\", \"primary\": true}]}",
+    "Data_List": "",
+    "SEO_Body": "<h2>What is cost of goods sold?</h2><p>Cost of goods sold, or COGS, is the direct cost of the products you sold in a period. Taking it away from your sales gives your gross profit. In UK accounts it is usually called cost of sales.</p><h2>COGS formula</h2><p><code>Cost of goods sold = Opening stock + Purchases - Closing stock</code></p><h2>Worked example</h2><p>You start the year with £12,000 of stock, buy £45,000 more, and have £15,000 left at the end. Your cost of goods sold is £42,000.</p><h2>What counts towards COGS?</h2><ul><li><strong>Included:</strong> the purchase price of stock, delivery to you, import duty, raw materials and direct production labour.</li><li><strong>Not included:</strong> rent, marketing, office salaries and the cost of delivering to customers. These are overheads.</li></ul><h2>Frequently asked questions</h2><h3>Why does closing stock reduce COGS?</h3><p>Stock you still hold has not been sold, so its cost belongs to a later period.</p><h3>Does a service business have COGS?</h3><p>Often not, or it is called cost of sales and covers the direct cost of delivering the service, such as subcontractors.</p>",
+    "Short_Desc": "COGS from opening stock, purchases and closing stock.",
+    "Featured": ""
+  },
+  {
+    "Category": "Business/Sales & Stock",
+    "Slug": "business/sales-commission-calculator",
+    "H1_Title": "Sales Commission Calculator",
+    "Meta_Title": "Sales Commission Calculator | Cubit.tools",
+    "Meta_Desc": "Calculate sales commission from a sales total and commission rate, and add base pay to see total earnings. Free and instant.",
+    "Intro_Text": "Enter the value of sales and the commission rate to see the commission earned, with base pay added if there is any.",
+    "Widget_Type": "formula_calc",
+    "Config_JSON": "{\"currency\": \"£\", \"inputs\": [{\"id\": \"sales\", \"label\": \"Sales value\", \"type\": \"money\", \"default\": 25000}, {\"id\": \"rate\", \"label\": \"Commission rate\", \"type\": \"percent\", \"default\": 5}, {\"id\": \"base\", \"label\": \"Base pay\", \"type\": \"money\", \"default\": 2000, \"help\": \"Enter 0 if pay is commission only\"}], \"outputs\": [{\"id\": \"commission\", \"label\": \"Commission\", \"type\": \"money\", \"formula\": \"sales * rate / 100\", \"primary\": true}, {\"id\": \"total\", \"label\": \"Total pay\", \"type\": \"money\", \"formula\": \"base + commission\"}]}",
+    "Data_List": "",
+    "SEO_Body": "<h2>Sales commission formula</h2><p><code>Commission = Sales value x Commission rate / 100</code></p><p><code>Total pay = Base pay + Commission</code></p><h2>Worked example</h2><p>A salesperson sells £25,000 in a month on a commission rate of 5%. They earn £1,250 in commission. With base pay of £2,000, their total pay for the month is £3,250 before tax.</p><h2>Common commission structures</h2><ul><li><strong>Flat rate:</strong> the same percentage on every sale, as this calculator uses.</li><li><strong>Tiered:</strong> the rate rises once sales pass a target.</li><li><strong>Margin based:</strong> commission is paid on the profit from a sale, not its value, which discourages heavy discounting.</li><li><strong>Commission only:</strong> no base pay.</li></ul><h2>Frequently asked questions</h2><h3>Is commission taxed?</h3><p>Yes. In the UK it is treated as earnings and taxed through payroll in the same way as salary.</p><h3>Should commission be paid on the price with or without VAT?</h3><p>Normally without VAT, because VAT is not the company's income. Your contract or commission plan should say.</p>",
+    "Short_Desc": "Commission earned from sales value and commission rate.",
+    "Featured": ""
+  },
+  {
+    "Category": "Business/Sales & Stock",
+    "Slug": "business/average-order-value-calculator",
+    "H1_Title": "Average Order Value Calculator",
+    "Meta_Title": "Average Order Value Calculator | Cubit.tools",
+    "Meta_Desc": "Calculate average order value (AOV) by dividing your revenue by the number of orders. A key measure for online shops and retailers.",
+    "Intro_Text": "Enter your revenue and the number of orders in the same period to see your average order value.",
+    "Widget_Type": "formula_calc",
+    "Config_JSON": "{\"currency\": \"£\", \"inputs\": [{\"id\": \"revenue\", \"label\": \"Revenue\", \"type\": \"money\", \"default\": 18000}, {\"id\": \"orders\", \"label\": \"Number of orders\", \"type\": \"number\", \"default\": 450}], \"outputs\": [{\"id\": \"aov\", \"label\": \"Average order value\", \"type\": \"money\", \"formula\": \"revenue / orders\", \"primary\": true}]}",
+    "Data_List": "",
+    "SEO_Body": "<h2>What is average order value?</h2><p>Average order value, or AOV, is the average amount a customer spends each time they order. Online shops track it alongside traffic and conversion rate, because together those three numbers decide revenue.</p><h2>AOV formula</h2><p><code>Average order value = Revenue / Number of orders</code></p><h2>Worked example</h2><p>Your shop takes £18,000 from 450 orders in a month. Your average order value is £40.</p><h2>Ways to raise AOV</h2><ul><li>Set a free delivery threshold a little above your current AOV.</li><li>Offer bundles or multi-buy prices.</li><li>Suggest related products on the product page and in the basket.</li><li>Show a better version of the product next to the one being viewed.</li></ul><h2>Frequently asked questions</h2><h3>Is AOV the same as revenue per customer?</h3><p>No. One customer may order several times. AOV is measured per order.</p><h3>Should I include delivery charges and VAT?</h3><p>Either is fine, as long as you measure it the same way every time.</p>",
+    "Short_Desc": "Average spend per order from revenue and order count.",
+    "Featured": ""
+  },
+  {
+    "Category": "Business/Marketing & Advertising",
+    "Slug": "business/roas-calculator",
+    "H1_Title": "ROAS Calculator",
+    "Meta_Title": "ROAS Calculator - Return on Ad Spend | Cubit.tools",
+    "Meta_Desc": "Calculate return on ad spend (ROAS) from your advertising revenue and cost. See the result as a ratio, a percentage and profit after ad spend.",
+    "Intro_Text": "Enter the revenue your adverts brought in and what they cost to see your return on ad spend.",
+    "Widget_Type": "formula_calc",
+    "Config_JSON": "{\"currency\": \"£\", \"inputs\": [{\"id\": \"revenue\", \"label\": \"Revenue from ads\", \"type\": \"money\", \"default\": 6000}, {\"id\": \"spend\", \"label\": \"Ad spend\", \"type\": \"money\", \"default\": 1500}], \"outputs\": [{\"id\": \"roas\", \"label\": \"ROAS\", \"type\": \"x\", \"formula\": \"revenue / spend\", \"primary\": true}, {\"id\": \"percent\", \"label\": \"ROAS as a percentage\", \"type\": \"percent\", \"formula\": \"roas * 100\"}, {\"id\": \"net\", \"label\": \"Revenue less ad spend\", \"type\": \"money\", \"formula\": \"revenue - spend\"}]}",
+    "Data_List": "",
+    "SEO_Body": "<h2>What is ROAS?</h2><p>ROAS means return on ad spend: the revenue earned for every pound spent on advertising. It is the standard way to compare campaigns on Google Ads, Meta, Amazon and other platforms.</p><h2>ROAS formula</h2><p><code>ROAS = Revenue from ads / Ad spend</code></p><h2>Worked example</h2><p>A campaign costs £1,500 and brings in £6,000 of sales. The ROAS is 4x, or 400%: each £1 of advertising produced £4 of revenue.</p><h2>What ROAS do you need?</h2><p>ROAS measures revenue, not profit, so the figure you need depends on your margin. Your break-even ROAS is 1 divided by your gross margin. With a 25% margin you need a ROAS of 4x just to cover the cost of the goods and the adverts. With a 50% margin, 2x is enough.</p><h2>ROAS and ROI</h2><p>ROAS only looks at advertising cost against revenue. ROI takes all costs into account and measures profit. A campaign can have a healthy ROAS and still lose money once the cost of the goods, delivery and fees are counted.</p>",
+    "Short_Desc": "Return on ad spend as a ratio and a percentage.",
+    "Featured": ""
+  },
+  {
+    "Category": "Business/Marketing & Advertising",
+    "Slug": "business/cpa-calculator",
+    "H1_Title": "CPA Calculator",
+    "Meta_Title": "CPA Calculator - Cost per Acquisition | Cubit.tools",
+    "Meta_Desc": "Calculate cost per acquisition (CPA) by dividing your campaign cost by the number of conversions. Free advertising calculator.",
+    "Intro_Text": "Enter what a campaign cost and how many conversions it produced to see your cost per acquisition.",
+    "Widget_Type": "formula_calc",
+    "Config_JSON": "{\"currency\": \"£\", \"inputs\": [{\"id\": \"cost\", \"label\": \"Campaign cost\", \"type\": \"money\", \"default\": 1200}, {\"id\": \"conversions\", \"label\": \"Conversions\", \"type\": \"number\", \"default\": 48}], \"outputs\": [{\"id\": \"cpa\", \"label\": \"Cost per acquisition\", \"type\": \"money\", \"formula\": \"cost / conversions\", \"primary\": true}]}",
+    "Data_List": "",
+    "SEO_Body": "<h2>What is CPA?</h2><p>CPA, cost per acquisition (or cost per action), is the average amount you pay in advertising for each conversion. A conversion is whatever you count as success: a sale, a sign-up, an enquiry or an app install.</p><h2>CPA formula</h2><p><code>CPA = Campaign cost / Number of conversions</code></p><h2>Worked example</h2><p>You spend £1,200 on a campaign that produces 48 orders. Your CPA is £25.</p><h2>Is your CPA affordable?</h2><p>Compare it with the profit from a conversion. If an average order leaves £40 of gross profit, a CPA of £25 still makes money on the first sale, while a CPA of £50 only pays back if customers return and buy again. Working out customer lifetime value shows how much you can afford to pay.</p><h2>How to lower CPA</h2><ul><li>Pause keywords, audiences and placements that spend without converting.</li><li>Improve the landing page so more visitors convert.</li><li>Test new adverts regularly against your best performer.</li></ul>",
+    "Short_Desc": "Advertising cost for each conversion.",
+    "Featured": ""
+  },
+  {
+    "Category": "Business/Marketing & Advertising",
+    "Slug": "business/cpm-calculator",
+    "H1_Title": "CPM Calculator",
+    "Meta_Title": "CPM Calculator - Cost per Thousand Impressions | Cubit.tools",
+    "Meta_Desc": "Calculate CPM, the cost of 1,000 advert impressions, from your total ad cost and number of impressions. Free and instant.",
+    "Intro_Text": "Enter the cost of an advert and the number of impressions it received to see the cost per thousand impressions.",
+    "Widget_Type": "formula_calc",
+    "Config_JSON": "{\"currency\": \"£\", \"inputs\": [{\"id\": \"cost\", \"label\": \"Ad cost\", \"type\": \"money\", \"default\": 450}, {\"id\": \"impressions\", \"label\": \"Impressions\", \"type\": \"number\", \"default\": 150000}], \"outputs\": [{\"id\": \"cpm\", \"label\": \"CPM\", \"type\": \"money\", \"formula\": \"cost / impressions * 1000\", \"primary\": true}]}",
+    "Data_List": "",
+    "SEO_Body": "<h2>What is CPM?</h2><p>CPM is the cost of one thousand impressions of an advert. The M is the Roman numeral for a thousand. It is how display, video, social and print advertising is usually priced, and it lets you compare the cost of reaching an audience across different channels.</p><h2>CPM formula</h2><p><code>CPM = Ad cost / Impressions x 1,000</code></p><h2>Worked example</h2><p>An advert costs £450 and is shown 150,000 times. The CPM is £3.</p><h2>CPM, CPC and CPA</h2><p>CPM measures the cost of being seen, CPC the cost of a click and CPA the cost of a conversion. CPM suits campaigns that aim to build awareness. If you want sales or enquiries, a low CPM is only useful if the people seeing the advert go on to click and buy.</p><h2>Frequently asked questions</h2><h3>What is an impression?</h3><p>One showing of an advert. The same person can account for several impressions.</p><h3>Why do CPMs vary so much?</h3><p>Price depends on the audience, the platform, the ad format and the time of year. Narrowly targeted audiences and busy periods such as the run-up to Christmas cost more.</p>",
+    "Short_Desc": "Advertising cost for every 1,000 impressions.",
+    "Featured": ""
+  },
+  {
+    "Category": "Business/Marketing & Advertising",
+    "Slug": "business/cpc-calculator",
+    "H1_Title": "CPC Calculator",
+    "Meta_Title": "CPC Calculator - Cost per Click | Cubit.tools",
+    "Meta_Desc": "Calculate your average cost per click (CPC) from your ad spend and number of clicks. Free pay-per-click advertising calculator.",
+    "Intro_Text": "Enter your ad spend and the number of clicks to see your average cost per click.",
+    "Widget_Type": "formula_calc",
+    "Config_JSON": "{\"currency\": \"£\", \"inputs\": [{\"id\": \"cost\", \"label\": \"Ad spend\", \"type\": \"money\", \"default\": 800}, {\"id\": \"clicks\", \"label\": \"Clicks\", \"type\": \"number\", \"default\": 1600}], \"outputs\": [{\"id\": \"cpc\", \"label\": \"Cost per click\", \"type\": \"money\", \"formula\": \"cost / clicks\", \"primary\": true}]}",
+    "Data_List": "",
+    "SEO_Body": "<h2>What is CPC?</h2><p>CPC, cost per click, is the average amount you pay each time someone clicks your advert. It is the basis of pay-per-click advertising on search engines, shopping ads and social media.</p><h2>CPC formula</h2><p><code>CPC = Ad spend / Number of clicks</code></p><h2>Worked example</h2><p>You spend £800 and receive 1,600 clicks. Your average CPC is £0.50.</p><h2>How much can you afford to pay for a click?</h2><p>Multiply the profit from a sale by your conversion rate. If a sale leaves £30 of profit and 2% of clicks become sales, a click is worth 60p to you. Paying more than that loses money on the first order.</p><h2>What affects CPC?</h2><ul><li><strong>Competition:</strong> more advertisers bidding on the same search pushes the price up.</li><li><strong>Relevance:</strong> platforms charge less for adverts that people find useful and click on.</li><li><strong>Targeting:</strong> location, device, time of day and audience all change the price.</li></ul>",
+    "Short_Desc": "Average advertising cost for each click.",
+    "Featured": ""
+  },
+  {
+    "Category": "Business/Marketing & Advertising",
+    "Slug": "business/ctr-calculator",
+    "H1_Title": "CTR Calculator",
+    "Meta_Title": "CTR Calculator - Click-Through Rate | Cubit.tools",
+    "Meta_Desc": "Calculate click-through rate (CTR) from clicks and impressions. Use it for adverts, search results, emails and links.",
+    "Intro_Text": "Enter the number of clicks and impressions to see your click-through rate.",
+    "Widget_Type": "formula_calc",
+    "Config_JSON": "{\"currency\": \"£\", \"inputs\": [{\"id\": \"clicks\", \"label\": \"Clicks\", \"type\": \"number\", \"default\": 240}, {\"id\": \"impressions\", \"label\": \"Impressions\", \"type\": \"number\", \"default\": 12000}], \"outputs\": [{\"id\": \"ctr\", \"label\": \"Click-through rate\", \"type\": \"percent\", \"formula\": \"clicks / impressions * 100\", \"primary\": true}]}",
+    "Data_List": "",
+    "SEO_Body": "<h2>What is click-through rate?</h2><p>Click-through rate, or CTR, is the percentage of people who click something after seeing it. It applies to adverts, organic search results, email links and buttons on a web page.</p><h2>CTR formula</h2><p><code>CTR = Clicks / Impressions x 100</code></p><h2>Worked example</h2><p>An advert is shown 12,000 times and clicked 240 times. Its CTR is 2%.</p><h2>Why CTR matters</h2><p>A higher CTR means your message matches what the audience is looking for. On pay-per-click platforms it can also lower what you pay, because adverts that are clicked more often are treated as more relevant. In organic search, a better title and description can win more clicks from the same ranking.</p><h2>Frequently asked questions</h2><h3>What is a good CTR?</h3><p>It depends on the channel. Search adverts usually get a much higher CTR than display banners, because people are already looking for something. Compare like with like.</p><h3>Is a high CTR always good?</h3><p>Not if the clicks don't convert. An advert that attracts the wrong visitors costs money without producing sales.</p>",
+    "Short_Desc": "Clicks as a percentage of impressions.",
+    "Featured": ""
+  },
+  {
+    "Category": "Business/Marketing & Advertising",
+    "Slug": "business/conversion-rate-calculator",
+    "H1_Title": "Conversion Rate Calculator",
+    "Meta_Title": "Conversion Rate Calculator - Visitors to Customers | Cubit.tools",
+    "Meta_Desc": "Calculate your conversion rate from the number of visitors and conversions. See what percentage of visitors buy, sign up or enquire.",
+    "Intro_Text": "Enter your visitors and the number who converted to see your conversion rate.",
+    "Widget_Type": "formula_calc",
+    "Config_JSON": "{\"currency\": \"£\", \"inputs\": [{\"id\": \"visitors\", \"label\": \"Visitors\", \"type\": \"number\", \"default\": 8000}, {\"id\": \"conversions\", \"label\": \"Conversions\", \"type\": \"number\", \"default\": 200}], \"outputs\": [{\"id\": \"rate\", \"label\": \"Conversion rate\", \"type\": \"percent\", \"formula\": \"conversions / visitors * 100\", \"primary\": true}]}",
+    "Data_List": "",
+    "SEO_Body": "<h2>What is conversion rate?</h2><p>Conversion rate is the percentage of visitors who complete the action you want, such as placing an order, filling in a form or subscribing to a newsletter.</p><h2>Conversion rate formula</h2><p><code>Conversion rate = Conversions / Visitors x 100</code></p><h2>Worked example</h2><p>Your website has 8,000 visitors in a month and takes 200 orders. Your conversion rate is 2.5%.</p><h2>Why small changes matter</h2><p>Raising conversion rate increases sales without paying for more traffic. A shop converting 2.5% of 8,000 visitors takes 200 orders. At 3%, the same visitors give 240 orders: a fifth more sales from the same advertising spend.</p><h2>Ways to improve conversion rate</h2><ul><li>Make pages load quickly, especially on mobile.</li><li>Show delivery costs and times before the checkout.</li><li>Use clear photos, full product details and customer reviews.</li><li>Cut the number of steps and form fields in the checkout.</li></ul><h2>Frequently asked questions</h2><h3>Should I use visitors or sessions?</h3><p>Either works. Analytics tools often use sessions. Keep to one so your figures can be compared over time.</p>",
+    "Short_Desc": "The percentage of visitors who convert.",
+    "Featured": ""
+  },
+  {
+    "Category": "Business/Marketing & Advertising",
+    "Slug": "business/customer-acquisition-cost-calculator",
+    "H1_Title": "Customer Acquisition Cost Calculator",
+    "Meta_Title": "Customer Acquisition Cost Calculator - CAC | Cubit.tools",
+    "Meta_Desc": "Calculate customer acquisition cost (CAC) from your marketing and sales spend and the number of new customers you won.",
+    "Intro_Text": "Enter what you spent on marketing and sales and how many new customers you gained to see the cost of winning each one.",
+    "Widget_Type": "formula_calc",
+    "Config_JSON": "{\"currency\": \"£\", \"inputs\": [{\"id\": \"marketing\", \"label\": \"Marketing spend\", \"type\": \"money\", \"default\": 9000}, {\"id\": \"sales\", \"label\": \"Sales costs\", \"type\": \"money\", \"default\": 6000, \"help\": \"Salaries, commission and tools. Enter 0 if none\"}, {\"id\": \"customers\", \"label\": \"New customers\", \"type\": \"number\", \"default\": 300}], \"outputs\": [{\"id\": \"cac\", \"label\": \"Customer acquisition cost\", \"type\": \"money\", \"formula\": \"(marketing + sales) / customers\", \"primary\": true}, {\"id\": \"total\", \"label\": \"Total spend\", \"type\": \"money\", \"formula\": \"marketing + sales\"}]}",
+    "Data_List": "",
+    "SEO_Body": "<h2>What is customer acquisition cost?</h2><p>Customer acquisition cost, or CAC, is the average amount you spend to win one new customer. It counts everything spent on bringing customers in, not only advertising.</p><h2>CAC formula</h2><p><code>CAC = (Marketing spend + Sales costs) / New customers</code></p><p>Use spending and new customers from the same period.</p><h2>Worked example</h2><p>In a quarter you spend £9,000 on marketing and £6,000 on sales staff and tools, £15,000 in all, and win 300 new customers. Your CAC is £50.</p><h2>CAC and lifetime value</h2><p>CAC only means something next to what a customer is worth. Many businesses aim for a customer lifetime value of around three times CAC. If the two figures are close, growth is costing nearly as much as it earns.</p><h2>CAC and CPA</h2><p>CPA is usually measured for one campaign and can count any conversion, such as a lead. CAC covers all sales and marketing costs and counts only new paying customers, so it is normally higher.</p>",
+    "Short_Desc": "What it costs to win each new customer.",
+    "Featured": ""
+  },
+  {
+    "Category": "Business/Marketing & Advertising",
+    "Slug": "business/customer-lifetime-value-calculator",
+    "H1_Title": "Customer Lifetime Value Calculator",
+    "Meta_Title": "Customer Lifetime Value Calculator - CLV | Cubit.tools",
+    "Meta_Desc": "Estimate customer lifetime value (CLV) from average order value, orders per year, years as a customer and your gross margin.",
+    "Intro_Text": "Estimate what an average customer is worth to your business over the whole time they buy from you.",
+    "Widget_Type": "formula_calc",
+    "Config_JSON": "{\"currency\": \"£\", \"inputs\": [{\"id\": \"aov\", \"label\": \"Average order value\", \"type\": \"money\", \"default\": 45}, {\"id\": \"orders\", \"label\": \"Orders per year\", \"type\": \"number\", \"default\": 4}, {\"id\": \"years\", \"label\": \"Years as a customer\", \"type\": \"years\", \"default\": 3}, {\"id\": \"margin\", \"label\": \"Gross margin\", \"type\": \"percent\", \"default\": 40}], \"outputs\": [{\"id\": \"clv\", \"label\": \"Customer lifetime value\", \"type\": \"money\", \"formula\": \"revenue * margin / 100\", \"primary\": true}, {\"id\": \"revenue\", \"label\": \"Lifetime revenue\", \"type\": \"money\", \"formula\": \"aov * orders * years\"}]}",
+    "Data_List": "",
+    "SEO_Body": "<h2>What is customer lifetime value?</h2><p>Customer lifetime value, or CLV, is the total gross profit you can expect from an average customer for as long as they keep buying. It tells you how much you can afford to spend to win and keep a customer.</p><h2>CLV formula</h2><p><code>Lifetime revenue = Average order value x Orders per year x Years as a customer</code></p><p><code>CLV = Lifetime revenue x Gross margin / 100</code></p><h2>Worked example</h2><p>A customer spends £45 per order, orders 4 times a year and stays for 3 years. Their lifetime revenue is £540. At a gross margin of 40%, their lifetime value is £216.</p><h2>How to use CLV</h2><ul><li><strong>Set a ceiling for acquisition cost.</strong> Spending more than CLV to win a customer loses money.</li><li><strong>Compare channels.</strong> Customers from one source may spend more or stay longer than those from another.</li><li><strong>Value retention.</strong> One extra year as a customer raises CLV as much as a large rise in order value.</li></ul><h2>Limits of the estimate</h2><p>This is a simple model that treats every year the same and does not discount future income. It is a guide for planning, not a forecast for any one customer.</p>",
+    "Short_Desc": "What an average customer is worth over their lifetime.",
+    "Featured": ""
+  },
+  {
+    "Category": "Business/Marketing & Advertising",
+    "Slug": "business/churn-rate-calculator",
+    "H1_Title": "Churn Rate Calculator",
+    "Meta_Title": "Churn Rate Calculator | Cubit.tools",
+    "Meta_Desc": "Calculate customer churn rate and retention rate from the customers you had at the start of a period and the number you lost.",
+    "Intro_Text": "Enter how many customers you had at the start of a period and how many of them you lost to see your churn and retention rates.",
+    "Widget_Type": "formula_calc",
+    "Config_JSON": "{\"currency\": \"£\", \"inputs\": [{\"id\": \"start\", \"label\": \"Customers at start\", \"type\": \"number\", \"default\": 1200}, {\"id\": \"lost\", \"label\": \"Customers lost\", \"type\": \"number\", \"default\": 60}], \"outputs\": [{\"id\": \"churn\", \"label\": \"Churn rate\", \"type\": \"percent\", \"formula\": \"lost / start * 100\", \"primary\": true}, {\"id\": \"retention\", \"label\": \"Retention rate\", \"type\": \"percent\", \"formula\": \"100 - churn\"}, {\"id\": \"kept\", \"label\": \"Customers retained\", \"type\": \"number\", \"formula\": \"start - lost\"}]}",
+    "Data_List": "",
+    "SEO_Body": "<h2>What is churn rate?</h2><p>Churn rate is the percentage of customers who stop buying or cancel during a period. It matters most to subscription businesses, where income depends on customers staying.</p><h2>Churn rate formula</h2><p><code>Churn rate = Customers lost / Customers at start x 100</code></p><p><code>Retention rate = 100 - Churn rate</code></p><p>Customers who joined during the period are left out. Only count losses from the group you started with.</p><h2>Worked example</h2><p>You begin the month with 1,200 subscribers and 60 cancel. Your monthly churn rate is 5% and your retention rate is 95%.</p><h2>Monthly churn adds up</h2><p>A monthly figure that looks small becomes large over a year. At 5% a month, only about 54% of customers are still with you after twelve months, because each month's loss is taken from a smaller group.</p><h2>Ways to reduce churn</h2><ul><li>Ask leaving customers why, and look for the reasons that repeat.</li><li>Help new customers get value quickly in their first weeks.</li><li>Contact customers whose usage or orders are falling before they cancel.</li><li>Retry failed payments, which cause churn nobody chose.</li></ul>",
+    "Short_Desc": "Customer churn rate and retention rate for a period.",
+    "Featured": ""
+  },
+  {
+    "Category": "Business/Marketing & Advertising",
+    "Slug": "business/roi-calculator",
+    "H1_Title": "ROI Calculator",
+    "Meta_Title": "ROI Calculator - Return on Investment | Cubit.tools",
+    "Meta_Desc": "Calculate return on investment (ROI) as a percentage from the amount invested and the amount returned. See the profit or loss too.",
+    "Intro_Text": "Enter what you invested and what you got back to see the profit and the return on investment.",
+    "Widget_Type": "formula_calc",
+    "Config_JSON": "{\"currency\": \"£\", \"inputs\": [{\"id\": \"invested\", \"label\": \"Amount invested\", \"type\": \"money\", \"default\": 4000}, {\"id\": \"returned\", \"label\": \"Amount returned\", \"type\": \"money\", \"default\": 5200}], \"outputs\": [{\"id\": \"roi\", \"label\": \"Return on investment\", \"type\": \"percent\", \"formula\": \"profit / invested * 100\", \"primary\": true}, {\"id\": \"profit\", \"label\": \"Profit or loss\", \"type\": \"money\", \"formula\": \"returned - invested\"}]}",
+    "Data_List": "",
+    "SEO_Body": "<h2>What is ROI?</h2><p>Return on investment, or ROI, is the profit from an investment shown as a percentage of what it cost. It lets you compare projects of different sizes on the same basis, whether that is new equipment, a marketing campaign or a stock purchase.</p><h2>ROI formula</h2><p><code>ROI = (Amount returned - Amount invested) / Amount invested x 100</code></p><h2>Worked example</h2><p>You spend £4,000 on a trade show and it brings in £5,200 of gross profit. The profit is £1,200, an ROI of 30%.</p><h2>Getting a fair figure</h2><ul><li><strong>Count all the costs</strong>, including staff time, fees and delivery.</li><li><strong>Use profit, not sales,</strong> for the amount returned when you are measuring marketing. Revenue alone overstates the return.</li><li><strong>Remember time.</strong> ROI takes no account of how long the return took. 30% in six months is better than 30% in three years.</li></ul><h2>Frequently asked questions</h2><h3>Can ROI be negative?</h3><p>Yes. A negative ROI means you got back less than you put in.</p><h3>What is a good ROI?</h3><p>One that beats what the money could have earned elsewhere at similar risk.</p>",
+    "Short_Desc": "Return on investment as a percentage, with the profit or loss.",
+    "Featured": ""
+  },
+  {
+    "Category": "Business/Staff & Operations",
+    "Slug": "business/revenue-per-employee-calculator",
+    "H1_Title": "Revenue per Employee Calculator",
+    "Meta_Title": "Revenue per Employee Calculator | Cubit.tools",
+    "Meta_Desc": "Calculate revenue per employee by dividing your annual revenue by your number of staff. A simple measure of business productivity.",
+    "Intro_Text": "Enter your annual revenue and number of employees to see how much revenue each employee generates on average.",
+    "Widget_Type": "formula_calc",
+    "Config_JSON": "{\"currency\": \"£\", \"inputs\": [{\"id\": \"revenue\", \"label\": \"Annual revenue\", \"type\": \"money\", \"default\": 1500000}, {\"id\": \"employees\", \"label\": \"Number of employees\", \"type\": \"number\", \"default\": 12, \"help\": \"Use full-time equivalents if you have part-time staff\"}], \"outputs\": [{\"id\": \"rpe\", \"label\": \"Revenue per employee\", \"type\": \"money\", \"formula\": \"revenue / employees\", \"primary\": true}]}",
+    "Data_List": "",
+    "SEO_Body": "<h2>What is revenue per employee?</h2><p>Revenue per employee is a company's revenue divided by its headcount. It is a rough measure of productivity: how much income the business produces for each person it employs.</p><h2>Revenue per employee formula</h2><p><code>Revenue per employee = Annual revenue / Number of employees</code></p><h2>Worked example</h2><p>A business turns over £1,500,000 a year with 12 staff. Its revenue per employee is £125,000.</p><h2>How to use the figure</h2><p>The number varies widely between industries. Software and wholesale businesses can produce high revenue with few staff, while restaurants, care and retail need many more people for the same turnover. Compare yourself with similar businesses, and watch how your own figure changes from year to year.</p><h2>Frequently asked questions</h2><h3>How should I count part-time staff?</h3><p>Convert them to full-time equivalents. Two people each working half the week count as one.</p><h3>Is higher always better?</h3><p>Not on its own. A very high figure can mean the team is stretched. Look at profit per employee as well, because revenue says nothing about costs.</p>",
+    "Short_Desc": "Average revenue generated by each employee.",
+    "Featured": ""
+  },
+  {
+    "Category": "Business/Staff & Operations",
+    "Slug": "business/staff-turnover-calculator",
+    "H1_Title": "Staff Turnover Calculator",
+    "Meta_Title": "Staff Turnover Calculator - Employee Turnover Rate | Cubit.tools",
+    "Meta_Desc": "Calculate your staff turnover rate from the number of leavers and your average number of employees over the period.",
+    "Intro_Text": "Enter how many employees left during a period and your average headcount to see your staff turnover rate.",
+    "Widget_Type": "formula_calc",
+    "Config_JSON": "{\"currency\": \"£\", \"inputs\": [{\"id\": \"leavers\", \"label\": \"Employees who left\", \"type\": \"number\", \"default\": 9}, {\"id\": \"start\", \"label\": \"Employees at start\", \"type\": \"number\", \"default\": 58}, {\"id\": \"end\", \"label\": \"Employees at end\", \"type\": \"number\", \"default\": 62}], \"outputs\": [{\"id\": \"rate\", \"label\": \"Staff turnover rate\", \"type\": \"percent\", \"formula\": \"leavers / average * 100\", \"primary\": true}, {\"id\": \"average\", \"label\": \"Average employees\", \"type\": \"number\", \"formula\": \"(start + end) / 2\"}]}",
+    "Data_List": "",
+    "SEO_Body": "<h2>What is staff turnover?</h2><p>Staff turnover, also called employee or labour turnover, is the percentage of your workforce that leaves in a given period, usually a year.</p><h2>Staff turnover formula</h2><p><code>Average employees = (Employees at start + Employees at end) / 2</code></p><p><code>Turnover rate = Leavers / Average employees x 100</code></p><h2>Worked example</h2><p>You start the year with 58 employees and end it with 62, an average of 60. During the year 9 people leave. Your staff turnover rate is 15%.</p><h2>Why it matters</h2><p>Replacing an employee costs money in recruitment, training and lost output while the role is empty or the new starter is learning. High turnover also puts pressure on the people who stay. Some sectors, such as hospitality and retail, normally see far higher turnover than others.</p><h2>Frequently asked questions</h2><h3>Who counts as a leaver?</h3><p>Usually everyone who left, whatever the reason. Many employers also work out a separate figure for resignations only, as that is the part they can influence.</p><h3>Is some turnover healthy?</h3><p>Yes. New people bring new skills, and a rate of zero is neither likely nor necessarily desirable.</p>",
+    "Short_Desc": "Employee turnover rate from leavers and average headcount.",
+    "Featured": ""
+  },
+  {
+    "Category": "Business/Staff & Operations",
+    "Slug": "business/bradford-factor-calculator",
+    "H1_Title": "Bradford Factor Calculator",
+    "Meta_Title": "Bradford Factor Calculator - Absence Score | Cubit.tools",
+    "Meta_Desc": "Calculate a Bradford Factor score from the number of separate absences and total days absent in a year. Free absence calculator.",
+    "Intro_Text": "Enter the number of separate absences and the total days absent over a rolling year to get the Bradford Factor score.",
+    "Widget_Type": "formula_calc",
+    "Config_JSON": "{\"currency\": \"£\", \"inputs\": [{\"id\": \"spells\", \"label\": \"Separate absences\", \"type\": \"number\", \"default\": 4, \"help\": \"Number of spells of absence\"}, {\"id\": \"days\", \"label\": \"Total days absent\", \"type\": \"days\", \"default\": 9}], \"outputs\": [{\"id\": \"score\", \"label\": \"Bradford Factor\", \"type\": \"number\", \"formula\": \"spells * spells * days\", \"primary\": true, \"decimals\": 0, \"unit\": \"points\"}]}",
+    "Data_List": "",
+    "SEO_Body": "<h2>What is the Bradford Factor?</h2><p>The Bradford Factor is a score some employers use to measure sickness absence. It gives extra weight to frequent short absences, on the view that these disrupt work more than one longer absence of the same total length.</p><h2>Bradford Factor formula</h2><p><code>Bradford Factor = S x S x D</code></p><p>S is the number of separate spells of absence and D is the total number of days absent, usually over a rolling 52 weeks.</p><h2>Worked example</h2><p>An employee is off on 4 separate occasions totalling 9 days. Their score is 144 points. One single absence of the same nine days would score 9, and nine separate days off would score 729.</p><h2>Trigger points</h2><p>Employers set their own thresholds, so there is no standard scale. A policy might call for an informal chat at one score and a formal review at a higher one. Check your own organisation's absence policy for the figures it uses.</p><h2>Use it with care</h2><p>The score is a prompt for a conversation, not a decision in itself. It takes no account of the reason for an absence. Applying it rigidly to absences linked to disability or pregnancy can lead to unlawful discrimination, so employers normally make adjustments for those cases.</p>",
+    "Short_Desc": "Absence score from spells of absence and total days off.",
+    "Featured": ""
+  },
+  {
+    "Category": "Business/Staff & Operations",
+    "Slug": "business/fte-calculator",
+    "H1_Title": "FTE Calculator",
+    "Meta_Title": "FTE Calculator - Full-Time Equivalent Employees | Cubit.tools",
+    "Meta_Desc": "Calculate full-time equivalent (FTE) headcount from your full-time staff and the total weekly hours worked by part-time staff.",
+    "Intro_Text": "Enter your full-time staff and the total hours your part-time staff work in a week to see your headcount as full-time equivalents.",
+    "Widget_Type": "formula_calc",
+    "Config_JSON": "{\"currency\": \"£\", \"inputs\": [{\"id\": \"full\", \"label\": \"Full-time employees\", \"type\": \"number\", \"default\": 14}, {\"id\": \"part_hours\", \"label\": \"Part-time hours per week\", \"type\": \"hours\", \"default\": 180, \"help\": \"Total hours worked by all part-time staff\"}, {\"id\": \"week\", \"label\": \"Full-time hours per week\", \"type\": \"hours\", \"default\": 37.5}], \"outputs\": [{\"id\": \"fte\", \"label\": \"Total FTE\", \"type\": \"number\", \"formula\": \"full + part_fte\", \"primary\": true, \"decimals\": 2}, {\"id\": \"part_fte\", \"label\": \"Part-time FTE\", \"type\": \"number\", \"formula\": \"part_hours / week\", \"decimals\": 2}]}",
+    "Data_List": "",
+    "SEO_Body": "<h2>What is FTE?</h2><p>FTE stands for full-time equivalent. It expresses a workforce of full-time and part-time people as the number of full-time staff who would work the same hours. One FTE is one person working full-time hours.</p><h2>FTE formula</h2><p><code>Part-time FTE = Total part-time hours per week / Full-time hours per week</code></p><p><code>Total FTE = Full-time employees + Part-time FTE</code></p><h2>Worked example</h2><p>You employ 14 full-time staff, and your full-time week is 37.5 hours. Your part-time staff work 180 hours a week between them, which is 4.80 FTE. Your total headcount is 18.80 FTE.</p><h2>What FTE is used for</h2><ul><li>Budgeting and workforce planning, where hours matter more than the number of people.</li><li>Comparing teams or branches with different mixes of full-time and part-time staff.</li><li>Measures such as revenue per employee.</li><li>Grant applications and official returns that ask for FTE figures.</li></ul><h2>Frequently asked questions</h2><h3>What counts as full-time hours?</h3><p>Whatever your organisation's standard full-time week is. In the UK that is commonly between 35 and 40 hours.</p><h3>Can one person be more than 1 FTE?</h3><p>Not normally. Overtime is usually left out, and each person counts as 1.0 at most.</p>",
+    "Short_Desc": "Headcount as full-time equivalents.",
+    "Featured": ""
+  },
+  {
+    "Category": "Business/Staff & Operations",
+    "Slug": "business/payback-period-calculator",
+    "H1_Title": "Payback Period Calculator",
+    "Meta_Title": "Payback Period Calculator | Cubit.tools",
+    "Meta_Desc": "Calculate how long an investment takes to pay for itself. Enter the upfront cost and the yearly cash it brings in to see the payback period.",
+    "Intro_Text": "Enter the upfront cost of an investment and the cash it brings in each year to see how long it takes to pay for itself.",
+    "Widget_Type": "formula_calc",
+    "Config_JSON": "{\"currency\": \"£\", \"inputs\": [{\"id\": \"cost\", \"label\": \"Initial investment\", \"type\": \"money\", \"default\": 24000}, {\"id\": \"inflow\", \"label\": \"Net cash inflow per year\", \"type\": \"money\", \"default\": 7500, \"help\": \"Extra income or savings, after running costs\"}], \"outputs\": [{\"id\": \"years\", \"label\": \"Payback period\", \"type\": \"years\", \"formula\": \"cost / inflow\", \"primary\": true}, {\"id\": \"months\", \"label\": \"In months\", \"type\": \"months\", \"formula\": \"years * 12\", \"decimals\": 1}]}",
+    "Data_List": "",
+    "SEO_Body": "<h2>What is the payback period?</h2><p>The payback period is the time it takes for the cash an investment brings in to equal what it cost. Businesses use it as a quick test of risk: the sooner the money is back, the less can go wrong in the meantime.</p><h2>Payback period formula</h2><p><code>Payback period = Initial investment / Net cash inflow per year</code></p><p>This assumes the same inflow every year.</p><h2>Worked example</h2><p>A new machine costs £24,000 and saves £7,500 a year. It pays for itself in 3.2 years, or 38.4 months.</p><h2>Strengths and limits</h2><ul><li><strong>Simple and quick.</strong> It needs only two figures.</li><li><strong>Ignores what happens next.</strong> An investment that pays back in three years and then keeps earning for ten looks the same as one that stops after three.</li><li><strong>Ignores the time value of money.</strong> Cash received later is worth less than cash today. Net present value takes that into account.</li></ul><h2>Frequently asked questions</h2><h3>What is a good payback period?</h3><p>Shorter is safer. Many small businesses look for two to three years on equipment, but the right limit depends on how long the asset will last.</p>",
+    "Short_Desc": "How long an investment takes to pay for itself.",
+    "Featured": ""
+  },
+  {
+    "Category": "Business/Staff & Operations",
+    "Slug": "business/burn-rate-calculator",
+    "H1_Title": "Burn Rate Calculator",
+    "Meta_Title": "Burn Rate Calculator - Monthly Burn and Cash Runway | Cubit.tools",
+    "Meta_Desc": "Calculate your monthly cash burn rate and how many months of runway you have left, from your starting and current cash balances.",
+    "Intro_Text": "Enter your cash balance at the start and end of a period to see how fast you are spending and how long your cash will last.",
+    "Widget_Type": "formula_calc",
+    "Config_JSON": "{\"currency\": \"£\", \"inputs\": [{\"id\": \"start\", \"label\": \"Starting cash balance\", \"type\": \"money\", \"default\": 180000}, {\"id\": \"end\", \"label\": \"Current cash balance\", \"type\": \"money\", \"default\": 120000}, {\"id\": \"period\", \"label\": \"Months between\", \"type\": \"months\", \"default\": 6}], \"outputs\": [{\"id\": \"burn\", \"label\": \"Monthly burn rate\", \"type\": \"money\", \"formula\": \"(start - end) / period\", \"primary\": true}, {\"id\": \"runway\", \"label\": \"Cash runway\", \"type\": \"months\", \"formula\": \"if(burn > 0, end / burn, 0 / 0)\", \"decimals\": 1}], \"note\": \"No runway is shown if your cash balance has not fallen.\"}",
+    "Data_List": "",
+    "SEO_Body": "<h2>What is burn rate?</h2><p>Burn rate is the amount of cash a business uses up each month. It matters most to start-ups and to any company spending more than it earns, because it shows how long the money will last.</p><h2>Burn rate formula</h2><p><code>Monthly burn rate = (Starting cash - Current cash) / Months</code></p><p><code>Cash runway = Current cash / Monthly burn rate</code></p><p>This is net burn: what you spend less what you take in.</p><h2>Worked example</h2><p>Your bank balance has fallen from £180,000 to £120,000 over 6 months. You are burning £10,000 a month, which leaves a runway of 12.0 months at the current rate.</p><h2>Gross burn and net burn</h2><p>Gross burn is everything you spend in a month. Net burn takes off the income you received. A business spending £40,000 a month and taking £30,000 in sales has a gross burn of £40,000 and a net burn of £10,000. Runway depends on net burn.</p><h2>Extending your runway</h2><ul><li>Cut or delay costs that do not bring in customers.</li><li>Collect payments sooner and agree longer terms with suppliers.</li><li>Raise prices or focus on the most profitable products.</li><li>Start fundraising well before the cash runs low, as it usually takes months.</li></ul>",
+    "Short_Desc": "Monthly cash burn and how many months of cash remain.",
     "Featured": ""
   }
 ]
