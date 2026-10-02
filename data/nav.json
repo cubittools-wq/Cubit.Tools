@@ -55,17 +55,12 @@
     {
       "name": "Passwords & Security",
       "url": "https://cubittools-wq.github.io/Cubit.Tools/passwords/",
-      "count": 101,
+      "count": 9,
       "children": [
         {
           "name": "Darts Passphrases",
           "url": "https://cubittools-wq.github.io/Cubit.Tools/passwords/darts-passphrases/",
           "count": 1
-        },
-        {
-          "name": "Football Club Passphrases: England",
-          "url": "https://cubittools-wq.github.io/Cubit.Tools/passwords/football-club-passphrases-england/",
-          "count": 92
         },
         {
           "name": "Music Passphrases",
