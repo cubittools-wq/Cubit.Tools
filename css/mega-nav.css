@@ -62,48 +62,6 @@
   padding: 0.35rem 0;
 }
 
-/* Left Sidebar Navigation Styling */
-.left-sidebar {
-  position: fixed;
-  top: 0;
-  left: -300px;
-  width: 300px;
-  height: 100vh;
-  background-color: var(--card-bg);
-  border-right: 1px solid var(--border);
-  z-index: 2000;
-  padding: 1.5rem;
-  overflow-y: auto;
-  transition: left 0.3s ease;
-}
-
-.left-sidebar.open {
-  left: 0;
-}
-
-.sidebar-folder {
-  font-weight: 700;
-  color: var(--accent);
-  cursor: pointer;
-  padding: 0.35rem 0;
-}
-
-.sidebar-tree {
-  list-style: none;
-  padding-left: 1rem;
-}
-
-.sidebar-leaf a {
-  display: block;
-  color: var(--text-muted);
-  text-decoration: none;
-  font-size: 0.85rem;
-  padding: 0.25rem 0;
-}
-
-.sidebar-leaf a:hover {
-  color: var(--text-main);
-}
 /* ---- Browse mega-menu (built from data/nav.json) ---- */
 .browse-panel {
   min-width: min(680px, calc(100vw - 2rem));

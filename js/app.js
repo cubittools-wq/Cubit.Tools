@@ -1,15 +1,16 @@
-import PasswordGenWidget from 'https://cubittools-wq.github.io/Cubit.Tools/js/widgets/password_gen.js';
-import FinanceMarginWidget from 'https://cubittools-wq.github.io/Cubit.Tools/js/widgets/finance_margin.js';
-import UnitConverterWidget from 'https://cubittools-wq.github.io/Cubit.Tools/js/widgets/unit_converter.js';
-import ElecCalcWidget from 'https://cubittools-wq.github.io/Cubit.Tools/js/widgets/elec_calc.js';
-import ApplianceCalcWidget from 'https://cubittools-wq.github.io/Cubit.Tools/js/widgets/appliance_calc.js';
-import CountdownWidget from 'https://cubittools-wq.github.io/Cubit.Tools/js/widgets/countdown.js';
-import DateDiffCalcWidget from 'https://cubittools-wq.github.io/Cubit.Tools/js/widgets/date_diff_calc.js';
-import AgeCalcWidget from 'https://cubittools-wq.github.io/Cubit.Tools/js/widgets/age_calc.js';
-import { attachSearch } from 'https://cubittools-wq.github.io/Cubit.Tools/js/site-search.js';
+import PasswordGenWidget from './widgets/password_gen.js';
+import FinanceMarginWidget from './widgets/finance_margin.js';
+import UnitConverterWidget from './widgets/unit_converter.js';
+import ElecCalcWidget from './widgets/elec_calc.js';
+import ApplianceCalcWidget from './widgets/appliance_calc.js';
+import CountdownWidget from './widgets/countdown.js';
+import DateDiffCalcWidget from './widgets/date_diff_calc.js';
+import AgeCalcWidget from './widgets/age_calc.js';
+import { attachSearch } from './site-search.js';
 
-const DOMAIN = 'https://cubittools-wq.github.io';
-const BASE_URL = 'https://cubittools-wq.github.io/Cubit.Tools/';
+// The site's root address, worked out from where this file is loaded (…/js/app.js), so nothing here
+// needs changing when the site moves to its own domain.
+const BASE_URL = new URL('../', import.meta.url).href;
 
 /**
  * Theme Toggle Handler
@@ -34,6 +35,23 @@ function initThemeToggle() {
  * Fetch Header, Footer, and Hierarchical Navigation
  */
 async function loadComponents() {
+  const headerEl = document.getElementById('site-header');
+  const footerEl = document.getElementById('site-footer');
+
+  // Pages built by build_site.py already contain the header, Browse menu and footer in their HTML.
+  // Just wire up the interactive parts; no need to download anything.
+  if (headerEl && headerEl.dataset.baked === '1' && headerEl.children.length) {
+    initThemeToggle();
+    attachSearch(
+      document.getElementById('header-search-input'),
+      document.getElementById('header-search-results'),
+      { scope: '', limit: 8 }
+    );
+    setupNavInteractions();
+    if (footerEl && footerEl.dataset.baked === '1' && footerEl.children.length) return;
+  }
+
+  // Fallback for any page that still has empty placeholders.
   try {
     const [headerRes, footerRes, navRes] = await Promise.all([
       fetch(`${BASE_URL}components/header.html`),
@@ -41,8 +59,8 @@ async function loadComponents() {
       fetch(`${BASE_URL}data/nav.json`)
     ]);
 
-    if (headerRes.ok && document.getElementById('site-header')) {
-      document.getElementById('site-header').innerHTML = await headerRes.text();
+    if (headerRes.ok && headerEl && headerEl.dataset.baked !== '1') {
+      document.getElementById('site-header').innerHTML = (await headerRes.text()).replaceAll('{{BASE}}', BASE_URL);
       
       initThemeToggle();
       attachSearch(
@@ -58,8 +76,8 @@ async function loadComponents() {
       }
     }
     
-    if (footerRes.ok && document.getElementById('site-footer')) {
-      document.getElementById('site-footer').innerHTML = await footerRes.text();
+    if (footerRes.ok && footerEl && footerEl.dataset.baked !== '1') {
+      document.getElementById('site-footer').innerHTML = (await footerRes.text()).replaceAll('{{BASE}}', BASE_URL);
     }
   } catch (err) {
     console.error('Error loading global components:', err);

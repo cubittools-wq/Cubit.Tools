@@ -3,7 +3,7 @@
 // Client-side search over data/search-index.json (built from the Google Sheet by build_site.py).
 // Used by the header search box on every page and by the search box on the homepage and category pages.
 
-const BASE_URL = 'https://cubittools-wq.github.io/Cubit.Tools/';
+const BASE_URL = new URL('../', import.meta.url).href;   // site root, from this file's own address
 
 let indexPromise = null;
 

@@ -8,6 +8,9 @@
 //   pool of generic football words from js/pools/<name>.js. About half of every passphrase comes
 //   from the club's own Data_List (nicknames, ground, players, managers, chants...), so it reads as
 //   that club, and the rest comes from the generic pool so the result stays varied.
+// - Picker pages ("picker" in Config_JSON, e.g. the Football and Memorable password generators) show a
+//   menu of word lists. The lists come from data/pickers/<page>.json, written by build_site.py. The
+//   choice is kept in the address (?club=arsenal) so it can be bookmarked, shared and redirected to.
 // - Multi-part words (e.g. "marcelo-bielsa") are joined in CamelCase ("MarceloBielsa") so that
 //   the separator only ever sits between whole words, and the slider count matches what you see.
 // - Long entries (e.g. whole lyric lines) would make very long passphrases, so any entry of more
@@ -45,6 +48,10 @@ const PROFANE = /fuck|shit|cunt|bitch|wank|twat|bollock/;
 /** Removes apostrophes ("don't" -> "dont") so passphrases are easy to type on any site. */
 function stripApostrophes(text) {
   return text.replace(/['\u2019`]/g, '');
+}
+
+function escapeHtml(text) {
+  return String(text).replace(/[&<>"']/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
 }
 
 function capitalise(word) {
@@ -138,9 +145,29 @@ export default class PasswordGenWidget {
       this.config = {};
     }
 
+    this.picker = this.config.picker && typeof this.config.picker === 'object' ? this.config.picker : null;
+    this.pickerParam = this.picker ? String(this.picker.param || 'pick') : '';
+    this.pickerOptions = [];
+    this.loadFailed = false;
+    this.chooseCount = 0;
+    this.poolCache = {};
+    // The topic / shared pool in use: the page's own, or the chosen menu option's.
+    this.active = { topic: this.config.topic, shared_pool: this.config.shared_pool };
+
+    this.setWords(container.dataset.list || '');
+
+    // Sheet rows may still say word_count: 3; never go below the default.
+    const requested = parseInt(this.config.word_count, 10) || 0;
+    this.defaultWordCount = Math.min(MAX_WORDS, Math.max(requested, DEFAULT_WORD_COUNT));
+
+    this.init();
+  }
+
+  /** Sets the word list in use from a comma-separated string. */
+  setWords(listText) {
     // De-duplicated (case-insensitive) so a word never appears twice in the list.
     const seen = new Set();
-    this.clubWords = (container.dataset.list || '')
+    this.clubWords = String(listText || '')
       .split(',')
       .map(w => tidyWord(w.trim()))
       .filter(w => !(PROFANE.test(w.toLowerCase()) && w.split('-').length <= MAX_WORDS_PER_ENTRY))
@@ -158,29 +185,92 @@ export default class PasswordGenWidget {
 
     this.sharedPool = [];
     this.preferredClubWords = this.clubWords;
-
-    // Sheet rows may still say word_count: 3; never go below the default.
-    const requested = parseInt(this.config.word_count, 10) || 0;
-    this.defaultWordCount = Math.min(MAX_WORDS, Math.max(requested, DEFAULT_WORD_COUNT));
-
-    this.init();
   }
 
   async init() {
     this.render();
     this.bindEvents();
-    await this.loadSharedPool();
+    if (this.picker) {
+      await this.loadPicker();
+    } else {
+      await this.loadSharedPool();
+    }
     this.generate();
+  }
+
+  /** Fetch the word lists for the menu, fill it in, and apply the choice named in the address (if any). */
+  async loadPicker() {
+    const select = this.container.querySelector('#picker-select');
+    try {
+      const src = this.container.dataset.picker;
+      if (!src) throw new Error('page has no data-picker address (rebuild the site)');
+      const resp = await fetch(src);
+      if (!resp.ok) throw new Error(`HTTP ${resp.status}`);
+      const data = await resp.json();
+      this.pickerOptions = Array.isArray(data.options) ? data.options : [];
+      if (this.pickerOptions.length === 0) throw new Error('no options in the file');
+    } catch (err) {
+      console.warn('Could not load the word lists for the menu:', err);
+      this.loadFailed = true;
+      if (select) select.disabled = true;
+      return;
+    }
+
+    const options = [];
+    if (this.picker.default_label) {
+      options.push(new Option(this.picker.default_label, ''));
+    }
+    this.pickerOptions.forEach(o => options.push(new Option(o.name, o.id)));
+    select.replaceChildren(...options);
+    select.disabled = false;
+
+    const wanted = (new URLSearchParams(window.location.search).get(this.pickerParam) || '').toLowerCase();
+    const known = this.pickerOptions.some(o => o.id === wanted);
+    await this.choose(known ? wanted : select.options[0].value, false);
+  }
+
+  /** Switch to one menu option ('' = the "any" option, which uses every list together). */
+  async choose(id, updateAddress) {
+    const select = this.container.querySelector('#picker-select');
+    const option = this.pickerOptions.find(o => o.id === id);
+    if (select) select.value = option ? option.id : '';
+
+    if (option) {
+      this.setWords(option.words);
+      this.active = {
+        topic: 'topic' in option ? option.topic : this.config.topic,
+        shared_pool: 'shared_pool' in option ? option.shared_pool : this.config.shared_pool
+      };
+    } else {
+      this.setWords(this.pickerOptions.map(o => o.words).join(','));
+      this.active = { topic: this.config.topic, shared_pool: this.config.shared_pool };
+    }
+
+    if (updateAddress && window.history && window.history.replaceState) {
+      const url = new URL(window.location.href);
+      const first = select && select.options.length ? select.options[0].value : '';
+      // The first menu entry is the page's default, so it needs nothing in the address.
+      if (option && option.id !== first) url.searchParams.set(this.pickerParam, option.id);
+      else url.searchParams.delete(this.pickerParam);
+      window.history.replaceState(null, '', url);
+    }
+
+    const requested = ++this.chooseCount;
+    await this.loadSharedPool();
+    // If the menu was changed again while the pool was loading, the later choice generates instead.
+    if (requested === this.chooseCount) this.generate();
   }
 
   /** Load js/pools/<name>.js relative to this module, based on config.shared_pool or config.topic. */
   async loadSharedPool() {
-    if (this.config.shared_pool === false) return;
-    const name = this.config.shared_pool || POOLS_BY_TOPIC[this.config.topic];
+    const words = this.clubWords;
+    if (this.active.shared_pool === false) return;
+    const name = this.active.shared_pool || POOLS_BY_TOPIC[this.active.topic];
     if (!name || !/^[a-z0-9_-]+$/.test(name)) return;
 
     try {
       const mod = await import(new URL(`../pools/${name}.js`, import.meta.url).href);
+      if (words !== this.clubWords) return; // the menu changed while this was loading
       const clubSet = new Set(this.clubWords.map(w => w.toLowerCase()));
       // Keep club words and pool words disjoint so a passphrase never repeats a word.
       this.sharedPool = (mod.default || []).filter(w => !clubSet.has(String(w).toLowerCase()));
@@ -195,6 +285,7 @@ export default class PasswordGenWidget {
       } catch (err) {
         // Optional file: without it, bare first names are treated like any other club word.
       }
+      if (words !== this.clubWords) return;
       const preferred = this.clubWords.filter(w => !firstNames.has(w.toLowerCase()) && w.split('-').length <= 3);
       if (preferred.length >= MIN_PREFERRED_CLUB_WORDS) this.preferredClubWords = preferred;
     } catch (err) {
@@ -204,8 +295,16 @@ export default class PasswordGenWidget {
   }
 
   render() {
+    const pickerHtml = this.picker ? `
+        <div class="slider-group picker-group">
+          <label for="picker-select">${escapeHtml(this.picker.label || 'Choose')}</label>
+          <select id="picker-select" disabled style="width: 100%; padding: 0.75rem 1rem; font-size: 1rem; border-radius: 8px; border: 2px solid var(--border); background-color: var(--input-bg); color: var(--text-main);">
+            <option value="">Loading...</option>
+          </select>
+        </div>` : '';
+
     this.container.innerHTML = `
-      <div class="tool-box">
+      <div class="tool-box">${pickerHtml}
         <div class="input-group">
           <textarea id="password-output" rows="1" readonly placeholder="Generating..." aria-label="Generated passphrase" style="resize: none; overflow: hidden; line-height: 1.4; overflow-wrap: anywhere;"></textarea>
           <button id="copy-btn" class="btn-secondary" type="button">Copy</button>
@@ -300,6 +399,13 @@ export default class PasswordGenWidget {
 
     if (!outputEl) return;
 
+    // Never fall back to a tiny built-in list on a menu page: say what went wrong instead.
+    if (this.loadFailed) {
+      outputEl.value = '';
+      outputEl.placeholder = 'Could not load the word lists. Please refresh the page.';
+      return;
+    }
+
     const wordCount = slider ? parseInt(slider.value, 10) : this.defaultWordCount;
     const includeNumbers = numCheck ? numCheck.checked : true;
     const includeSymbols = symCheck ? symCheck.checked : true;
@@ -339,6 +445,22 @@ export default class PasswordGenWidget {
     const regenBtn = this.container.querySelector('#generate-btn');
     const copyBtn = this.container.querySelector('#copy-btn');
     const outputEl = this.container.querySelector('#password-output');
+
+    const select = this.container.querySelector('#picker-select');
+    if (select) {
+      select.addEventListener('change', () => this.choose(select.value, true));
+      // Links in the list under the tool (e.g. "Clubs included") switch the menu without reloading the page.
+      document.addEventListener('click', (e) => {
+        const link = e.target.closest ? e.target.closest('a[data-pick]') : null;
+        if (!link || this.loadFailed || e.metaKey || e.ctrlKey || e.shiftKey || e.button !== 0) return;
+        const list = link.closest('[data-param]');
+        if (!list || list.dataset.param !== this.pickerParam) return;
+        if (!this.pickerOptions.some(o => o.id === link.dataset.pick)) return;
+        e.preventDefault();
+        this.choose(link.dataset.pick, true);
+        this.container.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      });
+    }
 
     slider.addEventListener('input', (e) => {
       sliderValDisplay.innerText = e.target.value;

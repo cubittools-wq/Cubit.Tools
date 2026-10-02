@@ -18,6 +18,13 @@ tab is needed.
 When a tool's Slug changes in the Sheet, the old page becomes a redirect to the new one (matched by H1_Title);
 pages for tools that were deleted from the Sheet are removed.
 
+Picker pages: a row whose Config_JSON has a "picker" block becomes one page with a drop-down menu.
+  * {"topic": "football", "picker": {"param": "club", ...}}  gathers every row with the same topic and a
+    "team" in its Config_JSON. Those rows no longer get a page of their own: their old URL redirects to the
+    picker page with ?club=<team>, and their words are written to data/pickers/.
+  * {"picker": {"param": "theme", "from": [{"slug": "...", "name": "..."}]}}  offers the word lists of the
+    listed pages, which keep their own pages.
+
 Optional Sheet columns (ignored if absent):
   Short_Desc  one-line description shown in category lists (falls back to the first sentence of Meta_Desc)
   Featured    put Y to show the tool in "Popular tools" on the homepage
@@ -79,6 +86,7 @@ HUB_MARKER = "<!-- cubit:generated-browse-page -->"
 REDIRECT_MARKER = "<!-- cubit:generated-redirect -->"
 HUBS_MANIFEST = os.path.join("data", "hubs.json")
 REDIRECTS_MANIFEST = os.path.join("data", "redirects.json")
+PICKERS_DIR = os.path.join("data", "pickers")
 MAX_SAFE_DELETIONS = 20   # if more pages than this (and over 30% of the site) would vanish, assume a Sheet problem and keep them
 
 
@@ -216,6 +224,142 @@ def short_desc(row):
     if m:
         return m.group(1)
     return text[:117].rsplit(" ", 1)[0].rstrip(",;:- ") + "…"
+
+
+# ---------------------------------------------------------------------------
+# Picker pages (one page, many word lists)
+# ---------------------------------------------------------------------------
+
+def parse_config(row):
+    try:
+        cfg = json.loads((row.get("Config_JSON") or "").strip() or "{}")
+    except ValueError:
+        return {}
+    return cfg if isinstance(cfg, dict) else {}
+
+
+def split_words(row):
+    return [w.strip() for w in (row.get("Data_List") or "").split(",") if w.strip()]
+
+
+def merge_words(lists):
+    seen, out = set(), []
+    for words in lists:
+        for w in words:
+            key = w.lower()
+            if key not in seen:
+                seen.add(key)
+                out.append(w)
+    return out
+
+
+def picker_file(slug):
+    return slug.replace("/", "__") + ".json"
+
+
+def resolve_pickers(winners):
+    """Returns (pickers, sources).
+
+    pickers: slug of a picker page -> {"param", "label", "default_label", "list_heading", "options": [...]}
+    sources: slug of a row folded into a picker page -> (picker slug, option id, row title)
+    """
+    configs = {slug: parse_config(row) for slug, (_, row) in winners.items()}
+    pickers, sources = {}, {}
+
+    def base(slug, spec):
+        param = re.sub(r"[^a-z0-9_-]", "", str(spec.get("param") or "pick").lower()) or "pick"
+        return {
+            "param": param,
+            "label": str(spec.get("label") or "Choose"),
+            "default_label": str(spec.get("default_label") or ""),
+            "list_heading": str(spec.get("list_heading") or ""),
+            "options": [],
+        }
+
+    def add_option(picker, slug, option):
+        ids = {o["id"] for o in picker["options"]}
+        if not option["id"] or option["id"] in ids:
+            print(f"  WARNING: picker '{slug}': option '{option['name']}' is a duplicate and was skipped")
+            return False
+        picker["options"].append(option)
+        return True
+
+    # 1. pickers that gather every row with the same topic (football clubs)
+    for slug, cfg in configs.items():
+        spec = cfg.get("picker")
+        if not isinstance(spec, dict) or spec.get("from"):
+            continue
+        picker = base(slug, spec)
+        topic = cfg.get("topic")
+        for other, ocfg in configs.items():
+            if other == slug or other in sources or not topic or ocfg.get("topic") != topic:
+                continue
+            if not ocfg.get("team") or isinstance(ocfg.get("picker"), dict):
+                continue
+            row = winners[other][1]
+            name = str(ocfg["team"]).strip()
+            option = {"id": slugify(name), "name": name, "words": split_words(row)}
+            if add_option(picker, slug, option):
+                sources[other] = (slug, option["id"], (row.get("H1_Title") or "").strip() or name)
+        picker["options"].sort(key=lambda o: o["name"].lower())
+        if not picker["options"]:
+            print(f"  WARNING: picker '{slug}' found no rows with topic '{topic}' and a team; its menu will be empty")
+        pickers[slug] = picker
+
+    # 2. pickers that list the pages to offer (themes)
+    for slug, cfg in configs.items():
+        spec = cfg.get("picker")
+        if not isinstance(spec, dict) or not spec.get("from"):
+            continue
+        picker = base(slug, spec)
+        for entry in spec["from"] if isinstance(spec["from"], list) else []:
+            if not isinstance(entry, dict):
+                continue
+            src = str(entry.get("slug") or "").strip().strip("/")
+            if src not in winners or src == slug:
+                print(f"  WARNING: picker '{slug}': page '{src}' is not in the Sheet, so that option was left out")
+                continue
+            scfg = configs[src]
+            name = str(entry.get("name") or winners[src][1].get("H1_Title") or src).strip()
+            if src in pickers:   # another picker page: offer all of its word lists together
+                words = merge_words(o["words"] for o in pickers[src]["options"])
+            else:
+                words = split_words(winners[src][1])
+            option = {"id": slugify(entry.get("id") or name), "name": name, "words": words}
+            for key in ("topic", "shared_pool"):
+                if key in scfg:
+                    option[key] = scfg[key]
+            add_option(picker, slug, option)
+        pickers[slug] = picker
+
+    return pickers, sources
+
+
+def write_picker_data(pickers):
+    for slug, picker in pickers.items():
+        data = {
+            "param": picker["param"],
+            "options": [
+                {**{k: v for k, v in o.items() if k != "words"}, "words": ",".join(o["words"])}
+                for o in picker["options"]
+            ],
+        }
+        write_file(os.path.join(PICKERS_DIR, picker_file(slug)),
+                   json.dumps(data, separators=(",", ":"), ensure_ascii=False))
+
+
+def render_picker_list(tool):
+    """Plain links for every option, so each choice is reachable without the menu (and by search engines)."""
+    picker = tool.get("picker")
+    if not picker or not picker["list_heading"] or not picker["options"]:
+        return ""
+    links = "".join(
+        f'<li class="tool-row"><a href="{esc(tool["url"])}?{picker["param"]}={esc(o["id"])}" '
+        f'data-pick="{esc(o["id"])}">{esc(o["name"])}</a></li>'
+        for o in picker["options"]
+    )
+    return (f'<section class="related-tools picker-list" data-param="{picker["param"]}">'
+            f'<h2>{esc(picker["list_heading"])}</h2><ul class="tool-list compact">{links}</ul></section>')
 
 
 # ---------------------------------------------------------------------------
@@ -382,6 +526,9 @@ def render_tool_page(tool):
     row = tool["row"]
     nodes = tool["node"].ancestors()
     canonical = tool["url"]
+    picker_attr = ""
+    if tool.get("picker"):
+        picker_attr = f'\n                 data-picker="{esc(BASE_URL + "data/pickers/" + url_path(picker_file(tool["slug"])))}"'
     main = f"""        <div id="breadcrumb-container">{breadcrumb_html(nodes, tool["title"])}</div>
 
         <h1 id="page-h1">{esc(tool["title"])}</h1>
@@ -392,8 +539,10 @@ def render_tool_page(tool):
                  data-baked="1"
                  data-widget="{esc(row.get("Widget_Type", "").strip())}"
                  data-config="{esc(row.get("Config_JSON", "") or "{}")}"
-                 data-list="{esc(row.get("Data_List", ""))}">
+                 data-list="{esc(row.get("Data_List", ""))}"{picker_attr}>
         </section>
+
+        {render_picker_list(tool)}
 
         {render_related(tool)}
 
@@ -593,6 +742,12 @@ def build_search_index(root, tools):
     for t in tools:
         index.append({"t": t["title"], "u": url_path(t["slug"]) + "/", "c": t["node"].label(), "p": t["node"].path, "d": t["desc"]})
 
+    for t in tools:
+        picker = t.get("picker")
+        for title, option_id in (t.get("picker_titles") or []):
+            index.append({"t": title, "u": f'{url_path(t["slug"])}/?{picker["param"]}={option_id}',
+                          "c": t["node"].label(), "p": t["node"].path, "d": t["desc"]})
+
     def walk(n):
         for c in n.sorted_children():
             parent = n.label() if n.key else ""
@@ -686,14 +841,15 @@ def remove_page(slug):
             pass
 
 
-def write_redirect(slug, target):
+def write_redirect(slug, target, canonical=None):
+    canonical = canonical or target
     body = f"""<!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8">
   {REDIRECT_MARKER}
   <title>Page moved | {SITE_NAME}</title>
-  <link rel="canonical" href="{esc(target)}">
+  <link rel="canonical" href="{esc(canonical)}">
   <meta http-equiv="refresh" content="0; url={esc(target)}">
 </head>
 <body>
@@ -704,11 +860,11 @@ def write_redirect(slug, target):
     write_file(page_file(slug), body)
 
 
-def handle_moved_pages(previous, tools, hub_paths):
+def handle_moved_pages(previous, tools, hub_paths, picker_sources=()):
     """Old URLs whose Slug changed get a redirect page; pages for deleted tools are removed."""
     new_slugs = {t["slug"] for t in tools}
     by_title = {t["title"].strip().lower(): t["url"] for t in tools}
-    occupied = new_slugs | set(hub_paths)
+    occupied = new_slugs | set(hub_paths) | set(picker_sources)   # picker sources have their own redirects
     old_redirects = read_json(REDIRECTS_MANIFEST, {})
     redirects = {}
 
@@ -794,6 +950,8 @@ def build_site():
         if not (row.get("Widget_Type") or "").strip():
             print(f"  WARNING: '{slug}' (tab '{tab_name}') has no Widget_Type, so its page will show a widget error")
 
+    pickers, picker_sources = resolve_pickers(winners)
+
     for tab_name in TABS:
         rows = loaded[tab_name]
         dataset = []
@@ -813,18 +971,22 @@ def build_site():
 
             row = dict(row)
             row["Config_JSON"] = config
-            node = get_node(root, parts)
-            tool = {
-                "title": title,
-                "slug": raw_slug,
-                "url": BASE_URL + url_path(raw_slug) + "/",
-                "desc": short_desc(row),
-                "node": node,
-                "featured": (row.get("Featured") or "").strip().lower() in FEATURED_VALUES,
-                "row": row,
-            }
-            node.items.append(tool)
-            tools.append(tool)
+            # Rows folded into a picker page stay in the saved data (below) but get no page of their own.
+            if raw_slug not in picker_sources:
+                node = get_node(root, parts)
+                tool = {
+                    "title": title,
+                    "slug": raw_slug,
+                    "url": BASE_URL + url_path(raw_slug) + "/",
+                    "desc": short_desc(row),
+                    "node": node,
+                    "featured": (row.get("Featured") or "").strip().lower() in FEATURED_VALUES,
+                    "row": row,
+                    "picker": pickers.get(raw_slug),
+                    "picker_titles": sorted((t, oid) for (p, oid, t) in picker_sources.values() if p == raw_slug),
+                }
+                node.items.append(tool)
+                tools.append(tool)
 
             dataset.append({
                 "Category": category,
@@ -854,6 +1016,15 @@ def build_site():
     for tool in tools:
         tool_paths.add(tool["slug"].lower())
         write_file(os.path.join(*tool["slug"].split("/"), "index.html"), render_tool_page(tool))
+
+    # ---- picker word lists, and redirects from the pages they replaced
+    write_picker_data(pickers)
+    by_slug = {t["slug"]: t for t in tools}
+    for slug, (picker_slug, option_id, _) in sorted(picker_sources.items()):
+        target = by_slug[picker_slug]
+        write_redirect(slug, f'{target["url"]}?{pickers[picker_slug]["param"]}={option_id}', canonical=target["url"])
+    if picker_sources:
+        print(f"  {len(picker_sources)} pages now redirect to a picker page")
 
     # ---- category browse pages
     hub_paths = []
@@ -894,7 +1065,7 @@ def build_site():
     write_file(HUBS_MANIFEST, json.dumps(sorted(hub_paths), indent=2))
 
     # ---- redirects for changed slugs, removal of deleted tools
-    handle_moved_pages(previous, tools, hub_paths)
+    handle_moved_pages(previous, tools, hub_paths, picker_sources)
 
     # ---- homepage, nav, search, sitemap
     write_file("index.html", render_home(root, tools))
