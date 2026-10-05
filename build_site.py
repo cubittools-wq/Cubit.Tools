@@ -31,6 +31,7 @@ Optional Sheet columns (ignored if absent):
 """
 
 import csv
+import datetime
 import html
 import io
 import json
@@ -87,6 +88,30 @@ REDIRECT_MARKER = "<!-- cubit:generated-redirect -->"
 HUBS_MANIFEST = os.path.join("data", "hubs.json")
 REDIRECTS_MANIFEST = os.path.join("data", "redirects.json")
 PICKERS_DIR = os.path.join("data", "pickers")
+
+# ---- Advertising -----------------------------------------------------------------------------------
+# Leave ADSENSE_CLIENT empty until the site has an AdSense account. With it empty, no ad boxes are
+# built and pages use a single clean column.
+#   1. Applying to AdSense: put your publisher ID in ADSENSE_CLIENT. Every page then loads the AdSense
+#      script (which Google needs to review the site) but still shows no ad boxes.
+#   2. After approval: create ad units in AdSense and put their slot IDs in AD_SLOTS. A slot left empty
+#      is not shown.
+ADSENSE_CLIENT = ""                # e.g. "ca-pub-1234567890123456"
+AD_SLOTS = {
+    "sidebar": "",                 # tall unit beside the content on desktop (hidden on phones)
+    "content": "",                 # between the tool and the article on tool pages
+    "home": "",                    # bottom of the homepage
+}
+
+# Hand-written pages: the page body lives in content/<name>.html and is wrapped in the site template.
+STATIC_PAGES = {
+    "about": ("About Us", "Who runs Cubit.tools, how our free online tools are built and checked, and how the site is funded."),
+    "contact": ("Contact Us", "Get in touch with Cubit.tools to report a problem with a tool, suggest a new one or ask a question."),
+    "privacy": ("Privacy Policy", "How Cubit.tools handles your data: what stays in your browser, what cookies are used and how advertising works."),
+    "terms": ("Terms of Service", "The terms that apply when you use the free calculators, converters and generators on Cubit.tools."),
+}
+CONTENT_DIR = "content"
+UPCOMING_DATES = 5                 # dates listed under each event countdown
 MAX_SAFE_DELETIONS = 20   # if more pages than this (and over 30% of the site) would vanish, assume a Sheet problem and keep them
 
 
@@ -379,7 +404,7 @@ SHELL = """<!DOCTYPE html>
   <link rel="stylesheet" href="{base}css/mega-nav.css">
   <link rel="stylesheet" href="{base}css/sidebar-nav.css">
   <link rel="stylesheet" href="{base}css/hub.css">
-{jsonld}
+{jsonld}{adscript}
 </head>
 <body>
 {marker}
@@ -394,28 +419,50 @@ SHELL = """<!DOCTYPE html>
   </div>
 
   <div class="main-wrapper">
-    <div class="content-grid">
+    <div class="content-grid{gridclass}">
       <main>
 {main}
       </main>
-
-      <aside>
-        <div class="ad-placeholder ad-sidebar">
-          <span>Advertisement</span>
-        </div>
-      </aside>
-    </div>
+{aside}    </div>
   </div>
 
   <div id="site-footer"></div>
 
-  <script src="{base}js/app.js" type="module" defer></script>
+  <script src="{base}js/app.js" type="module" defer></script>{adpush}
 </body>
 </html>
 """
 
 
-def render_page(title, desc, canonical, main, crumb_pairs=None, marker=""):
+def ad_slot(kind):
+    """An ad unit, or nothing at all while ads are switched off (see ADSENSE_CLIENT at the top)."""
+    slot = AD_SLOTS.get(kind, "")
+    if not ADSENSE_CLIENT or not slot:
+        return ""
+    return (f'<div class="ad-slot ad-slot-{kind}"><span class="ad-label">Advertisement</span>'
+            f'<ins class="adsbygoogle" style="display:block" data-ad-client="{esc(ADSENSE_CLIENT)}" '
+            f'data-ad-slot="{esc(slot)}" data-ad-format="auto" data-full-width-responsive="true"></ins></div>')
+
+
+# Only ad units that are actually visible are requested (the sidebar unit is hidden on small screens).
+AD_PUSH = """
+  <script>
+    document.querySelectorAll('ins.adsbygoogle').forEach(function (el) {
+      if (el.offsetParent !== null) { (window.adsbygoogle = window.adsbygoogle || []).push({}); }
+    });
+  </script>"""
+
+
+def render_page(title, desc, canonical, main, crumb_pairs=None, marker="", wide=False):
+    """wide=True is for list pages (homepage, categories): they use the full width when there is no sidebar."""
+    sidebar = ad_slot("sidebar")
+    aside = f"\n      <aside>\n        {sidebar}\n      </aside>\n" if sidebar else ""
+    gridclass = "" if sidebar else (" single wide" if wide else " single")
+    adscript = ""
+    if ADSENSE_CLIENT:
+        adscript = ('\n  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client='
+                    f'{esc(ADSENSE_CLIENT)}" crossorigin="anonymous"></script>')
+    adpush = AD_PUSH if ADSENSE_CLIENT and any(AD_SLOTS.values()) else ""
     jsonld = ""
     if crumb_pairs:
         data = {
@@ -430,7 +477,8 @@ def render_page(title, desc, canonical, main, crumb_pairs=None, marker=""):
         jsonld = f'  <script type="application/ld+json">{blob}</script>'
     return SHELL.format(
         title=esc(title), desc=esc(desc), canonical=esc(canonical), base=BASE_URL,
-        jsonld=jsonld, marker=marker, main=main,
+        jsonld=jsonld, marker=marker, main=main, aside=aside, gridclass=gridclass,
+        adscript=adscript, adpush=adpush,
     )
 
 
@@ -498,6 +546,104 @@ def search_box(scope_path, scope_name):
 
 
 # ---------------------------------------------------------------------------
+# Upcoming dates for event countdowns (same rules as js/widgets/countdown.js)
+# ---------------------------------------------------------------------------
+
+def _easter(year):
+    a, b, c = year % 19, year // 100, year % 100
+    h = (19 * a + b - b // 4 - (b - (b + 8) // 25 + 1) // 3 + 15) % 30
+    l = (32 + 2 * (b % 4) + 2 * (c // 4) - h - c % 4) % 7
+    m = (a + 11 * h + 22 * l) // 451
+    n = h + l - 7 * m + 114
+    return datetime.date(year, n // 31, n % 31 + 1)
+
+
+def _js_weekday(d):
+    return (d.weekday() + 1) % 7          # 0 = Sunday ... 6 = Saturday, as in the Sheet's rules
+
+
+def _rule_date(rule, year):
+    kind = rule.get("type")
+    if kind == "nth_weekday":
+        month, weekday, n = int(rule["month"]), int(rule["weekday"]), int(rule["n"])
+        if n > 0:
+            first = datetime.date(year, month, 1)
+            return first + datetime.timedelta(days=(weekday - _js_weekday(first)) % 7 + (n - 1) * 7)
+        last = datetime.date(year + (month == 12), month % 12 + 1, 1) - datetime.timedelta(days=1)
+        return last - datetime.timedelta(days=(_js_weekday(last) - weekday) % 7)
+    if kind == "easter":
+        return _easter(year) + datetime.timedelta(days=int(rule.get("offset") or 0))
+    if kind == "weekday_on_or_after":
+        start = datetime.date(year, int(rule["month"]), int(rule["day"]))
+        return start + datetime.timedelta(days=(int(rule["weekday"]) - _js_weekday(start)) % 7)
+    return None
+
+
+def upcoming_dates(config, today, count=UPCOMING_DATES):
+    """The next dates of an event countdown as [(date, label)]. Empty for personal, daily and weekly countdowns."""
+    if config.get("mode"):
+        return []
+    found = []
+    rule = config.get("rule")
+    target = str(config.get("target_date") or "").strip()
+    try:
+        if isinstance(rule, dict):
+            if rule.get("type") == "friday13":
+                year, month = today.year, today.month
+                while len(found) < count:
+                    d = datetime.date(year, month, 13)
+                    if d >= today and d.weekday() == 4:
+                        found.append((d, ""))
+                    month += 1
+                    if month > 12:
+                        year, month = year + 1, 1
+            else:
+                for year in range(today.year, today.year + count + 2):
+                    d = _rule_date(rule, year)
+                    if d and d >= today:
+                        found.append((d, ""))
+        elif config.get("dates"):
+            raw = config["dates"]
+            items = raw.values() if isinstance(raw, dict) else raw
+            for item in items:
+                stamp, label = (item.get("date"), item.get("label", "")) if isinstance(item, dict) else (item, "")
+                d = datetime.date.fromisoformat(str(stamp)[:10])
+                if d >= today:
+                    found.append((d, str(label or "")))
+        elif re.fullmatch(r"\d\d-\d\d", target):
+            for year in range(today.year, today.year + count + 2):
+                d = datetime.date(year, int(target[:2]), int(target[3:]))
+                if d >= today:
+                    found.append((d, ""))
+    except (ValueError, KeyError, TypeError):
+        return []
+    return sorted(found)[:count]
+
+
+def long_date(d):
+    return f"{d:%A} {d.day} {d:%B} {d.year}"
+
+
+def upcoming_dates_html(tool):
+    """A short 'Upcoming dates' section added under the copy of each event countdown, refreshed on every build."""
+    row = tool["row"]
+    if (row.get("Widget_Type") or "").strip() != "countdown":
+        return ""
+    dates = upcoming_dates(parse_config(row), datetime.date.today())
+    if len(dates) < 2:
+        return ""
+    name = re.sub(r"\s*\(.*?\)\s*$", "", tool["title"])
+    name = re.sub(r"\s+Countdown$|^Countdown to\s+", "", name).strip() or tool["title"]
+    items = "".join(
+        f"<li>{long_date(d)}" + (f": {esc(label)}" if label and label.lower() != name.lower() else "") + "</li>"
+        for d, label in dates
+    )
+    first = dates[0][0]
+    return (f'<h2>Upcoming dates</h2><p>The next date this countdown runs to is <strong>{long_date(first)}</strong>. '
+            f'These are the next {len(dates)} dates, with the day of the week each one falls on:</p><ul>{items}</ul>')
+
+
+# ---------------------------------------------------------------------------
 # Tool pages
 # ---------------------------------------------------------------------------
 
@@ -546,11 +692,9 @@ def render_tool_page(tool):
 
         {render_related(tool)}
 
-        <div class="ad-placeholder">
-          <span>Advertisement</span>
-        </div>
+        {ad_slot("content")}
 
-        <article id="seo-body" class="seo-article">{row.get("SEO_Body", "")}</article>"""
+        <article id="seo-body" class="seo-article">{row.get("SEO_Body", "")}{upcoming_dates_html(tool)}</article>"""
     return render_page(
         row.get("Meta_Title", "") or tool["title"], row.get("Meta_Desc", ""), canonical, main,
         breadcrumb_pairs(nodes, tool["title"], canonical),
@@ -627,7 +771,7 @@ def render_hub_page(node):
     title = f"{title} | {SITE_NAME}"
     desc = hub_intro(node)
     return render_page(title, desc, node.url, render_hub_main(node),
-                       breadcrumb_pairs(nodes[:-1], node.name, node.url), marker=HUB_MARKER)
+                       breadcrumb_pairs(nodes[:-1], node.name, node.url), marker=HUB_MARKER, wide=True)
 
 
 # ---------------------------------------------------------------------------
@@ -712,13 +856,11 @@ def render_home(root, tools):
           </div>
         </section>
 
-        <div class="ad-placeholder" style="margin-top: 2rem;">
-          <span>Advertisement</span>
-        </div>"""
+        {ad_slot("home")}"""
     return render_page(
         f"{SITE_NAME} | Free Client-Side Web Utilities",
         "Fast, private, and free client-side generators, calculators, and date tools. Zero data stored.",
-        BASE_URL, main,
+        BASE_URL, main, wide=True,
     )
 
 
@@ -757,7 +899,35 @@ def build_search_index(root, tools):
     return index
 
 
-def write_sitemap(root, tools):
+def build_static_pages():
+    """About, Contact, Privacy and Terms: content/<name>.html wrapped in the site template. Returns the names built."""
+    built = []
+    for name, (title, desc) in STATIC_PAGES.items():
+        source = os.path.join(CONTENT_DIR, f"{name}.html")
+        if not os.path.exists(source):
+            print(f"  note: {source} not found, so /{name}/ was left as it is")
+            continue
+        body = file_text(source).replace("{{BASE}}", BASE_URL)
+        main = "\n".join("        " + line for line in body.strip().splitlines())
+        url = f"{BASE_URL}{name}/"
+        write_file(os.path.join(name, "index.html"),
+                   render_page(f"{title} | {SITE_NAME}", desc, url, main, [("Home", BASE_URL), (title, url)]))
+        built.append(name)
+    return built
+
+
+def write_extras():
+    """robots.txt and the 'page not found' page."""
+    write_file("robots.txt", f"User-agent: *\nAllow: /\n\nSitemap: {BASE_URL}sitemap.xml\n")
+    main = f"""        <h1>Page not found</h1>
+        <p class="intro-text">Sorry, there is no page at this address. It may have moved, or the link may be wrong.</p>
+        {search_box("", "")}
+        <p style="margin-top: 1.5rem;"><a href="{BASE_URL}">Go to the Cubit.tools homepage</a> to browse every tool by category.</p>"""
+    page = render_page(f"Page not found | {SITE_NAME}", "This page could not be found.", BASE_URL, main)
+    write_file("404.html", page.replace('<meta charset="UTF-8">', '<meta charset="UTF-8">\n  <meta name="robots" content="noindex">', 1))
+
+
+def write_sitemap(root, tools, static_pages=()):
     urls = [BASE_URL]
     def walk(n):
         for c in n.sorted_children():
@@ -765,6 +935,7 @@ def write_sitemap(root, tools):
             walk(c)
     walk(root)
     urls += [BASE_URL + url_path(t["slug"]) + "/" for t in tools]
+    urls += [f"{BASE_URL}{name}/" for name in static_pages]
     lines = ['<?xml version="1.0" encoding="UTF-8"?>',
              '<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">']
     lines += [f"  <url><loc>{html.escape(u)}</loc></url>" for u in urls]
@@ -1072,7 +1243,9 @@ def build_site():
     write_file(os.path.join("data", "nav.json"), json.dumps(build_nav(root), indent=2, ensure_ascii=False))
     write_file(os.path.join("data", "search-index.json"),
                json.dumps(build_search_index(root, tools), separators=(",", ":"), ensure_ascii=False))
-    write_sitemap(root, tools)
+    static_pages = build_static_pages()
+    write_extras()
+    write_sitemap(root, tools, static_pages)
 
     print(f"Built {len(tools)} tool pages, {len(hub_paths)} category pages, the homepage, "
           "navigation, search index and sitemap.")
