@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://cubittools-wq.github.io/Cubit.Tools/sitemap.xml

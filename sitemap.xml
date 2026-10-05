@@ -23,8 +23,9 @@
   <url><loc>https://cubittools-wq.github.io/Cubit.Tools/date-time/countdowns/us-and-canada-holidays/</loc></url>
   <url><loc>https://cubittools-wq.github.io/Cubit.Tools/date-time/date-calculators/</loc></url>
   <url><loc>https://cubittools-wq.github.io/Cubit.Tools/home-diy/</loc></url>
-  <url><loc>https://cubittools-wq.github.io/Cubit.Tools/home-diy/electrical/</loc></url>
-  <url><loc>https://cubittools-wq.github.io/Cubit.Tools/home-diy/energy-and-appliances/</loc></url>
+  <url><loc>https://cubittools-wq.github.io/Cubit.Tools/home-diy/decorating-and-building/</loc></url>
+  <url><loc>https://cubittools-wq.github.io/Cubit.Tools/home-diy/electrical-and-lighting/</loc></url>
+  <url><loc>https://cubittools-wq.github.io/Cubit.Tools/home-diy/energy-costs/</loc></url>
   <url><loc>https://cubittools-wq.github.io/Cubit.Tools/passwords/</loc></url>
   <url><loc>https://cubittools-wq.github.io/Cubit.Tools/passwords/darts-passphrases/</loc></url>
   <url><loc>https://cubittools-wq.github.io/Cubit.Tools/passwords/music-passphrases/</loc></url>
@@ -88,6 +89,27 @@
   <url><loc>https://cubittools-wq.github.io/Cubit.Tools/business/fte-calculator/</loc></url>
   <url><loc>https://cubittools-wq.github.io/Cubit.Tools/business/payback-period-calculator/</loc></url>
   <url><loc>https://cubittools-wq.github.io/Cubit.Tools/business/burn-rate-calculator/</loc></url>
+  <url><loc>https://cubittools-wq.github.io/Cubit.Tools/converters/torque-unit-converter/</loc></url>
+  <url><loc>https://cubittools-wq.github.io/Cubit.Tools/converters/force-unit-converter/</loc></url>
+  <url><loc>https://cubittools-wq.github.io/Cubit.Tools/converters/frequency-unit-converter/</loc></url>
+  <url><loc>https://cubittools-wq.github.io/Cubit.Tools/converters/data-transfer-rate-converter/</loc></url>
+  <url><loc>https://cubittools-wq.github.io/Cubit.Tools/converters/illuminance-unit-converter/</loc></url>
+  <url><loc>https://cubittools-wq.github.io/Cubit.Tools/converters/flow-rate-unit-converter/</loc></url>
+  <url><loc>https://cubittools-wq.github.io/Cubit.Tools/home-diy/paint-calculator/</loc></url>
+  <url><loc>https://cubittools-wq.github.io/Cubit.Tools/home-diy/wallpaper-calculator/</loc></url>
+  <url><loc>https://cubittools-wq.github.io/Cubit.Tools/home-diy/tile-calculator/</loc></url>
+  <url><loc>https://cubittools-wq.github.io/Cubit.Tools/home-diy/flooring-calculator/</loc></url>
+  <url><loc>https://cubittools-wq.github.io/Cubit.Tools/home-diy/concrete-calculator/</loc></url>
+  <url><loc>https://cubittools-wq.github.io/Cubit.Tools/home-diy/gravel-calculator/</loc></url>
+  <url><loc>https://cubittools-wq.github.io/Cubit.Tools/home-diy/room-area-calculator/</loc></url>
+  <url><loc>https://cubittools-wq.github.io/Cubit.Tools/home-diy/amps-to-watts-calculator/</loc></url>
+  <url><loc>https://cubittools-wq.github.io/Cubit.Tools/home-diy/ohms-law-calculator/</loc></url>
+  <url><loc>https://cubittools-wq.github.io/Cubit.Tools/home-diy/lumens-to-watts-calculator/</loc></url>
+  <url><loc>https://cubittools-wq.github.io/Cubit.Tools/home-diy/room-lighting-calculator/</loc></url>
+  <url><loc>https://cubittools-wq.github.io/Cubit.Tools/home-diy/electricity-cost-calculator/</loc></url>
+  <url><loc>https://cubittools-wq.github.io/Cubit.Tools/home-diy/led-savings-calculator/</loc></url>
+  <url><loc>https://cubittools-wq.github.io/Cubit.Tools/home-diy/kwh-calculator/</loc></url>
+  <url><loc>https://cubittools-wq.github.io/Cubit.Tools/home-diy/standby-power-cost-calculator/</loc></url>
   <url><loc>https://cubittools-wq.github.io/Cubit.Tools/date-time/christmas-countdown/</loc></url>
   <url><loc>https://cubittools-wq.github.io/Cubit.Tools/date-time/halloween-countdown/</loc></url>
   <url><loc>https://cubittools-wq.github.io/Cubit.Tools/date-time/new-years-day-countdown/</loc></url>
@@ -221,4 +243,8 @@
   <url><loc>https://cubittools-wq.github.io/Cubit.Tools/date-time/sleeps-countdown/</loc></url>
   <url><loc>https://cubittools-wq.github.io/Cubit.Tools/date-time/lunchtime-countdown/</loc></url>
   <url><loc>https://cubittools-wq.github.io/Cubit.Tools/date-time/home-time-countdown/</loc></url>
+  <url><loc>https://cubittools-wq.github.io/Cubit.Tools/about/</loc></url>
+  <url><loc>https://cubittools-wq.github.io/Cubit.Tools/contact/</loc></url>
+  <url><loc>https://cubittools-wq.github.io/Cubit.Tools/privacy/</loc></url>
+  <url><loc>https://cubittools-wq.github.io/Cubit.Tools/terms/</loc></url>
 </urlset>

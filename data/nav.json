@@ -30,7 +30,7 @@
     {
       "name": "Converters",
       "url": "https://cubittools-wq.github.io/Cubit.Tools/converters/",
-      "count": 14,
+      "count": 20,
       "children": []
     },
     {
@@ -53,17 +53,22 @@
     {
       "name": "Home & DIY",
       "url": "https://cubittools-wq.github.io/Cubit.Tools/home-diy/",
-      "count": 2,
+      "count": 17,
       "children": [
         {
-          "name": "Electrical",
-          "url": "https://cubittools-wq.github.io/Cubit.Tools/home-diy/electrical/",
-          "count": 1
+          "name": "Decorating & Building",
+          "url": "https://cubittools-wq.github.io/Cubit.Tools/home-diy/decorating-and-building/",
+          "count": 7
         },
         {
-          "name": "Energy & Appliances",
-          "url": "https://cubittools-wq.github.io/Cubit.Tools/home-diy/energy-and-appliances/",
-          "count": 1
+          "name": "Electrical & Lighting",
+          "url": "https://cubittools-wq.github.io/Cubit.Tools/home-diy/electrical-and-lighting/",
+          "count": 5
+        },
+        {
+          "name": "Energy Costs",
+          "url": "https://cubittools-wq.github.io/Cubit.Tools/home-diy/energy-costs/",
+          "count": 5
         }
       ]
     },
